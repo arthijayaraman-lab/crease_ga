@@ -8,7 +8,8 @@ matplotlib.use('Agg') ## uncomment this when running on cluster, comment out thi
 import matplotlib.pyplot as plt
 import sys
 
-### Initial Parameters ###
+##### Initial Parameters #####
+## comments
 gdmmin=0.005
 gdmmax=0.85
 pcmin=0.5
