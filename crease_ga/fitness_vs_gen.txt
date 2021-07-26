@@ -10,3 +10,5 @@ gen mini min avgi avg secondi second besti best
 0 2 13.70152723 0 7.01792557 3 4.64387546 4 0.39258610 
 gen mini min avgi avg secondi second besti best
 0 4 44.31738022 0 12.90439442 2 3.55849584 3 3.40018847 
+gen mini min avgi avg secondi second besti best
+0 2 59.97782986 4 37.77514113 0 9.75605141 1 8.95377001 

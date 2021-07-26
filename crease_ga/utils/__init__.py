@@ -1,2 +1,2 @@
-from utils.initial_pop import initial_pop
-from utils.decode import decode
+from crease_ga.utils.initial_pop import initial_pop
+from crease_ga.utils.decode import decode

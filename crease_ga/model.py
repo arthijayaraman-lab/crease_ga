@@ -1,8 +1,7 @@
 import numpy as np
 from os import path
-import utils
-from fitness import fitness
-from adaptation_params import adaptation_params
+from crease_ga import utils
+from crease_ga.adaptation_params import adaptation_params
 import random    
 import matplotlib
 matplotlib.use('Agg') ## uncomment this when running on cluster, comment out this line if on local
@@ -10,7 +9,7 @@ import matplotlib.pyplot as plt
 import sys
 from importlib import import_module
 import time
-
+import sys
 
 class Model:
         
@@ -40,7 +39,7 @@ class Model:
         
         builtin_chemistries=["vesicle"]
         if chemistry in builtin_chemistries:
-            sg = import_module('chemistries.'+chemistry+'.scatterer_generator')
+            sg = import_module('crease_ga.chemistries.'+chemistry+'.scatterer_generator')
         
             #TODO: Complete the checker
             if chemistry_params == None:
@@ -107,7 +106,8 @@ class Model:
         IQid_str=[]
         params=[]
         for val in range(self.popnumber):
-            print('\rGen {:d}/{:d}, individual {:d}/{:d}'.format(generation+1,self.generations,val+1,self.popnumber))
+            sys.stdout.write("\rGen {:d}/{:d}, individual {:d}/{:d}".format(generation+1,self.generations,val+1,self.popnumber))
+            sys.stdout.flush()
             param=utils.decode(pop, val, self.nloci, self.minvalu, self.maxvalu) # gets the current structure variables
             params.append(param)
 
