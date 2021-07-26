@@ -1,27 +1,29 @@
 import numpy as np
 from os import path
-from utils import initial_pop, decode, LPFbead
+import utils
 from fitness import fitness
+from adaptation_params import adaptation_params
 import random    
 import matplotlib
 matplotlib.use('Agg') ## uncomment this when running on cluster, comment out this line if on local
 import matplotlib.pyplot as plt
 import sys
 from importlib import import_module
+import time
 
 
-
-class model:
+class Model:
         
     def __init__(self,
-                 pop_number = 5
+                 pop_number = 5,
                  generations = 10,
                  nloci = 7,
-                 minvalu = (),
-                 maxvalu = (),
-                 yaml_file=None):
+                 minvalu = (50, 30, 30, 30, 0.1, 0.0, 0.1),
+                 maxvalu = (400, 200, 200, 200, 0.45, 0.45, 4),
+                 yaml_file='x'):
         
-        if path.exists(yaml_file):
+        if path.isfile(yaml_file):
+            pass
             #TODO: populate all input parameters with input from yaml files
         else:
             self.popnumber =  pop_number
@@ -34,7 +36,7 @@ class model:
 
             
         self.adaptation_params = adaptation_params()  
-    def load_backends(chemistry="vesicle", chemistry_params=None):
+    def load_chemistry(self,chemistry="vesicle", chemistry_params=None):
         
         builtin_chemistries=["vesicle"]
         if chemistry in builtin_chemistries:
@@ -55,7 +57,7 @@ class model:
         IQin_load = loadvals[:,1]
         self.IQin_load=np.true_divide(IQin_load,np.max(IQin_load))
         #TODO: highQ and lowQ needs to be able to be dynamically set
-        if q_bounds = None:
+        if q_bounds == None:
             self.qrange = self.qrange_load
             self.IQin = self.IQin_load
         else:
@@ -70,13 +72,13 @@ class model:
         self.IQin_load = np.true_divide(self.IQin_load,baseline)
 
         
-    def solve(self,verbose = True,backend = 'debye'):
-        pop = initial_pop(self.popnumber, self.loci, self.numvars)
+    def solve(self,verbose = True,backend = 'debye',output_dir='./'):
+        pop = utils.initial_pop(self.popnumber, self.nloci, self.numvars)
         for gen in range(self.generations):    
             if backend == 'debye':
-                pacc,gdm,elitei,IQid_str = self.fitness(pop,gen)
-            pop = self.genetic_operations(pop,pacc)
-            self.adapation_params.update(gdm)
+                pacc,gdm,elitei,IQid_str = self.fitness(pop,gen,output_dir)
+            pop = self.genetic_operations(pop,pacc,elitei)
+            self.adaptation_params.update(gdm)
             
             if verbose:
                 figsize=(4,4)
@@ -92,11 +94,11 @@ class model:
             plt.show()
 
             
-    def fitness(self,pop,generation):
-        
+    def fitness(self,pop,generation,output_dir,metric='log_sse'):
+        tic = time.time()
         cs=10
-        F1= open(self.output_dir+'z_temp_results_'+str(generation)+'.txt','w')
-        np.savetxt(self.output_dir+'z_temp_population_'+str(generation)+'.txt',np.c_[pop])
+        F1= open(output_dir+'z_temp_results_'+str(generation)+'.txt','w')
+        np.savetxt(output_dir+'z_temp_population_'+str(generation)+'.txt',np.c_[pop])
         
         fitn=np.zeros(self.popnumber)
         fitnfr=np.zeros(self.popnumber)
@@ -104,9 +106,9 @@ class model:
         qfin=self.qrange[-1]
         IQid_str=[]
         params=[]
-        for val in range(popnumber):
-            t0=time.time()
-            param=decode(pop, val, self.nloci, self.minvalu, self.maxvalu) # gets the current structure variables
+        for val in range(self.popnumber):
+            print('\rGen {:d}/{:d}, individual {:d}/{:d}'.format(generation+1,self.generations,val+1,self.popnumber))
+            param=utils.decode(pop, val, self.nloci, self.minvalu, self.maxvalu) # gets the current structure variables
             params.append(param)
 
             ### calculate computed Icomp(q) ###
@@ -119,13 +121,14 @@ class model:
                         wil=np.log(np.true_divide(self.qrange[qi+1],self.qrange[qi]))  # weighting factor
                     else:
                         wil=np.log(np.true_divide(self.qrange[qi],self.qrange[qi-1]))  # weighting factor
-                    err+=wil*(np.log(np.true_divide(self.IQin[qi],IQid[qi])))**2  # squared log error 
+                    if metric == 'log_sse':
+                        err+=wil*(np.log(np.true_divide(self.IQin[qi],IQid[qi])))**2  # squared log error 
             fit[val]=err
             IQid_str.append(IQid)
 
             
 
-            F1.write((str(val)+' '+str(dt)+' '+str(param[0])+' '+str(param[1])+' '+str(param[2])+str(err)+'\n'))
+            F1.write((str(val)+' '+str(param[0])+' '+str(param[1])+' '+str(param[2])+str(err)+'\n'))
             F1.flush()
 
 
@@ -182,21 +185,25 @@ class model:
         f.write( '%d %.8lf ' %(mini,minfit) )
         f.write( '%d %.8lf ' %(avgi,avgfit) )
         f.write( '%d %.8lf ' %(secondi,secondfit) )
-        f.write( '%d %.8lf ' %(maxi,maxfit) )
+        f.write( '%d %.8lf ' %(elitei,maxfit) )
         f.write( '\n' )
         f.close()
+        print('Generation time: {:.3f}s'.format(time.time()-tic))
+        print('Generation best fitness: {:.4f}'.format(maxfit))
+        print('Generation best fitness: {:.3f}'.format(gdm))
+        print('Generation best parameters '+str(params[elitei]))
         
         return pacc, gdm, elitei, IQid_str
         
     
-    def genetic_operations(self,pop,pacc):
+    def genetic_operations(self,pop,pacc,elitei):
         popn = np.zeros(np.shape(pop))
         cross = 0
         mute = 0
-        pc = self.core_params.pc
-        pm = self.core_params.pm
+        pc = self.adaptation_params.pc
+        pm = self.adaptation_params.pm
         
-        for i in range(popnumber-1):
+        for i in range(self.popnumber-1):
 
             #####################    Crossover    ####################
 
@@ -204,14 +211,14 @@ class model:
             testoff=random.random()
             isit=0
             npart1=1
-            for j in range(1,popnumber):
+            for j in range(1,self.popnumber):
                 if (testoff>pacc[j-1])&(testoff<pacc[j]):
                     npart1=j
 
             testoff=random.random()
             isit=0
             npart2=1
-            for j in range(popnumber):
+            for j in range(self.popnumber):
                 if (testoff>=pacc[j-1])&(testoff!=pacc[j]):
                     npart2=j
 
@@ -221,7 +228,7 @@ class model:
 
 
             testoff=random.random()
-            loc=int((testoff*(numvars-1))*self.nloci)
+            loc=int((testoff*(self.numvars-1))*self.nloci)
             if loc==0:
                 loc=self.nloci
             testoff=random.random()
@@ -251,6 +258,7 @@ class model:
         print('#crossovers',cross)
         print('pm',pm)
         print('#mutations',mute)
+        print('\n')
         
         return popn
         

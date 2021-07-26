@@ -1,5 +1,7 @@
 import numpy as np
 import random
+import numexpr as ne
+
 def gen_layer(rin, rout, nsize):
         R = 1.0
 
@@ -58,7 +60,6 @@ def genLP(Rcore, dR_Ain, dR_B, dR_Aout, sigmabead, nAin, nAout, nB):
         # bead diameter, # of inner A beads, # of outer A beads, # of B beads
 
         ntot = nAin+nB+nAout
-        print('ntot is %d' %ntot)
         power = 2
         r = np.zeros((1, 3, ntot))
         types = np.zeros((ntot))
