@@ -1,0 +1,10 @@
+name: crease_ga
+channels:
+  - conda-forge
+dependencies:
+  - numpy
+  - matplotlib
+  - numexpr
+  - py3dmol
+  - jupyter
+  - pip

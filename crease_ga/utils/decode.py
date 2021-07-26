@@ -1,9 +1,8 @@
-# changes binary representation of variables to values between set min and max of each variable
 import numpy as np
-
-def decode(pop, indiv, nloci, minvalu, maxvalu):
+def decode(pop, indiv, nloci, minvalu,maxvalu):
     import numpy as np
-    
+    minvalu = np.array(minvalu)
+    maxvalu = np.array(maxvalu)
     deltavalu=maxvalu-minvalu
     nvars=len(minvalu)
     valdec=np.zeros(nvars)
