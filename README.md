@@ -24,6 +24,11 @@ Or follow the guidance [here](https://docs.github.com/en/github/creating-cloning
      ```
      conda env create -f environment.yml
      ```
+   - Activate the environment with
+     ```
+     conda activate crease_ga
+     ```
+
 3. Install the `crease_ga` package using
    ```
    pip install .
