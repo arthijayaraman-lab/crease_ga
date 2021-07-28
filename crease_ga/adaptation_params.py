@@ -1,14 +1,23 @@
 class adaptation_params:
-    def __init__(self):
-        self.gdmmin=0.005
-        self.gdmmax=0.85
-        self.pcmin=0.5
-        self.pcmax=1
-        self.pmmin=0.006
-        self.pmmax=0.25
-        self.kgdm=1.1
-        self.pc=0.6
-        self.pm=0.001 
+    def __init__(self,
+                 gdmmin=0.005,
+                 gdmmax=0.85,
+                 pcmin=0.5,
+                 pcmax=1,
+                 pmmin=0.006,
+                 pmmax=0.25,
+                 kgdm=1.1,
+                 pc=0.6,
+                 pm=0.001):
+        self.gdmmin=gdmmin
+        self.gdmmax=gdmmax
+        self.pcmin=pcmin
+        self.pcmax=pcmax
+        self.pmmin=pmmin
+        self.pmmax=pmmax
+        self.kgdm=kgdm
+        self.pc=pc
+        self.pm=pm 
     
     def update(self,gdm):
         if (gdm > self.gdmmax):

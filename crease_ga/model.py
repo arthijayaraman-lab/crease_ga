@@ -10,6 +10,8 @@ import sys
 from importlib import import_module
 import time
 import sys
+from warnings import warn
+from crease_ga.exceptions import CgaError
 
 class Model:
         
@@ -17,8 +19,6 @@ class Model:
                  pop_number = 5,
                  generations = 10,
                  nloci = 7,
-                 minvalu = (50, 30, 30, 30, 0.1, 0.0, 0.1),
-                 maxvalu = (400, 200, 200, 200, 0.45, 0.45, 4),
                  yaml_file='x'):
         
         if path.isfile(yaml_file):
@@ -29,24 +29,40 @@ class Model:
             self.generations = generations
             self.nloci = nloci
             #TODO: check numvars is equal to length of minvalu and maxvalu
-            self.minvalu= minvalu
-            self.maxvalu= maxvalu
-            
-
-            
         self.adaptation_params = adaptation_params()  
-    def load_chemistry(self,chemistry="vesicle", chemistry_params=None):
+    def load_chemistry(self,chemistry="vesicle", chemistry_params=None,minvalu=None,maxvalu=None):
         
         builtin_chemistries=["vesicle"]
         if chemistry in builtin_chemistries:
             sg = import_module('crease_ga.chemistries.'+chemistry+'.scatterer_generator')
+        else:
+            raise CgaError('Currently unsupported shape {}'.format(chemistry))
         
-            #TODO: Complete the checker
-            if chemistry_params == None:
-                self.scatterer_generator = sg.scatterer_generator()
-            else:
-                self.scatterer_generator = sg.scatterer_generator(chemistry_params)
-            self.numvars = self.scatterer_generator.numvars    
+        #TODO: Complete the checker
+        if chemistry_params == None:
+            self.scatterer_generator = sg.scatterer_generator()
+        elif minvalu == None or maxvalu == None:
+            warn("Unspecified minimum and/or maximum parameter boundaries. Fall back to the default minimum "
+                 "and maximum parameter boundaries of shape {}.\n".format(chemistry),stacklevel = 2)
+            self.scatterer_generator = sg.scatterer_generator(chemistry_params)
+            print("minimum parameter boundaries have been set to {},\n"
+                  "maximum parameter boundaries have been set to {}.\n".format(
+                   self.scatterer_generator.minvalu,
+                   self.scatterer_generator.maxvalu))
+
+        elif sg.scatterer_generator().numvars != len(minvalu) or sg.scatterer_generator().numvars != len(maxvalu):
+               
+            raise CgaError("Number of parameters in minvalu and/or maxvalu is not equal to number of parameters "
+                 "required by shape {}.\n Shape {} requires {:d} parameters.\nminvalu has {:d} parameters.\n"
+                 "maxvalu has {:d} parameters.".format(chemistry,chemistry,sg.scatterer_generator().numvars,
+                                                     len(minvalu),len(maxvalu))) 
+        else:
+             self.scatterer_generator = sg.scatterer_generator(chemistry_params,minvalu,maxvalu)
+
+
+        self.numvars = self.scatterer_generator.numvars   
+        self.minvalu = self.scatterer_generator.minvalu
+        self.maxvalu = self.scatterer_generator.maxvalu
             
             
             
@@ -71,11 +87,11 @@ class Model:
         self.IQin_load = np.true_divide(self.IQin_load,baseline)
 
         
-    def solve(self,verbose = True,backend = 'debye',output_dir='./'):
+    def solve(self,verbose = True,backend = 'debye',fitness_metric = 'log_sse',output_dir='./'):
         pop = utils.initial_pop(self.popnumber, self.nloci, self.numvars)
         for gen in range(self.generations):    
             if backend == 'debye':
-                pacc,gdm,elitei,IQid_str = self.fitness(pop,gen,output_dir)
+                pacc,gdm,elitei,IQid_str = self.fitness(pop,gen,output_dir,metric='log_sse')
             pop = self.genetic_operations(pop,pacc,elitei)
             self.adaptation_params.update(gdm)
             
