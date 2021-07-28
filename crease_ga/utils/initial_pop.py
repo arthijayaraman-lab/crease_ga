@@ -14,7 +14,7 @@ def initial_pop(popnumber, nloci, numvars):
         
     Return
     ------
-    pop: np.array of size (popnumber,nloci*numvars)
+    pop: np.array of size (`popnumber`,`nloci`*`numvars`)
         A numpy array of binary bits representing the entire generation, 
         with each row representing a chromosome.
     '''
