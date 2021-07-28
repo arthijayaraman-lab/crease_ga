@@ -1,20 +1,22 @@
 import numpy as np
 def initial_pop(popnumber, nloci, numvars):
     '''
-    Generate an generation of (binary) individuals.
+    Generate a generation of (binary) chromosomes.
     
-    Parameters:
-    -----------
-        popnumber: int. Number of individuals in a population.
-        nloci: int. Number of binary bits to represent each parameter in a chromosome. 
-               Default to 7.
-        numvars: number of parameters in a chromosome.
-        
-    Return:
+    Parameters
     ----------
-        pop: np.array of size (popnumber,nloci*numvars).
-             A numpy array of binary bits representing the entire generation, 
-             with each row representing a chromosome.
+    popnumber: int
+        Number of individuals in a population.
+    nloci: int
+        Number of binary bits to represent each parameter in a chromosome.
+    numvars: int
+        Number of parameters in a chromosome.
+        
+    Return
+    ------
+    pop: np.array of size (popnumber,nloci*numvars)
+        A numpy array of binary bits representing the entire generation, 
+        with each row representing a chromosome.
     '''
     pop=np.zeros((popnumber,nloci*numvars))
     for i in range(popnumber):
