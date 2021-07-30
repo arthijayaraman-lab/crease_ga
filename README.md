@@ -1,5 +1,5 @@
 # Introduction
-Computational Reverse Engineering Analysis for Scattering Experiments (CREASE) is a two step approach that combines a genetic algorithm (GA) as the first step with molecular simulations based reconstruction as the second step to determine structural features of assembled structures from aggregate dimensions to the chain- and monomer- level packing for a given input scattering profile. The `crease_ga` package, developed by Arthi Jayaraman lab at University of Delaware, is an open-source package that implements the GA portion of CREASE.
+Computational Reverse Engineering Analysis for Scattering Experiments (CREASE) is a two step approach that combines a genetic algorithm (GA) as the first step with molecular simulations based reconstruction as the second step to determine structural features of assembled structures from aggregate dimensions to the chain- and monomer- level packing for a given input scattering profile. The `crease_ga` package, developed by Michiel Wessels, Zijie Wu, Ziyu Ye, Christian Heil and Arthi Jayaraman at University of Delaware, is an open-source package that implements the GA portion of CREASE.
 
 If using this code, please cite the following references for the method:
 
