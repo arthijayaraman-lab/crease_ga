@@ -97,16 +97,16 @@ class Model:
             
             if verbose:
                 figsize=(4,4)
-            fig, ax = plt.subplots(figsize=(figsize))
-            ax.plot(self.qrange_load,self.IQin_load,color='k',linestyle='-',ms=8,linewidth=1.3,marker='o')
-            ax.plot(self.qrange,IQid_str[elitei],color='fuchsia',linestyle='-',ms=8,linewidth=2)#,marker='o')
-            plt.xlim(0.001,0.1)
-            plt.ylim(2*10**(-5),20)
-            plt.xlabel(r'q, $\AA^{-1}$',fontsize=20)
-            plt.ylabel(r'$I$(q)',fontsize=20)
-            ax.set_xscale("log")
-            ax.set_yscale("log")
-            plt.show()
+                fig, ax = plt.subplots(figsize=(figsize))
+                ax.plot(self.qrange_load,self.IQin_load,color='k',linestyle='-',ms=8,linewidth=1.3,marker='o')
+                ax.plot(self.qrange,IQid_str[elitei],color='fuchsia',linestyle='-',ms=8,linewidth=2)#,marker='o')
+                plt.xlim(0.001,0.1)
+                plt.ylim(2*10**(-5),20)
+                plt.xlabel(r'q, $\AA^{-1}$',fontsize=20)
+                plt.ylabel(r'$I$(q)',fontsize=20)
+                ax.set_xscale("log")
+                ax.set_yscale("log")
+                plt.show()
 
             
     def fitness(self,pop,generation,output_dir,metric='log_sse'):

@@ -1,3 +1,4 @@
+import numpy as np
 class adaptation_params:
     def __init__(self,
                  gdmmin=0.005,
