@@ -92,6 +92,7 @@ class Model:
         for gen in range(self.generations):    
             if backend == 'debye':
                 pacc,gdm,elitei,IQid_str = self.fitness(pop,gen,output_dir,metric='log_sse')
+                IQid_str = np.array(IQid_str).transpose()
             pop = self.genetic_operations(pop,pacc,elitei)
             self.adaptation_params.update(gdm)
             
@@ -147,7 +148,7 @@ class Model:
             F1.write((str(val)+' '+str(param[0])+' '+str(param[1])+' '+str(param[2])+str(err)+'\n'))
             F1.flush()
 
-
+        params = np.array(params)
         maxerr=np.max(fit)           #determines maximum SSerror for the population
         fitn=fit-maxerr #determines error differences
         #maxfit=np.max(fitn)
