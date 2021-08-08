@@ -14,6 +14,7 @@ If using this code, please cite the following references for the method:
 To install this package on a linux machine, follow these steps:
 
 1. We will be using Anaconda to handle the python environment. So first, we need to [install conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html) on our machine. We recommend miniconda for faster installation and lower storage space consumption.
+
  **NOTE**: if you would like to run this on a supercomputing cluster, you will need to also follow the steps to create a python environment on that cluster.
 
 1. Download the package. If you have git installed, this can be done using the following command from a terminal:
