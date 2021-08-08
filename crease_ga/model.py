@@ -113,8 +113,9 @@ class Model:
     def fitness(self,pop,generation,output_dir,metric='log_sse'):
         tic = time.time()
         cs=10
-        F1= open(output_dir+'z_temp_results_'+str(generation)+'.txt','w')
-        np.savetxt(output_dir+'z_temp_population_'+str(generation)+'.txt',np.c_[pop])
+        F1= open(output_dir+'results_'+str(generation)+'.txt','w')
+        F1.write('#individual...all params...error\n')
+        np.savetxt(output_dir+'population_'+str(generation)+'.txt',np.c_[pop])
         
         fitn=np.zeros(self.popnumber)
         fitnfr=np.zeros(self.popnumber)
@@ -145,7 +146,10 @@ class Model:
 
             
 
-            F1.write((str(val)+' '+str(param[0])+' '+str(param[1])+' '+str(param[2])+str(err)+'\n'))
+            F1.write(str(val)+' ')
+            for p in param:
+                F1.write(str(p)+' ')
+            F1.write(str(err)+'\n')
             F1.flush()
 
         params = np.array(params)
