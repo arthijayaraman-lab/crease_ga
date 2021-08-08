@@ -19,7 +19,22 @@ def gen_layer(rin, rout, nsize):
         return( x, y, z )
     
 def LPFbead(qrange, sigmabead):
-   
+    '''
+    Compute the spherical form factor given a range of q values.
+    
+    Parameters:
+    ----------
+    qrange: numpy.array
+        array of values in q-space to compute form factor for.
+    sigmabead: float
+        diameter of the sphere.
+    
+    Return:
+    ----------
+    Fqb: numpy.array
+        array of values of the spherical form factors (F(q)) computed at q-points listed in qrange.
+    '''
+    
     R=np.true_divide(sigmabead,2)
     QR=np.multiply(qrange,R)
     Fqb=np.multiply(np.true_divide(np.sin(QR)-np.multiply(QR,np.cos(QR)),np.power(QR,3)),3)  
@@ -118,7 +133,21 @@ class scatterer_generator:
         return self._numvars
     
 
-    def converttoIQ(self, qrange, param): 
+    def converttoIQ(self, qrange, param):
+        '''
+        Calculate computed scattering intensity profile.
+
+        Parameters
+        ----------
+        qrange: int
+            q values.
+        param: int
+            Decoded parameters.
+
+        Return
+        ------
+        IQid: A numpy array holding I(q).
+        '''
         # q values, decoded parameters, 
         # number of repeat units per chain, fraction of B beads per chain, core density, 
         # scatterer diameter, molar mass of B chemistry, 
