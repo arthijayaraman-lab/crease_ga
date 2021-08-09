@@ -4,7 +4,7 @@ from crease_ga import utils
 from crease_ga.adaptation_params import adaptation_params
 import random    
 import matplotlib
-matplotlib.use('Agg') ## uncomment this when running on cluster, comment out this line if on local
+#matplotlib.use('Agg') ## uncomment this when running on cluster, comment out this line if on local
 import matplotlib.pyplot as plt
 import sys
 from importlib import import_module
@@ -92,7 +92,7 @@ class Model:
         for gen in range(self.generations):    
             if backend == 'debye':
                 pacc,gdm,elitei,IQid_str = self.fitness(pop,gen,output_dir,metric='log_sse')
-                IQid_str = np.array(IQid_str).transpose()
+                IQid_str = np.array(IQid_str)
             pop = self.genetic_operations(pop,pacc,elitei)
             self.adaptation_params.update(gdm)
             
@@ -100,7 +100,7 @@ class Model:
                 figsize=(4,4)
                 fig, ax = plt.subplots(figsize=(figsize))
                 ax.plot(self.qrange_load,self.IQin_load,color='k',linestyle='-',ms=8,linewidth=1.3,marker='o')
-                ax.plot(self.qrange,IQid_str[elitei],color='fuchsia',linestyle='-',ms=8,linewidth=2)#,marker='o')
+                ax.plot(self.qrange,IQid_str[elitei].transpose(),color='fuchsia',linestyle='-',ms=8,linewidth=2)#,marker='o')
                 plt.xlim(0.001,0.1)
                 plt.ylim(2*10**(-5),20)
                 plt.xlabel(r'q, $\AA^{-1}$',fontsize=20)
