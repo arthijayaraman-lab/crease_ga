@@ -16,16 +16,18 @@ If using this code, please cite the following references for the method:
 # Installation
 To install this package on a linux machine, follow these steps:
 
-1. We will be using Anaconda to handle the python environment. So first, we need to [install conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html) on our machine. We recommend miniconda for faster installation and lower storage space consumption.
+1. We will be using Anaconda to handle the python environment. So first, we need to [install anaconda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html) on our machine. You can also consider installing [miniconda](https://docs.conda.io/en/latest/miniconda.html) for faster installation and lower storage consumption (Note: Miniconda installation package  does not include the 'Anaconda command prompt'. See step 2 for detail)
+
+1. Afterwards, you will need a bash terminal to work with. If you are on a linux or MacOS machine, you can directly launch the terminal. If you are on a Windows machine, you can consider installing [Windows Subsytem for Linux (WSL)](https://ubuntu.com/wsl), or directly use the 'Anaconda prompt' app that comes with anaconda installation. (should be accessible from the Start Menu if you have completeed step 1 correctly).
 
 1. Download the package. If you have git installed, this can be done using the following command from a terminal:
 ```
 git clone https://github.com/arthijayaraman-lab/crease_ga
 ```
 
-Or follow the guidance [here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository)
+Or download directly from github webpage by following the guidance [here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository)
 
-2. Create a new conda environment and install all the dependencies. 
+1. Create a new conda environment and install all the dependencies. 
    - **NOTE**: if you intend to run this on a supercomputing cluster, you will need to follow the steps to create a python environment of the corresponding cluster.
    - Navigate into the root directory of the cloned package, and create a fresh conda environment with dependencies using
      ```
@@ -36,7 +38,7 @@ Or follow the guidance [here](https://docs.github.com/en/github/creating-cloning
      conda activate crease_ga
      ```
 
-3. Install the `crease_ga` package using
+1. Install the `crease_ga` package using
    ```
    pip install .
    ```
