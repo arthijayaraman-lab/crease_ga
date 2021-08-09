@@ -30,21 +30,21 @@ class Model:
             self.nloci = nloci
             #TODO: check numvars is equal to length of minvalu and maxvalu
         self.adaptation_params = adaptation_params()  
-    def load_chemistry(self,chemistry="vesicle", chemistry_params=None,minvalu=None,maxvalu=None):
+    def load_shape(self,shape="vesicle", shape_params=None,minvalu=None,maxvalu=None):
         
-        builtin_chemistries=["vesicle"]
-        if chemistry in builtin_chemistries:
-            sg = import_module('crease_ga.chemistries.'+chemistry+'.scatterer_generator')
+        builtin_shapes=["vesicle"]
+        if shape in builtin_shapes:
+            sg = import_module('crease_ga.shapes.'+shape+'.scatterer_generator')
         else:
-            raise CgaError('Currently unsupported shape {}'.format(chemistry))
+            raise CgaError('Currently unsupported shape {}'.format(shape))
         
         #TODO: Complete the checker
-        if chemistry_params == None:
+        if shape_params == None:
             self.scatterer_generator = sg.scatterer_generator()
         elif minvalu == None or maxvalu == None:
             warn("Unspecified minimum and/or maximum parameter boundaries. Fall back to the default minimum "
-                 "and maximum parameter boundaries of shape {}.\n".format(chemistry),stacklevel = 2)
-            self.scatterer_generator = sg.scatterer_generator(chemistry_params)
+                 "and maximum parameter boundaries of shape {}.\n".format(shape),stacklevel = 2)
+            self.scatterer_generator = sg.scatterer_generator(shape_params)
             print("minimum parameter boundaries have been set to {},\n"
                   "maximum parameter boundaries have been set to {}.\n".format(
                    self.scatterer_generator.minvalu,
@@ -54,10 +54,10 @@ class Model:
                
             raise CgaError("Number of parameters in minvalu and/or maxvalu is not equal to number of parameters "
                  "required by shape {}.\n Shape {} requires {:d} parameters.\nminvalu has {:d} parameters.\n"
-                 "maxvalu has {:d} parameters.".format(chemistry,chemistry,sg.scatterer_generator().numvars,
+                 "maxvalu has {:d} parameters.".format(shape,shape,sg.scatterer_generator().numvars,
                                                      len(minvalu),len(maxvalu))) 
         else:
-             self.scatterer_generator = sg.scatterer_generator(chemistry_params,minvalu,maxvalu)
+             self.scatterer_generator = sg.scatterer_generator(shape_params,minvalu,maxvalu)
 
 
         self.numvars = self.scatterer_generator.numvars   

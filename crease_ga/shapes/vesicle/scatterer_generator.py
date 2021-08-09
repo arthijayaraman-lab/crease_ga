@@ -103,16 +103,16 @@ def genLP(Rcore, dR_Ain, dR_B, dR_Aout, sigmabead, nAin, nAout, nB):
     
 class scatterer_generator:
     def __init__(self,
-                 chemistry_params = [24,54,0.5,50.4,50.4,0.55,7],
+                 shape_params = [24,54,0.5,50.4,50.4,0.55,7],
                 minvalu = (50, 30, 30, 30, 0.1, 0.0, 0.1),
                 maxvalu = (400, 200, 200, 200, 0.45, 0.45, 4)):
-        num_scatterers = chemistry_params[0]
-        N = chemistry_params[1]
-        rho_B = chemistry_params[2]
-        lmono_a = chemistry_params[3]
-        lmono_b= chemistry_params[4]
-        fb = chemistry_params[5]
-        nLP = chemistry_params[6]
+        num_scatterers = shape_params[0]
+        N = shape_params[1]
+        rho_B = shape_params[2]
+        lmono_a = shape_params[3]
+        lmono_b= shape_params[4]
+        fb = shape_params[5]
+        nLP = shape_params[6]
         self._numvars = 7
         self.minvalu = minvalu
         self.maxvalu = maxvalu
