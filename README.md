@@ -25,7 +25,8 @@ git clone https://github.com/arthijayaraman-lab/crease_ga
 
 Or follow the guidance [here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository)
 
-2. Create a new conda environment and install all the dependencies.
+2. Create a new conda environment and install all the dependencies. 
+   - **NOTE**: if you intend to run this on a supercomputing cluster, you will need to follow the steps to create a python environment of the corresponding cluster.
    - Navigate into the root directory of the cloned package, and create a fresh conda environment with dependencies using
      ```
      conda env create -f environment.yml
@@ -42,7 +43,7 @@ Or follow the guidance [here](https://docs.github.com/en/github/creating-cloning
 You are all set to use the `crease_ga` package! Remember to activate the proper environment every time by with `conda activate crease_ga`.
 
 # Getting started
-Follow the jupyter notebook tutorials (link) in the `Tutorials` folder (currently under construction), or refer to our documentations at readthedocs.io (currently under construction).
+Follow the jupyter notebook tutorials (CREASE_vesicles_tutorial-NEW.ipynb) in the `Tutorials` folder, or refer to our documentations at readthedocs.io (currently under construction).
 
 # Contact us
 If you have any questions or feedbacks, please let us know by emailing to zijiewu@udel.edu
