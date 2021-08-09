@@ -32,7 +32,7 @@ class Model:
         self.adaptation_params = adaptation_params()  
     def load_chemistry(self,chemistry="vesicle", chemistry_params=None,minvalu=None,maxvalu=None):
         
-        builtin_chemistries=["vesicle"]
+        builtin_chemistries=["vesicle","micelle"]
         if chemistry in builtin_chemistries:
             sg = import_module('crease_ga.chemistries.'+chemistry+'.scatterer_generator')
         else:
