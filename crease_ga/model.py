@@ -124,7 +124,7 @@ class Model:
         IQid_str=[]
         params=[]
         for val in range(self.popnumber):
-            sys.stdout.write("\rGen {:d}/{:d}, individual {:d}/{:d}".format(generation+1,self.generations,val+1,self.popnumber))
+            sys.stdout.write("\rGen {:d}/{:d}, individual {:d}/{:d}\n".format(generation+1,self.generations,val+1,self.popnumber))
             sys.stdout.flush()
             param=utils.decode(pop, val, self.nloci, self.minvalu, self.maxvalu) # gets the current structure variables
             params.append(param)
