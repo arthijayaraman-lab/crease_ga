@@ -46,7 +46,7 @@ def LPOmega(qrange, nAin, nAout, nB, r):                # qvalues number_of_B nu
     omegaarrt=np.zeros((1,len(qrange)))                 # initiating array
     
     omegaarr=np.zeros((1,len(qrange)))              # initiating array
-    rur=r[step,:,:]                                 # selects      
+    rur=r[0,:,:]                                 # selects      
     for i in range(Ntot-1):                         # loops through index and all further indexes to prevent double counting 
         x = np.square(rur[0,i]-rur[0,(i+1):])
         y = np.square(rur[1,i]-rur[1,(i+1):])
@@ -68,6 +68,30 @@ def LPOmega(qrange, nAin, nAout, nB, r):                # qvalues number_of_B nu
     omegaarrt+=omegaarr                             # stores values between loops
 
     return omegaarrt
+
+def visualize(r, Rcore, dR_Ain, dR_B, dR_Aout, sigmabead):
+    import py3Dmol
+    view = py3Dmol.view()
+    
+    for ri in r[0,:,:].transpose():
+        if np.linalg.norm(ri) < Rcore+dR_Ain or np.linalg.norm(ri) > (Rcore+dR_Ain+dR_B):
+            col = 'blue'
+        else:
+            col = 'red'
+        view.addSphere(
+            {
+                'center': {'x': ri[0], 'y': ri[1], 'z': ri[2]},
+                       'radius': sigmabead/2,
+                       'color': col,
+                       'alpha': 0.9,
+            }
+                      )
+    #view.zoomTo()
+    view.show()
+    
+    return view
+    
+           
 
 def genLP(Rcore, dR_Ain, dR_B, dR_Aout, sigmabead, nAin, nAout, nB):  
         # core radius, inner A layer thickness, B layer thickness, outer A layer thickness, 
