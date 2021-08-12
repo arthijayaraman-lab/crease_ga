@@ -32,7 +32,7 @@ class Model:
         self.adaptation_params = adaptation_params()  
     def load_shape(self,shape="vesicle", shape_params=None,minvalu=None,maxvalu=None):
         
-        builtin_shapes=["vesicle"]
+        builtin_shapes=["vesicle","micelle"]
         if shape in builtin_shapes:
             sg = import_module('crease_ga.shapes.'+shape+'.scatterer_generator')
         else:
