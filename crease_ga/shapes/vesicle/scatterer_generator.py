@@ -46,7 +46,7 @@ def LPOmega(qrange, nAin, nAout, nB, r):                # qvalues number_of_B nu
     omegaarrt=np.zeros((1,len(qrange)))                 # initiating array
     
     omegaarr=np.zeros((1,len(qrange)))              # initiating array
-    rur=r[step,:,:]                                 # selects      
+    rur=r[0,:,:]                                 # selects      
     for i in range(Ntot-1):                         # loops through index and all further indexes to prevent double counting 
         x = np.square(rur[0,i]-rur[0,(i+1):])
         y = np.square(rur[1,i]-rur[1,(i+1):])
@@ -68,6 +68,30 @@ def LPOmega(qrange, nAin, nAout, nB, r):                # qvalues number_of_B nu
     omegaarrt+=omegaarr                             # stores values between loops
 
     return omegaarrt
+
+def visualize(r, Rcore, dR_Ain, dR_B, dR_Aout, sigmabead):
+    import py3Dmol
+    view = py3Dmol.view()
+    
+    for ri in r[0,:,:].transpose():
+        if np.linalg.norm(ri) < Rcore+dR_Ain or np.linalg.norm(ri) > (Rcore+dR_Ain+dR_B):
+            col = 'blue'
+        else:
+            col = 'red'
+        view.addSphere(
+            {
+                'center': {'x': ri[0], 'y': ri[1], 'z': ri[2]},
+                       'radius': sigmabead/2,
+                       'color': col,
+                       'alpha': 0.9,
+            }
+                      )
+    #view.zoomTo()
+    view.show()
+    
+    return view
+    
+           
 
 def genLP(Rcore, dR_Ain, dR_B, dR_Aout, sigmabead, nAin, nAout, nB):  
         # core radius, inner A layer thickness, B layer thickness, outer A layer thickness, 
@@ -102,16 +126,16 @@ def genLP(Rcore, dR_Ain, dR_B, dR_Aout, sigmabead, nAin, nAout, nB):
     
 class scatterer_generator:
     def __init__(self,
-                 chemistry_params = [24,54,0.5,50.4,50.4,0.55,7],
+                 shape_params = [24,54,0.5,50.4,50.4,0.55,7],
                 minvalu = (50, 30, 30, 30, 0.1, 0.0, 0.1),
                 maxvalu = (400, 200, 200, 200, 0.45, 0.45, 4)):
-        num_scatterers = chemistry_params[0]
-        N = chemistry_params[1]
-        rho_B = chemistry_params[2]
-        lmono_a = chemistry_params[3]
-        lmono_b= chemistry_params[4]
-        fb = chemistry_params[5]
-        nLP = chemistry_params[6]
+        num_scatterers = shape_params[0]
+        N = shape_params[1]
+        rho_B = shape_params[2]
+        lmono_a = shape_params[3]
+        lmono_b= shape_params[4]
+        fb = shape_params[5]
+        nLP = shape_params[6]
         self._numvars = 7
         self.minvalu = minvalu
         self.maxvalu = maxvalu
