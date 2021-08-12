@@ -3,6 +3,22 @@ import random
 import numexpr as ne
 
 def LPFbead(qrange, sigmabead):
+    '''
+    Compute the spherical form factor given a range of q values.
+    
+    Parameters:
+    ----------
+    qrange: numpy.array
+        array of values in q-space to compute form factor for.
+    sigmabead: float
+        diameter of the sphere.
+    
+    Return:
+    ----------
+    Fqb: numpy.array
+        array of values of the spherical form factors (F(q)) computed at q-points listed in qrange.
+    '''
+    
     R=np.true_divide(sigmabead,2)
     QR=np.multiply(qrange,R)
     Fqb=np.multiply(np.true_divide(np.sin(QR)-np.multiply(QR,np.cos(QR)),np.power(QR,3)),3)  
@@ -38,6 +54,28 @@ def LPOmega(qrange,nB,nA,nLP,r):
     omegaarrt=np.true_divide(omegaarrt,nLP)
     omegaarrt=omegaarrt.reshape(len(qrange),)
     return omegaarrt
+
+def visualize(r, Rcore, dR_Ain, dR_B, dR_Aout, sigmabead):
+    import py3Dmol
+    view = py3Dmol.view()
+    
+    for ri in r[0,:,:].transpose():
+        if np.linalg.norm(ri) < Rcore+dR_Ain or np.linalg.norm(ri) > (Rcore+dR_Ain+dR_B):
+            col = 'blue'
+        else:
+            col = 'red'
+        view.addSphere(
+            {
+                'center': {'x': ri[0], 'y': ri[1], 'z': ri[2]},
+                       'radius': sigmabead/2,
+                       'color': col,
+                       'alpha': 0.9,
+            }
+                      )
+    #view.zoomTo()
+    view.show()
+    
+    return view
 
 def genLP(Rcore,Rmicelle,sigmabead,nB,nA,nLP,Nagg):  #core radius, micelle radius, sigma to nm, #B beads, #A beads, #micelles
     Nfa=int(round(np.true_divide(nA,Nagg)))
@@ -137,16 +175,16 @@ def genLP(Rcore,Rmicelle,sigmabead,nB,nA,nLP,Nagg):  #core radius, micelle radiu
     
 class scatterer_generator:
     def __init__(self,
-                 chemistry_params = [8,24,0.5,0.5,50.4, 50.4],
+                 shape_params = [8,24,0.5,0.5,50.4, 50.4],
                 minvalu = (2, 0, 0),
                 maxvalu = (60, 1, 5)):
         ## genes are aggregation_number, ecorona, background
-        num_scatterers = chemistry_params[0]
-        N = chemistry_params[1] #polymer length #A+#B
-        fa = chemistry_params[2] #'input fraction A'
-        rho_core = chemistry_params[3] #'Density of solvophobic block' 
-        lmono_a = chemistry_params[4] # Angstrom 'monomer contour length'
-        lmono_b= chemistry_params[5] # Angstrom 'monomer contour length' 
+        num_scatterers = shape_params[0]
+        N = shape_params[1] #polymer length #A+#B
+        fa = shape_params[2] #'input fraction A'
+        rho_core = shape_params[3] #'Density of solvophobic block' 
+        lmono_a = shape_params[4] # Angstrom 'monomer contour length'
+        lmono_b= shape_params[5] # Angstrom 'monomer contour length' 
         self._numvars = 3
         self.minvalu = minvalu
         self.maxvalu = maxvalu

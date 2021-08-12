@@ -19,7 +19,22 @@ def gen_layer(rin, rout, nsize):
         return( x, y, z )
     
 def LPFbead(qrange, sigmabead):
-   
+    '''
+    Compute the spherical form factor given a range of q values.
+    
+    Parameters:
+    ----------
+    qrange: numpy.array
+        array of values in q-space to compute form factor for.
+    sigmabead: float
+        diameter of the sphere.
+    
+    Return:
+    ----------
+    Fqb: numpy.array
+        array of values of the spherical form factors (F(q)) computed at q-points listed in qrange.
+    '''
+    
     R=np.true_divide(sigmabead,2)
     QR=np.multiply(qrange,R)
     Fqb=np.multiply(np.true_divide(np.sin(QR)-np.multiply(QR,np.cos(QR)),np.power(QR,3)),3)  
@@ -29,31 +44,54 @@ def LPFbead(qrange, sigmabead):
 def LPOmega(qrange, nAin, nAout, nB, r):                # qvalues number_of_B number_of_A scatterer_coordinates
     Ntot=nAin+nB+nAout                                  # Total number of scatterers to loop through
     omegaarrt=np.zeros((1,len(qrange)))                 # initiating array
-    for step in range(0, 1):                            # loops through independent_scatterer_placemetns
-        omegaarr=np.zeros((1,len(qrange)))              # initiating array
-        rur=r[step,:,:]                                 # selects      
-        for i in range(Ntot-1):                         # loops through index and all further indexes to prevent double counting 
-            x = np.square(rur[0,i]-rur[0,(i+1):])
-            y = np.square(rur[1,i]-rur[1,(i+1):])
-            z = np.square(rur[2,i]-rur[2,(i+1):])
-            rij = np.sqrt(np.sum([x,y,z],axis=0))       # calculates the distances
-            rs = rij[:,np.newaxis]                      # reshapes array for consistency
-            Q = qrange[np.newaxis,:]                    # reshapes array for consistency
-            vals = ne.evaluate("sin(Q*rs)/(Q*rs)")      # ne is efficient at calculations
-            inds=np.argwhere(np.isnan(vals))            # error catching in case there are NaN values
-            if len(inds)>0:
-                for val in inds:
-                    vals[val[0],val[1]]=1
-            inds_double_check=np.argwhere(np.isnan(vals))
-            if len(inds_double_check)>0:
-                print('nan error!')
-            vals = ne.evaluate("sum((vals), axis=0)")   # adds together scatterer contributions for each q value
-            omegaarr+=vals
-        omegaarr=np.true_divide(2*omegaarr,Ntot)+1      # 1 accounts for the guarenteed overlap of same bead  # 2* accounts for double counting avoided to reduce computational expense by looping for all other pairs
-        omegaarrt+=omegaarr                             # stores values between loops
-#     omegaarrt=np.true_divide(omegaarrt,nLP)             # averages between independent_scatterer_placements
-#     omegaarrt=omegaarrt.reshape(len(qrange),)           # reshapes array for output
+    
+    omegaarr=np.zeros((1,len(qrange)))              # initiating array
+    rur=r[0,:,:]                                 # selects      
+    for i in range(Ntot-1):                         # loops through index and all further indexes to prevent double counting 
+        x = np.square(rur[0,i]-rur[0,(i+1):])
+        y = np.square(rur[1,i]-rur[1,(i+1):])
+        z = np.square(rur[2,i]-rur[2,(i+1):])
+        rij = np.sqrt(np.sum([x,y,z],axis=0))       # calculates the distances
+        rs = rij[:,np.newaxis]                      # reshapes array for consistency
+        Q = qrange[np.newaxis,:]                    # reshapes array for consistency
+        vals = ne.evaluate("sin(Q*rs)/(Q*rs)")      # ne is efficient at calculations
+        inds=np.argwhere(np.isnan(vals))            # error catching in case there are NaN values
+        if len(inds)>0:
+            for val in inds:
+                vals[val[0],val[1]]=1
+        inds_double_check=np.argwhere(np.isnan(vals))
+        if len(inds_double_check)>0:
+            print('nan error!')
+        vals = ne.evaluate("sum((vals), axis=0)")   # adds together scatterer contributions for each q value
+        omegaarr+=vals
+    omegaarr=np.true_divide(2*omegaarr,Ntot)+1      # 1 accounts for the guarenteed overlap of same bead  # 2* accounts for double counting avoided to reduce computational expense by looping for all other pairs
+    omegaarrt+=omegaarr                             # stores values between loops
+
     return omegaarrt
+
+def visualize(r, Rcore, dR_Ain, dR_B, dR_Aout, sigmabead):
+    import py3Dmol
+    view = py3Dmol.view()
+    
+    for ri in r[0,:,:].transpose():
+        if np.linalg.norm(ri) < Rcore+dR_Ain or np.linalg.norm(ri) > (Rcore+dR_Ain+dR_B):
+            col = 'blue'
+        else:
+            col = 'red'
+        view.addSphere(
+            {
+                'center': {'x': ri[0], 'y': ri[1], 'z': ri[2]},
+                       'radius': sigmabead/2,
+                       'color': col,
+                       'alpha': 0.9,
+            }
+                      )
+    #view.zoomTo()
+    view.show()
+    
+    return view
+    
+           
 
 def genLP(Rcore, dR_Ain, dR_B, dR_Aout, sigmabead, nAin, nAout, nB):  
         # core radius, inner A layer thickness, B layer thickness, outer A layer thickness, 
@@ -88,16 +126,16 @@ def genLP(Rcore, dR_Ain, dR_B, dR_Aout, sigmabead, nAin, nAout, nB):
     
 class scatterer_generator:
     def __init__(self,
-                 chemistry_params = [24,54,0.5,50.4,50.4,0.55,7],
+                 shape_params = [24,54,0.5,50.4,50.4,0.55,7],
                 minvalu = (50, 30, 30, 30, 0.1, 0.0, 0.1),
                 maxvalu = (400, 200, 200, 200, 0.45, 0.45, 4)):
-        num_scatterers = chemistry_params[0]
-        N = chemistry_params[1]
-        rho_B = chemistry_params[2]
-        lmono_a = chemistry_params[3]
-        lmono_b= chemistry_params[4]
-        fb = chemistry_params[5]
-        nLP = chemistry_params[6]
+        num_scatterers = shape_params[0]
+        N = shape_params[1]
+        rho_B = shape_params[2]
+        lmono_a = shape_params[3]
+        lmono_b= shape_params[4]
+        fb = shape_params[5]
+        nLP = shape_params[6]
         self._numvars = 7
         self.minvalu = minvalu
         self.maxvalu = maxvalu
@@ -118,7 +156,21 @@ class scatterer_generator:
         return self._numvars
     
 
-    def converttoIQ(self, qrange, param): 
+    def converttoIQ(self, qrange, param):
+        '''
+        Calculate computed scattering intensity profile.
+
+        Parameters
+        ----------
+        qrange: int
+            q values.
+        param: int
+            Decoded parameters.
+
+        Return
+        ------
+        IQid: A numpy array holding I(q).
+        '''
         # q values, decoded parameters, 
         # number of repeat units per chain, fraction of B beads per chain, core density, 
         # scatterer diameter, molar mass of B chemistry, 
