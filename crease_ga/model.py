@@ -211,7 +211,7 @@ class Model:
         f.close()
         print('Generation time: {:.3f}s'.format(time.time()-tic))
         print('Generation best fitness: {:.4f}'.format(maxfit))
-        print('Generation best fitness: {:.3f}'.format(gdm))
+        print('Generation gdm: {:.3f}'.format(gdm))
         print('Generation best parameters '+str(params[elitei]))
         
         return pacc, gdm, elitei, IQid_str

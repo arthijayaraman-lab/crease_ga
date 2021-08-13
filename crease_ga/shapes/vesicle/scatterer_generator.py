@@ -125,6 +125,47 @@ def genLP(Rcore, dR_Ain, dR_B, dR_Aout, sigmabead, nAin, nAout, nB):
 
     
 class scatterer_generator:
+    '''
+    The wrapper class for vesicle shape. Default length unit: Angstrom.
+    
+    Shape-specific descriptors (shape_params):
+    ------------------------------------------
+    num_scatterers: 
+        Number of scatterers per chain (num_scatterers). Default: 24
+    N: 
+        Number of beads on chain. Default: 54
+    rho_B:
+        Density or volume freaction of beads in B layer. Default: 0.5
+    lmono_b:
+        Monomer contour length (diameter) of chemistry B. Default: 50.4 A
+    lmono_a:
+        Monomer contour length (diameter) of chemistry A. Default: 50.4 A
+    fb: 
+        Fraction of monomers of chemistry B. fa = 1-fb. Default: 0.55
+    nLP:
+        Number of replicates for each individual. Default: 7
+
+    Input parameters to be predicted:
+    --------------------------------
+    R_core:
+        Core radius. Default [min,max]: [50 A, 400 A]
+    t_Ain:
+        Thickness of inner A layer. Default [min,max]: [30 A, 200 A]
+    t_B:
+        Thickness of B layer. Default [min,max]: [30 A, 200 A]
+    t_Aout:
+        Thickness of outer A layer. Default [min,max]: [30 A, 200 A]
+    sigma_Ain:
+        Split of solvophilic scatterers between inner and output layers. 
+        Default [min,max]: [0.1, 0.45]
+    sigma_R:
+        Polydispersity n vesicle size as implemented in the core radius.
+        Default [min,max]: [0.0, 0.45]
+    log10(bg):
+        Negative log10 of Background intensity. 
+        E.g. an background intensity of 0.001 leads to this value being 3.
+        Default [min,max]:  [0.1,4]
+    '''
     def __init__(self,
                  shape_params = [24,54,0.5,50.4,50.4,0.55,7],
                 minvalu = (50, 30, 30, 30, 0.1, 0.0, 0.1),
