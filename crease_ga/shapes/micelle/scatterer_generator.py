@@ -55,15 +55,15 @@ def LPOmega(qrange,nB,nA,nLP,r):
     omegaarrt=omegaarrt.reshape(len(qrange),)
     return omegaarrt
 
-def visualize(r, Rcore, dR_Ain, dR_B, dR_Aout, sigmabead):
+def visualize(r, Rcore,sigmabead):  
     import py3Dmol
     view = py3Dmol.view()
     
     for ri in r[0,:,:].transpose():
-        if np.linalg.norm(ri) < Rcore+dR_Ain or np.linalg.norm(ri) > (Rcore+dR_Ain+dR_B):
-            col = 'blue'
-        else:
+        if (np.linalg.norm(ri) < Rcore):
             col = 'red'
+        else:
+            col = 'blue'
         view.addSphere(
             {
                 'center': {'x': ri[0], 'y': ri[1], 'z': ri[2]},
