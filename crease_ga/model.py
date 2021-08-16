@@ -154,16 +154,14 @@ class Model:
 
         params = np.array(params)
         maxerr=np.max(fit)           #determines maximum SSerror for the population
-        fitn=fit-maxerr #determines error differences
-        #maxfit=np.max(fitn)
+        fitn=np.subtract(maxerr,fit) #determines error differences
+        bestfit=np.max(fitn)
         sumup=np.sum(fitn)
 
         avgfit=np.true_divide(sumup,self.popnumber)
-        dval=-avgfit
+        dval=bestfit-avgfit
         ascale=np.true_divide(avgfit,dval)*(cs-1.0)     #linear scaling with cs as a scaleFactor
         bscale=avgfit*(1.0-ascale)
-
-        sumup=0
 
         # get scaled fitness to enable selection of bad candidates
         for val in range(self.popnumber):
