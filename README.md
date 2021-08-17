@@ -1,17 +1,19 @@
 # Introduction
 Computational Reverse Engineering Analysis for Scattering Experiments (CREASE) originally developed by Daniel Beltran-Villegas, Michiel Wessels, and Arthi Jayaraman [Refs 1, 2, and 3 below] is a two step approach that combines a genetic algorithm (GA) as the first step with molecular simulations based reconstruction as the second step to determine structural features of assembled structures from aggregate dimensions to the chain- and monomer- level packing for a given input scattering profile. 
 
-This open source crease_ga package is co-created and maintained by Zijie Wu, Ziyu Ye, Christian Heil and Arthi Jayaraman at University of Delaware. 
+This open source crease_ga package is co-created and maintained by Zijie Wu, Ziyu Ye, Christian Heil, and Arthi Jayaraman at University of Delaware. 
 
-If using this code, please cite the following references for the method:
+If you use this code, please cite the one or more of the relevant references from the list below:
 
-1. Beltran-Villegas, D. J.; Wessels, M. G.; Lee, J. Y.; Song, Y.; Wooley, K. L.; Pochan, D. J.; Jayaraman, A. Computational Reverse-Engineering Analysis for Scattering Experiments on Amphiphilic Block Polymer Solutions. J. Am. Chem. Soc. 2019, 141, 14916−14930. [link to article](https://pubs.acs.org/doi/abs/10.1021/jacs.9b08028)
+1.  Original Article on CREASE used on spherical micelles:  Beltran-Villegas, D. J.; Wessels, M. G.; Lee, J. Y.; Song, Y.; Wooley, K. L.; Pochan, D. J.; Jayaraman, A. Computational Reverse-Engineering Analysis for Scattering Experiments on Amphiphilic Block Polymer Solutions. J. Am. Chem. Soc. 2019, 141, 14916−14930. [link to article](https://pubs.acs.org/doi/abs/10.1021/jacs.9b08028)
 
-1. Wessels, M. G.; Jayaraman, A. Computational Reverse-Engineering Analysis of Scattering Experiments (CREASE) on Amphiphilic Block Polymer Solutions: Cylindrical and Fibrillar Assembly. Macromolecules 2021, 54, 783-796. [link to article](https://pubs.acs.org/doi/abs/10.1021/acs.macromol.0c02265)
+2. Extension of CREASE to cylindrical and elliptical micelles: Wessels, M. G.; Jayaraman, A. Computational Reverse-Engineering Analysis of Scattering Experiments (CREASE) on Amphiphilic Block Polymer Solutions: Cylindrical and Fibrillar Assembly. Macromolecules 2021, 54, 783-796. [link to article](https://pubs.acs.org/doi/abs/10.1021/acs.macromol.0c02265)
 
-1. Wessels, M. G.; Jayaraman, A. Machine Learning Enhanced Computational Reverse Engineering Analysis for Scattering Experiments (CREASE) to Determine Structures in Amphiphilic Polymer Solutions. ACS Polym. Au 2021, Advance Article. [link to article](https://pubs.acs.org/doi/abs/10.1021/acspolymersau.1c00015) 
+3. Machine Learning Enhanced CREASE:  Wessels, M. G.; Jayaraman, A. Machine Learning Enhanced Computational Reverse Engineering Analysis for Scattering Experiments (CREASE) to Determine Structures in Amphiphilic Polymer Solutions. ACS Polym. Au 2021, Advance Article. [link to article](https://pubs.acs.org/doi/abs/10.1021/acspolymersau.1c00015) 
 
-1. Heil, C. M.; Jayaraman, A. Computational Reverse-Engineering Analysis for Scattering Experiments of Assembled Binary Mixture of Nanoparticles. ACS Mater. Au 2021, Advance Article. [link to article](https://pubs.acs.org/doi/10.1021/acsmaterialsau.1c00015) 
+4. Extension of CREASE - Genetic Algorithm to Handle Structure Factors:  Heil, C. M.; Jayaraman, A. Computational Reverse-Engineering Analysis for Scattering Experiments of Assembled Binary Mixture of Nanoparticles. ACS Mater. Au 2021, Advance Article. [link to article](https://pubs.acs.org/doi/10.1021/acsmaterialsau.1c00015) 
+
+5. Extension of CREASE to vesicles, incorporation of dispersity in dimensions, etc. : Ye, Z.; Wu, Z.; Jayaraman, A. Computational Reverse-Engineering Analysis for Scattering Experiments(CREASE) on Vesicles Assembled from Amphiphilic Macromolecular Solutions. (under review)
 
 # Installation
 To install this package on a linux machine, follow these steps:
@@ -52,4 +54,4 @@ You are all set to use the `crease_ga` package! Remember to activate the proper 
 Follow the jupyter notebook tutorials (CREASE_vesicles_tutorial-NEW.ipynb) in the `Tutorials` folder, or refer to our documentations at readthedocs.io (currently under construction).
 
 # Contact us
-If you have any questions or feedbacks, please let us know by emailing to zijiewu@udel.edu
+If you have any questions or feedback, please let us know by emailing arthij@udel.edu and zijiewu@udel.edu
