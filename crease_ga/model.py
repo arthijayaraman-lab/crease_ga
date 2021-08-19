@@ -35,35 +35,36 @@ class Model:
         builtin_shapes=["vesicle","micelle"]
         if shape in builtin_shapes:
             sg = import_module('crease_ga.shapes.'+shape+'.scatterer_generator')
-            print('imported builtin shape {}\n').format(shape)
+            sg = sg.scatterer_generator
+            print('imported builtin shape {}\n'.format(shape))
         else:
-            from plugins import plugins
-            if shape in plugins.keys:
+            from crease_ga.plugins import plugins
+            if shape in plugins.keys():
                 sg = plugins[shape].load()
-                print('imported shape {} as a plugin').format(shape)
+                print('imported shape {} as a plugin'.format(shape))
             else:
                 raise CgaError('Currently unsupported shape {}'.format(shape))
         
         #TODO: Complete the checker
         if shape_params == None:
-            self.scatterer_generator = sg.scatterer_generator()
+            self.scatterer_generator = sg()
         elif minvalu == None or maxvalu == None:
             warn("Unspecified minimum and/or maximum parameter boundaries. Fall back to the default minimum "
                  "and maximum parameter boundaries of shape {}.\n".format(shape),stacklevel = 2)
-            self.scatterer_generator = sg.scatterer_generator(shape_params)
+            self.scatterer_generator = sg(shape_params)
             print("minimum parameter boundaries have been set to {},\n"
                   "maximum parameter boundaries have been set to {}.\n".format(
                    self.scatterer_generator.minvalu,
                    self.scatterer_generator.maxvalu))
 
-        elif sg.scatterer_generator().numvars != len(minvalu) or sg.scatterer_generator().numvars != len(maxvalu):
+        elif sg().numvars != len(minvalu) or sg().numvars != len(maxvalu):
                
             raise CgaError("Number of parameters in minvalu and/or maxvalu is not equal to number of parameters "
                  "required by shape {}.\n Shape {} requires {:d} parameters.\nminvalu has {:d} parameters.\n"
-                 "maxvalu has {:d} parameters.".format(shape,shape,sg.scatterer_generator().numvars,
+                 "maxvalu has {:d} parameters.".format(shape,shape,sg().numvars,
                                                      len(minvalu),len(maxvalu))) 
         else:
-             self.scatterer_generator = sg.scatterer_generator(shape_params,minvalu,maxvalu)
+             self.scatterer_generator = sg(shape_params,minvalu,maxvalu)
 
 
         self.numvars = self.scatterer_generator.numvars   

@@ -17,4 +17,4 @@ import sys
 
 
 for ep in iter_entry_points(group="crease_ga.plugins",name=None):
-    plugins['ep.name'] = ep
+    plugins[ep.name] = ep
