@@ -13,7 +13,7 @@ If you use this code, please cite the one or more of the relevant references fro
 
 4. Extension of CREASE's Genetic Algorithm Step to Handle Structure Factors:  Heil, C. M.; Jayaraman, A. Computational Reverse-Engineering Analysis for Scattering Experiments of Assembled Binary Mixture of Nanoparticles. ACS Mater. Au 2021, Advance Article. [link to article](https://pubs.acs.org/doi/10.1021/acsmaterialsau.1c00015) 
 
-5. Extension of CREASE for vesicles, as well as to incorporate dispersity in dimensions, etc. : Ye, Z.; Wu, Z.; Jayaraman, A. Computational Reverse-Engineering Analysis for Scattering Experiments(CREASE) on Vesicles Assembled from Amphiphilic Macromolecular Solutions. (under review)
+5. Extension of CREASE for vesicles as well as the the ability to estimate polydispersity in dimensions of the domains in the assembled structure and distribution of molecules between the different domains of the assembled structure : Ye, Z.; Wu, Z.; Jayaraman, A. Computational Reverse-Engineering Analysis for Scattering Experiments(CREASE) on Vesicles Assembled from Amphiphilic Macromolecular Solutions. (under review)
 
 # Installation
 To install this package on a linux machine, follow these steps:
