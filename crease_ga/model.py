@@ -35,8 +35,14 @@ class Model:
         builtin_shapes=["vesicle","micelle"]
         if shape in builtin_shapes:
             sg = import_module('crease_ga.shapes.'+shape+'.scatterer_generator')
+            print('imported builtin shape {}\n').format(shape)
         else:
-            raise CgaError('Currently unsupported shape {}'.format(shape))
+            from plugins import plugins
+            if shape in plugins.keys:
+                sg = plugins[shape].load()
+                print('imported shape {} as a plugin').format(shape)
+            else:
+                raise CgaError('Currently unsupported shape {}'.format(shape))
         
         #TODO: Complete the checker
         if shape_params == None:
