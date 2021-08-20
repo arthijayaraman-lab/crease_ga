@@ -1,5 +1,6 @@
 import numpy as np
 from os import path
+import os
 from crease_ga import utils
 from crease_ga.adaptation_params import adaptation_params
 import random    
@@ -9,7 +10,6 @@ import matplotlib.pyplot as plt
 import sys
 from importlib import import_module
 import time
-import sys
 from warnings import warn
 from crease_ga.exceptions import CgaError
 
@@ -74,7 +74,7 @@ class Model:
             
             
     def load_iq(self,input_file_path,q_bounds=None):
-        loadvals = np.loadtxt(input_file_path)
+        loadvals = np.genfromtxt(input_file_path)
         self.qrange_load = loadvals[:,0]
         IQin_load = loadvals[:,1]
         self.IQin_load=np.true_divide(IQin_load,np.max(IQin_load))
@@ -85,8 +85,8 @@ class Model:
         else:
             lowQ = q_bounds[0]
             highQ = q_bounds[1]
-            self.IQin = self.IQin_load[ np.where(self.qrange_load>=lowQ)[0][0]:np.where(self.qrange_load>=highQ)[0][0] ]
-            self.qrange = self.qrange_load[ np.where(self.qrange_load>=lowQ)[0][0]:np.where(self.qrange_load>=highQ)[0][0] ]
+            self.IQin = self.IQin_load[ np.where(self.qrange_load>=lowQ)[0][0]:np.where(self.qrange_load<=highQ)[0][-1] ]
+            self.qrange = self.qrange_load[ np.where(self.qrange_load>=lowQ)[0][0]:np.where(self.qrange_load<=highQ)[0][-1] ]
             
 
         baseline = self.IQin[0]
@@ -94,11 +94,12 @@ class Model:
         self.IQin_load = np.true_divide(self.IQin_load,baseline)
 
         
-    def solve(self,verbose = True,backend = 'debye',fitness_metric = 'log_sse',output_dir='./'):
+    def solve(self,name = 'ga_job',verbose = True,backend = 'debye',fitness_metric = 'log_sse',output_dir='./'):
         pop = utils.initial_pop(self.popnumber, self.nloci, self.numvars)
+        os.mkdir(output_dir+'/'+name)
         for gen in range(self.generations):    
             if backend == 'debye':
-                pacc,gdm,elitei,IQid_str = self.fitness(pop,gen,output_dir,metric='log_sse')
+                pacc,gdm,elitei,IQid_str = self.fitness(pop,gen,output_dir+'/'+name+'/',metric='log_sse')
                 IQid_str = np.array(IQid_str)
             pop = self.genetic_operations(pop,pacc,elitei)
             self.adaptation_params.update(gdm)
@@ -108,7 +109,7 @@ class Model:
                 fig, ax = plt.subplots(figsize=(figsize))
                 ax.plot(self.qrange_load,self.IQin_load,color='k',linestyle='-',ms=8,linewidth=1.3,marker='o')
                 ax.plot(self.qrange,IQid_str[elitei].transpose(),color='fuchsia',linestyle='-',ms=8,linewidth=2)#,marker='o')
-                plt.xlim(0.001,0.1)
+                plt.xlim(self.qrange[0],self.qrange[-1])
                 plt.ylim(2*10**(-5),20)
                 plt.xlabel(r'q, $\AA^{-1}$',fontsize=20)
                 plt.ylabel(r'$I$(q)',fontsize=20)
@@ -131,7 +132,7 @@ class Model:
         IQid_str=[]
         params=[]
         for val in range(self.popnumber):
-            sys.stdout.write("\rGen {:d}/{:d}, individual {:d}/{:d}\n".format(generation+1,self.generations,val+1,self.popnumber))
+            sys.stdout.write("\rGen {:d}/{:d}, individual {:d}/{:d}".format(generation+1,self.generations,val+1,self.popnumber))
             sys.stdout.flush()
             param=utils.decode(pop, val, self.nloci, self.minvalu, self.maxvalu) # gets the current structure variables
             params.append(param)

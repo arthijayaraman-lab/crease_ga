@@ -3,7 +3,7 @@ class adaptation_params:
     def __init__(self,
                  gdmmin=0.005,
                  gdmmax=0.85,
-                 pcmin=0.5,
+                 pcmin=0.1,
                  pcmax=1,
                  pmmin=0.006,
                  pmmax=0.25,
