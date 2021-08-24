@@ -8,3 +8,5 @@ dependencies:
   - py3dmol
   - jupyter
   - pip
+  - pip:
+      - .
