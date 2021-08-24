@@ -48,7 +48,7 @@ To install this package on a linux or macOS machine, follow these steps:
 git clone https://github.com/arthijayaraman-lab/crease_ga
 ```
 
-Or directly download the package as a ZIP file from [our github webpage](https://github.com/arthijayaraman_lab/crease_ga) by following the guidance [here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository). If you are following this route, you will need to unzip the package to your desired location after the download.
+   Or directly download the package as a ZIP file from [our github webpage](https://github.com/arthijayaraman_lab/crease_ga) by following the guidance [here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository). If you are following this route, you will need to unzip the package to your desired location after the download.
 
 1. Create a new conda environment and install all the dependencies. 
    - _Navigate into the root directory of the cloned package_, and create a fresh conda environment with dependencies using
