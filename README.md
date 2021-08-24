@@ -51,7 +51,8 @@ git clone https://github.com/arthijayaraman-lab/crease_ga
    Or directly download the package as a ZIP file from [our github webpage](https://github.com/arthijayaraman_lab/crease_ga) by following the guidance [here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository). If you are following this route, you will need to unzip the package to your desired location after the download.
 
 1. Create a new conda environment and install all the dependencies. 
-   - _Navigate into the root directory of the cloned package_, and create a fresh conda environment with dependencies using
+   - _Navigate into the root directory of the cloned package_. If you are using anaconda prompt, you can look up [common windows command line prompts](http://www.cs.columbia.edu/~sedwards/classes/2015/1102-fall/Command%20Prompt%20Cheatsheet.pdf). If you are using unix-based shell (linux, macOS, or WSL subsystem), yo can look up [common commands for Unix](http://www.mathcs.emory.edu/~valerie/courses/fall10/155/resources/unix_cheatsheet.html). Either case, all you will need would probably be _displaying list of files and directories in the current folder_(`dir` for windows, `ls` for unix), and moving to different directories(`cd [new_directory_path]` for both windows and unix). You should end up at a directory called `crease_ga`, and be able to see files named `setup.py`, `environment.yml` and `REAME.md` (among others) in the directory.
+   - create a fresh conda environment with dependencies using
      ```
      conda env create -f environment.yml
      ```
