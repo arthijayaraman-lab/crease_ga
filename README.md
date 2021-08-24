@@ -5,7 +5,7 @@ Computational Reverse Engineering Analysis for Scattering Experiments (CREASE) o
 
 This open source crease_ga package has been co-created by Zijie Wu, Ziyu Ye, Christian Heil, and Arthi Jayaraman at University of Delaware.
 
-__If you use this code, please cite the one or more of the relevant references from the list below:__
+__If you use this code, please cite one or more of the relevant references from the list below:__
 
 1. Original Article on CREASE for spherical micelles:  
 
