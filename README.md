@@ -28,8 +28,6 @@ __If you use this code, please cite one or more of the relevant references from 
    Ye, Z.; Wu, Z.; Jayaraman, A. Computational Reverse-Engineering Analysis for Scattering Experiments(CREASE) on Vesicles Assembled from Amphiphilic Macromolecular Solutions. (under review)
 
 # Installation
-___Important note: If you would like to first try our package by running our tutorial (See #Getting Started), you can directly launch a docker image of our environment, and access and interact with our jupyter notebook tutorial from there, by launching a binder. To do this,  click the badge below___:
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/arthijayaraman-lab/crease_ga/master)
 
 If you would like to use our package for your own project, you will still need to install the package on your local machine. 
 
@@ -70,7 +68,9 @@ You are all set to use the `crease_ga` package! Remember to activate the proper 
     jupyter notebook
     ```
 
-- **NOTE**: if you intend to run this on a supercomputing cluster, you will need to follow the steps to create a python environment of the corresponding cluster.
+- **NOTE1**: If you would like to first try our package by running our tutorial (See #Getting Started), you can directly launch a docker image of our environment, and access and interact with our jupyter notebook tutorial from a web browser _without performing any installation steps above_. To do this,  click this badge___:
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/arthijayaraman-lab/crease_ga/master)
+- **NOTE2**: if you intend to run this on a supercomputing cluster, you will need to follow the steps to create a python environment of the corresponding cluster.
 
 
 # Getting started
