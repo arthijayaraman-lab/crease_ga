@@ -29,17 +29,17 @@ __If you use this code, please cite one or more of the relevant references from 
 
 # Installation
 
-If you would like to use our package for your own project, you will still need to install the package on your local machine. 
-
 To install this package on a linux or macOS machine, follow these steps:
 
 1. We will be using Anaconda to handle the python environment. So first, we need to [install anaconda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html) on our machine. You can also consider installing [miniconda](https://docs.conda.io/en/latest/miniconda.html) for faster installation and lower storage consumption _only if you are an advanced user_. We recommend installing the full version of anaconda if you have limited experience with python and/or computer programming.
 
 1. At this point, you will need a bash terminal to work with. All the installation steps _after_ this step will need to be accomplished from a terminal, using command line interface. 
     - If you are on a linux or MacOS machine
+    
        You can directly launch a terminal.
     - If you are on a Windows machine
-       If you have installed the full version of Anaconda/Miniconda in Step 1, the most straightforward way to launch a terminal will be using _Anaconda prompt_ that comes with the conda installation. You should be able to find _Anaconda prompt_ from your Start menu. You can also connsider installing [Windows Subsytem for Linux (WSL)](https://ubuntu.com/wsl).
+    
+       If you have installed the full version of Anaconda/Miniconda in Step 1, the most straightforward way to launch a terminal will be using _Anaconda prompt_ that comes with the conda installation. You should be able to find _Anaconda prompt_ from your Start menu. You can also consider installing [Windows Subsytem for Linux (WSL)](https://ubuntu.com/wsl).
 
 1. Download the package. If you have git installed, this can be done using the following command from a terminal:
 ```
@@ -49,7 +49,7 @@ git clone https://github.com/arthijayaraman-lab/crease_ga
    Or directly download the package as a ZIP file from [our github webpage](https://github.com/arthijayaraman_lab/crease_ga) by following the guidance [here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository). If you are following this route, you will need to unzip the package to your desired location after the download.
 
 1. Create a new conda environment and install all the dependencies. 
-   - _Navigate into the root directory of the cloned package_. If you are using anaconda prompt, you can look up [common windows command line prompts](http://www.cs.columbia.edu/~sedwards/classes/2015/1102-fall/Command%20Prompt%20Cheatsheet.pdf). If you are using unix-based shell (linux, macOS, or WSL subsystem), yo can look up [common commands for Unix](http://www.mathcs.emory.edu/~valerie/courses/fall10/155/resources/unix_cheatsheet.html). Either case, all you will need would probably be _displaying list of files and directories in the current folder_(`dir` for windows, `ls` for unix), and _moving to different directories_(`cd [new_directory_path]` for both windows and unix). You should end up at a directory called `crease_ga`, and be able to see files named `setup.py`, `environment.yml` and `REAME.md` (among others) in the directory.
+   - _Navigate into the root directory of the cloned package_. If you are using anaconda prompt, you can look up [common windows command line prompts](http://www.cs.columbia.edu/~sedwards/classes/2015/1102-fall/Command%20Prompt%20Cheatsheet.pdf). If you are using unix-based shell (linux, macOS, or WSL subsystem), yo can look up [common commands for Unix](http://www.mathcs.emory.edu/~valerie/courses/fall10/155/resources/unix_cheatsheet.html). Either case, all you will need would probably be _displaying list of files and directories in the current folder_(`dir` for windows, `ls` for unix), and _moving to different directories_(`cd [new_directory_path]` for both windows and unix). You should end up at a directory called `crease_ga`, and be able to see files named `setup.py`, `environment.yml` and `README.md` (among others) in the directory.
    - create a fresh conda environment with dependencies using
      ```
      conda env create -f environment.yml
@@ -63,13 +63,14 @@ git clone https://github.com/arthijayaraman-lab/crease_ga
    ```
    pip install .
    ```
-You are all set to use the `crease_ga` package! Remember to activate the proper environment every time by with `conda activate crease_ga`. You can run the Jupyter notebook tutorials by using
+You are all set to use the `crease_ga` package! Remember to activate the proper environment every time by with `conda activate crease_ga`. You can run the Jupyter notebook tutorials with the command
     ```
     jupyter notebook
     ```
 
 - **NOTE1**: If you would like to first try our package by running our tutorial (See #Getting Started), you can directly launch a docker image of our environment, and access and interact with our jupyter notebook tutorial from a web browser _without performing any installation steps above_. To do this,  click this badge:
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/arthijayaraman-lab/crease_ga/master)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/arthijayaraman-lab/crease_ga/master).
+
 - **NOTE2**: if you intend to run this on a supercomputing cluster, you will need to follow the steps to create a python environment of the corresponding cluster.
 
 
