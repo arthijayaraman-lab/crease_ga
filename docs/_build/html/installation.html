@@ -1,0 +1,181 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Installation &#8212; crease_ga  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tutorials" href="tutorials.html" />
+    <link rel="prev" title="Introduction" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>To install this package on a linux or macOS machine, follow these steps:</p>
+<ol class="arabic">
+<li><p>We will be using Anaconda to handle the python environment. So first, we need to <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html">install anaconda</a> on our machine. You can also consider installing <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">miniconda</a> for faster installation and lower storage consumption <em>only if you are an advanced user</em>. We recommend installing the full version of anaconda if you have limited experience with python and/or computer programming.</p></li>
+<li><p>At this point, you will need a bash terminal to work with. All the installation steps <em>after</em> this step will need to be accomplished from a terminal, using command line interface.</p>
+<ul>
+<li><p>If you are on a linux or MacOS machine</p>
+<blockquote>
+<div><p>You can directly launch a terminal.</p>
+</div></blockquote>
+</li>
+<li><p>If you are on a Windows machine</p>
+<blockquote>
+<div><p>If you have installed the full version of Anaconda/Miniconda in Step 1, the most straightforward way to launch a terminal will be using <em>Anaconda prompt</em> that comes with the conda installation. You should be able to find <em>Anaconda prompt</em> from your Start menu. You can also consider installing <a class="reference external" href="https://ubuntu.com/wsl">Windows Subsytem for Linux (WSL)</a>.</p>
+</div></blockquote>
+</li>
+</ul>
+</li>
+<li><p>Download the package.</p>
+<ul>
+<li><p>If you have git installed, this can be done using the following command from a terminal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">arthijayaraman</span><span class="o">-</span><span class="n">lab</span><span class="o">/</span><span class="n">crease_ga</span>
+</pre></div>
+</div>
+</li>
+<li><p>You can also directly download the package as a ZIP file from <a class="reference external" href="https://github.com/arthijayaraman_lab/crease_ga">our github webpage</a> by following the guidance [here]     (<a class="reference external" href="https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository">https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository</a>). If you are following this route, you will need to unzip the package to your desired location after the download.</p></li>
+</ul>
+</li>
+<li><p>Create a new conda environment and install all the dependencies.</p>
+<ul>
+<li><p><em>Navigate into the root directory of the cloned package</em>. If you are using anaconda prompt, you can look up <a class="reference external" href="http://www.cs.columbia.edu/~sedwards/classes/2015/1102-fall/Command%20Prompt%20Cheatsheet.pdf">common windows command line prompts</a>. If you are using unix-based shell (linux, macOS, or WSL subsystem), yo can look up <a class="reference external" href="http://www.mathcs.emory.edu/~valerie/courses/fall10/155/resources/unix_cheatsheet.html">common commands for Unix</a>. Either case, all you will need would probably be <em>displaying list of files and directories in the current folder</em>(<code class="docutils literal notranslate"><span class="pre">dir</span></code> for windows, <code class="docutils literal notranslate"><span class="pre">ls</span></code> for unix), and <em>moving to different directories</em>(<code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">[new_directory_path]</span></code> for both windows and unix). You should end up at a directory called <code class="docutils literal notranslate"><span class="pre">crease_ga</span></code>, and be able to see files named <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>, <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> and <code class="docutils literal notranslate"><span class="pre">README.md</span></code> (among others) in the directory.</p></li>
+<li><p>create a fresh conda environment with dependencies using</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">env</span> <span class="n">create</span> <span class="o">-</span><span class="n">f</span> <span class="n">environment</span><span class="o">.</span><span class="n">yml</span>
+</pre></div>
+</div>
+</li>
+<li><p>Activate the environment with
+.. code-block:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">crease_ga</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+<li><p>Install the <code class="docutils literal notranslate"><span class="pre">crease_ga</span></code> package using</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>You are all set to use the <code class="docutils literal notranslate"><span class="pre">crease_ga</span></code> package! Remember to activate the proper environment every time by with <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">crease_ga</span></code>. You can run the Jupyter notebook tutorials with the command</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">notebook</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<ul class="simple">
+<li><p><strong>NOTE</strong>: if you intend to run this on a supercomputing cluster, you will need to follow the steps to create a python environment of the corresponding cluster.</p></li>
+</ul>
+<section id="try-the-package-without-installation">
+<h2>Try the package without installation<a class="headerlink" href="#try-the-package-without-installation" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p>If you would like to first try our package by running our tutorial (See #Getting Started), you can directly launch a docker image of our environment, and access and interact with our jupyter notebook tutorial from a web browser <em>without performing any installation steps above</em>. To do this,  click this badge:</p>
+<a class="reference external image-reference" href="https://mybinder.org/v2/gh/arthijayaraman-lab/crease_ga/master"><img alt="Binder" src="https://mybinder.org/badge_logo.svg" /></a>
+</li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">crease_ga</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#try-the-package-without-installation">Try the package without installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="topics/shape.html">Shape</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Introduction</a></li>
+      <li>Next: <a href="tutorials.html" title="next chapter">Tutorials</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Zijie Wu, Ziyu Ye, Christian Heil, Arthi Jayaraman.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/installation.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -15,6 +15,7 @@
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="installation.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -31,13 +32,17 @@
 
           <div class="body" role="main">
             
-  <p><a class="reference external" href="https://mybinder.org/v2/gh/arthijayaraman-lab/crease_ga/master"><img alt="Binder" src="https://mybinder.org/badge_logo.svg" /></a> <a class="reference external" href="https://opensource.org/licenses/MIT"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" /></a> <a class="reference external" href="https://zenodo.org/badge/latestdoi/387868834"><img alt="DOI" src="https://zenodo.org/badge/387868834.svg" /></a></p>
-<section class="tex2jax_ignore mathjax_ignore" id="introduction">
+  <a class="reference external image-reference" href="https://mybinder.org/v2/gh/arthijayaraman-lab/crease_ga/master"><img alt="Binder" src="https://mybinder.org/badge_logo.svg" /></a>
+<a class="reference external image-reference" href="https://opensource.org/licenses/MIT"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" /></a>
+<a class="reference external image-reference" href="https://zenodo.org/badge/latestdoi/387868834"><img alt="DOI" src="https://zenodo.org/badge/387868834.svg" /></a>
+<section id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
 <p>Computational Reverse Engineering Analysis for Scattering Experiments (CREASE) originally developed by Daniel Beltran-Villegas, Michiel Wessels, and Arthi Jayaraman (References 1, 2, and 3 below) is a two step approach that takes as input small angle scattering profile [I(q) vs. q] and provides as output structural information of the assembled structure.  It combines a genetic algorithm (GA) as the first step with molecular simulations based reconstruction as the second step. For macromolecular solutions at dilute concentrations, when the primary component of [I(q) vs. q] is the form factor of the assembled structure, the two steps of CREASE provide structural information about the assembled structure ranging from dimensions of the domains as well as the chain- and monomer- level packing (as shown in References 1, 2, 3, and 5). The work in Reference 4 below describes early implementation of CREASE to analyze input small angle scattering profiles when the structure factor is the primary component of I(q) vs. q.</p>
 <p>This open source crease_ga package has been co-created by Zijie Wu, Ziyu Ye, Christian Heil, and Arthi Jayaraman at University of Delaware.</p>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 <p><strong>If you use this code, please cite one or more of the relevant references from the list below:</strong></p>
-<ol>
+<ol class="arabic">
 <li><p>Original Article on CREASE for spherical micelles:</p>
 <p>Beltran-Villegas, D. J.; Wessels, M. G.; Lee, J. Y.; Song, Y.; Wooley, K. L.; Pochan, D. J.; Jayaraman, A. Computational Reverse-Engineering Analysis for Scattering Experiments on Amphiphilic Block Polymer Solutions. J. Am. Chem. Soc. 2019, 141, 14916−14930. <a class="reference external" href="https://pubs.acs.org/doi/abs/10.1021/jacs.9b08028">link to article</a></p>
 </li>
@@ -54,69 +59,37 @@
 <p>Ye, Z.; Wu, Z.; Jayaraman, A. Computational Reverse-Engineering Analysis for Scattering Experiments(CREASE) on Vesicles Assembled from Amphiphilic Macromolecular Solutions. (under review)</p>
 </li>
 </ol>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>To install this package on a linux or macOS machine, follow these steps:</p>
-<ol>
-<li><p>We will be using Anaconda to handle the python environment. So first, we need to <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html">install anaconda</a> on our machine. You can also consider installing <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">miniconda</a> for faster installation and lower storage consumption <em>only if you are an advanced user</em>. We recommend installing the full version of anaconda if you have limited experience with python and/or computer programming.</p></li>
-<li><p>At this point, you will need a bash terminal to work with. All the installation steps <em>after</em> this step will need to be accomplished from a terminal, using command line interface.</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul>
-<li><p>If you are on a linux or MacOS machine</p>
-<p>You can directly launch a terminal.</p>
-</li>
-<li><p>If you are on a Windows machine</p>
-<p>If you have installed the full version of Anaconda/Miniconda in Step 1, the most straightforward way to launch a terminal will be using <em>Anaconda prompt</em> that comes with the conda installation. You should be able to find <em>Anaconda prompt</em> from your Start menu. You can also consider installing <a class="reference external" href="https://ubuntu.com/wsl">Windows Subsytem for Linux (WSL)</a>.</p>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#try-the-package-without-installation">Try the package without installation</a></li>
 </ul>
 </li>
-<li><p>Download the package.</p>
-<ul class="simple">
-<li><p>If you have git installed, this can be done using the following command from a terminal:</p></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#a-minimum-example">A minimum example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#a-full-length-tutorial">A full-length tutorial</a></li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">arthijayaraman</span><span class="o">-</span><span class="n">lab</span><span class="o">/</span><span class="n">crease_ga</span>
-</pre></div>
+</li>
+</ul>
 </div>
-<ul class="simple">
-<li><p>You can also directly download the package as a ZIP file from <a class="reference external" href="https://github.com/arthijayaraman_lab/crease_ga">our github webpage</a> by following the guidance [here]     (https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository). If you are following this route, you will need to unzip the package to your desired location after the download.</p></li>
-</ul>
-</li>
-<li><p>Create a new conda environment and install all the dependencies.</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Topics</span></p>
 <ul>
-<li><p><em>Navigate into the root directory of the cloned package</em>. If you are using anaconda prompt, you can look up <a class="reference external" href="http://www.cs.columbia.edu/~sedwards/classes/2015/1102-fall/Command%20Prompt%20Cheatsheet.pdf">common windows command line prompts</a>. If you are using unix-based shell (linux, macOS, or WSL subsystem), yo can look up <a class="reference external" href="http://www.mathcs.emory.edu/~valerie/courses/fall10/155/resources/unix_cheatsheet.html">common commands for Unix</a>. Either case, all you will need would probably be <em>displaying list of files and directories in the current folder</em>(<code class="docutils literal notranslate"><span class="pre">dir</span></code> for windows, <code class="docutils literal notranslate"><span class="pre">ls</span></code> for unix), and <em>moving to different directories</em>(<code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">[new_directory_path]</span></code> for both windows and unix). You should end up at a directory called <code class="docutils literal notranslate"><span class="pre">crease_ga</span></code>, and be able to see files named <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>, <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> and <code class="docutils literal notranslate"><span class="pre">README.md</span></code> (among others) in the directory.</p></li>
-<li><p>create a fresh conda environment with dependencies using</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">env</span> <span class="n">create</span> <span class="o">-</span><span class="n">f</span> <span class="n">environment</span><span class="o">.</span><span class="n">yml</span>
-</pre></div>
-</div>
-</li>
-<li><p>Activate the environment with</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">crease_ga</span>
-</pre></div>
-</div>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="topics/shape.html">Shape</a></li>
 </ul>
-</li>
-<li><p>Install the <code class="docutils literal notranslate"><span class="pre">crease_ga</span></code> package using</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>
-</pre></div>
 </div>
-</li>
-</ol>
-<p>You are all set to use the <code class="docutils literal notranslate"><span class="pre">crease_ga</span></code> package! Remember to activate the proper environment every time by with <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">crease_ga</span></code>. You can run the Jupyter notebook tutorials with the command
-<code class="docutils literal notranslate">&#160;&#160;&#160; <span class="pre">jupyter</span> <span class="pre">notebook</span>&#160;&#160;&#160; </code></p>
-<ul class="simple">
-<li><p><strong>NOTE1</strong>: If you would like to first try our package by running our tutorial (See #Getting Started), you can directly launch a docker image of our environment, and access and interact with our jupyter notebook tutorial from a web browser <em>without performing any installation steps above</em>. To do this,  click this badge:
-<a class="reference external" href="https://mybinder.org/v2/gh/arthijayaraman-lab/crease_ga/master"><img alt="Binder" src="https://mybinder.org/badge_logo.svg" /></a>.</p></li>
-<li><p><strong>NOTE2</strong>: if you intend to run this on a supercomputing cluster, you will need to follow the steps to create a python environment of the corresponding cluster.</p></li>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Documentations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="documentations/Model.html">crease_ga.Model</a></li>
 </ul>
+</div>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="getting-started">
-<h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
-<p>Follow the jupyter notebook tutorials (CREASE_vesicles_tutorial-NEW.ipynb) in the <code class="docutils literal notranslate"><span class="pre">Tutorials</span></code> folder, or refer to our documentations at readthedocs.io (currently under construction).</p>
+<section id="contact-us">
+<h2>Contact us<a class="headerlink" href="#contact-us" title="Permalink to this headline">¶</a></h2>
+<p>If you have any questions or feedback, please let us know by emailing <a class="reference external" href="mailto:arthij&#37;&#52;&#48;udel&#46;edu">arthij<span>&#64;</span>udel<span>&#46;</span>edu</a> and <a class="reference external" href="mailto:zijiewu&#37;&#52;&#48;udel&#46;edu">zijiewu<span>&#64;</span>udel<span>&#46;</span>edu</a></p>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="contact-us">
-<h1>Contact us<a class="headerlink" href="#contact-us" title="Permalink to this headline">¶</a></h1>
-<p>If you have any questions or feedback, please let us know by emailing arthij&#64;udel.edu and zijiewu&#64;udel.edu</p>
 </section>
 
 
@@ -136,11 +109,25 @@
 
 
 <h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="topics/shape.html">Shape</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="documentations/Model.html">crease_ga.Model</a></li>
+</ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="installation.html" title="next chapter">Installation</a></li>
   </ul></li>
 </ul>
 </div>
@@ -174,7 +161,7 @@
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
-      <a href="_sources/index.md.txt"
+      <a href="_sources/index.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

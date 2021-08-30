@@ -1,0 +1,2 @@
+.. autoclass:: crease_ga.Model
+    :members:
