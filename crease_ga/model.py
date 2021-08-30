@@ -14,13 +14,30 @@ from warnings import warn
 from crease_ga.exceptions import CgaError
 
 class Model:
-        
+    """
+    The basic class that defines the model to be used to solve for a scattering
+    profile.
+    
+    Parameters
+    ----------
+    pop_number: int. 
+        Number of individuals within a generation.
+    generations: int.
+        Number of generations to run.
+    nloci: int.
+        Number of binary bits to represent each parameter in an individual.
+        The decimal parameter value is converted to binary, with "all 0"s
+        corresponding to the min value and "all 1"s corresponding to the
+        max value.
+
+    """
+
+       
     def __init__(self,
                  pop_number = 5,
                  generations = 10,
                  nloci = 7,
                  yaml_file='x'):
-        
         if path.isfile(yaml_file):
             pass
             #TODO: populate all input parameters with input from yaml files
@@ -30,8 +47,7 @@ class Model:
             self.nloci = nloci
             #TODO: check numvars is equal to length of minvalu and maxvalu
         self.adaptation_params = adaptation_params()  
-    def load_shape(self,shape="vesicle", shape_params=None,minvalu=None,maxvalu=None):
-        
+    def load_shape(self,shape="vesicle", shape_params=None,minvalu=None,maxvalu=None):    
         builtin_shapes=["vesicle","micelle"]
         if shape in builtin_shapes:
             sg = import_module('crease_ga.shapes.'+shape+'.scatterer_generator')
@@ -67,6 +83,24 @@ class Model:
             
             
     def load_iq(self,input_file_path,q_bounds=None):
+        """
+        Load an experimental I(q) profile (Iexp(q)) to the model, so that it can be
+        solved later using "Model.solve".
+        
+        Parameters
+        ----------
+        input_file_path: str. Path to the input file. 
+            The file should be organized in two column, with q-values in the first column, and
+            corresponding I(q) values in the second.
+        q_bounds: [min,max].
+            Define the minimum and maximum bound of the q region of interest. Any
+            q-I(q) pairs outside of the defined bounds will be ignored during the
+            fitting.
+    
+        See also
+        --------
+            crease_ga.Model.solve()
+        """
         loadvals = np.loadtxt(input_file_path)
         self.qrange_load = loadvals[:,0]
         IQin_load = loadvals[:,1]
