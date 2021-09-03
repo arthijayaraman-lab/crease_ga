@@ -15,3 +15,4 @@ With the crease_ga package, we aim to provide a general framework for analyzing 
 #.
         Genetic algorithm (GA) for iteratively searching the "best" set of input parameters that produce the most similar scattering profile with the user-provided target.
 
+The second part is largely universal for all possible crease_ga calculations, and the first part, which can be broadly defined as a process of “obtaining a scattering profile from a certain genome (a set of parameters)", differs by the chemistry of interest (vesicelles, micelles, fibrils, etc.), the chosen algorithm to evaluate I(q) (SASView-like analytical mo
