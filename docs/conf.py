@@ -18,8 +18,8 @@
 # -- Project information -----------------------------------------------------
 
 project = 'crease_ga'
-copyright = '2021, Zijie Wu, Ziyu Ye, Christian Heil, Arthi Jayaraman'
-author = 'Zijie Wu, Ziyu Ye, Christian Heil, Arthi Jayaraman'
+copyright = '2021, Zijie Wu, Arthi Jayaraman'
+author = 'Zijie Wu, Arthi Jayaraman'
 
 
 # -- General configuration ---------------------------------------------------

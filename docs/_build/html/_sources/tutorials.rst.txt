@@ -1,6 +1,11 @@
 Tutorials
 =========
 
+A step-by-step tutorial on using crease-ga for vesicle
+______________________
+
+We encourage the user to go through the jupyter notebook tutorial we prepared `here <https://github.com/arthijayaraman-lab/crease_ga/blob/master/tutorial/CREASE_vesicles_tutorial-new.ipynb>`_, where we provide a step-to-step explanation of the entire crease-ga code applied to vesicles.
+
 A minimum example
 _________________
 
@@ -22,7 +27,3 @@ Crease_ga allows user to fit scattering profiles within several lines of python 
    
 The user can test this code out by running the jupyter notebook `here <https://github.com/arthijayaraman-lab/crease_ga/blob/master/tutorial/workflow-simplified.ipynb>`_. 
 
-A full-length tutorial
-______________________
-
-**More importantly**, we strongly encourage the user to go through the full-length jupyter notebook tutorial we prepared `here <https://github.com/arthijayaraman-lab/crease_ga/blob/master/tutorial/CREASE_vesicles_tutorial-new.ipynb>`_, where we explain the theoretical and mathematical backgrounds in detail by leading users through the entire process of applying crease_ga to fit a scattering profile for dimensions of a vesicle.

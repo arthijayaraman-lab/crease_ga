@@ -1,13 +1,5 @@
-Tutorials
-=========
-
-A step-by-step tutorial on using crease-ga for vesicle
-______________________
-
-We encourage the user to go through the jupyter notebook tutorial we prepared `here <https://github.com/arthijayaraman-lab/crease_ga/blob/master/tutorial/CREASE_vesicles_tutorial-new.ipynb>`_, where we provide a step-to-step explanation of the entire crease-ga code applied to vesicles.
-
-A minimum example
-_________________
+Simplified Workflow
+===================
 
 Crease_ga allows user to fit scattering profiles within several lines of python codes in an intuitive way. Below is a simplified example of how a user can initiate a new fitting model, read the scattering profile from a file, load a :ref:`section-shape` that describes the expected overall morphology (vesicle, micelles, etc.), the algorithm to calculate scattering profile from a set of dimensions (through placement of scatteres and debye scattering equation, or analytical models, or pre-trained neural network, etc.) and other details, and solve the scattering profile based on the chosen shape.
 
