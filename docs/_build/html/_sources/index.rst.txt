@@ -64,7 +64,7 @@ If you have any questions or feedback, please let us know by emailing arthij@ude
     installation
 .. toctree::
     :caption: Tutorials
-    :maxdepth: 2
+    :maxdepth: 1
 
     CREASE_GA Vesicle <tutorials>
 .. toctree::
@@ -77,9 +77,10 @@ If you have any questions or feedback, please let us know by emailing arthij@ude
     :maxdepth: 1
 
     documentations/Model
+    documentations/shape-vesicle
 .. toctree::    
     :caption: Miscellaneous
-    :maxdepth: 2
+    :maxdepth: 1
     
     Frequently Asked Questions <topics/faq>
     How can you contribute? <topics/plugin>

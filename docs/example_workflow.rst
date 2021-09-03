@@ -17,5 +17,5 @@ Crease_ga allows user to fit scattering profiles within several lines of python 
    #Solve
    m.solve(output_dir='./test_outputs_1')
    
-The user can try this code out by running the jupyter notebook `here <https://github.com/arthijayaraman-lab/crease_ga/blob/master/tutorial/workflow-simplified.ipynb>`_. 
+The user can try this code out by downloading and running the jupyter notebook `here <https://github.com/arthijayaraman-lab/crease_ga/blob/master/tutorial/workflow-simplified.ipynb>`_. 
 
