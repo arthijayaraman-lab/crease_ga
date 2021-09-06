@@ -122,6 +122,22 @@ class Model:
 
         
     def solve(self,verbose = True,backend = 'debye',fitness_metric = 'log_sse',output_dir='./'):
+        '''
+        Fit the loaded target I(q) for a set of input parameters that maximize
+        the fitness, or minimize the error metric (fitness_metric).
+
+        Parameters
+        ----------
+        verbose: bool. Default=True.
+            If verbose is set to True, a figure will be produced at the end of
+            each run, plotting the I(q) resulting from the best-fitness
+            individual in the current generation to the target I(q).
+
+            Useful for pedagogical purpose on jupyter notebook.
+
+        fitness_metric: string.
+            The metric used to prod
+        '''
         pop = utils.initial_pop(self.popnumber, self.nloci, self.numvars)
         for gen in range(self.generations):    
             if backend == 'debye':
