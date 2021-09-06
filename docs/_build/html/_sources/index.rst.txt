@@ -54,7 +54,7 @@ __________
 Contact us
 __________
 
-If you have any questions or feedback, please let us know by emailing arthij@udel.edu and zijiewu@udel.edu
+If you have any questions or feedback, please let us know by emailing arthij AT udel.edu and zijiewu AT udel.edu
 
 .. toctree::
     :caption: Getting started
@@ -78,6 +78,7 @@ If you have any questions or feedback, please let us know by emailing arthij@ude
 
     documentations/Model
     documentations/shape-vesicle
+    documentations/adaptation_params
 .. toctree::    
     :caption: Miscellaneous
     :maxdepth: 1

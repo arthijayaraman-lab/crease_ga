@@ -33,3 +33,5 @@ This will allow the plugins to be registered with crease_ga by the name :code:`r
     import crease_ga.plugins as plugins
     a_name_you_prefer = plugins['registered-name-of-plugin'].load()
     new_scatterer_generator = a_name_you_prefer()
+
+More commonly, instead of explicitly loading the scatterer_generator all you will need is to load the shape from your plugin to a `crease_ga.Model` by using `crease_ga.Model.load_shape(shape='registered-name-of-plugin')`.

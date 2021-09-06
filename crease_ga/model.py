@@ -2,7 +2,7 @@ import numpy as np
 from os import path
 import os
 from crease_ga import utils
-from crease_ga.adaptation_params import adaptation_params
+from crease_ga import adaptation_params
 import random    
 import matplotlib
 #matplotlib.use('Agg') ## uncomment this when running on cluster, comment out this line if on local
@@ -18,7 +18,7 @@ class Model:
     The basic class that defines the model to be used to solve for a scattering
     profile.
     
-    Parameters
+    Attributes
     ----------
     pop_number: int. 
         Number of individuals within a generation.
@@ -29,7 +29,12 @@ class Model:
         The decimal parameter value is converted to binary, with "all 0"s
         corresponding to the min value and "all 1"s corresponding to the
         max value.
+    adaptation_params: crease_ga.adaptation_params.adaptation_params
+        Object of adaptation parameters used for this model.
 
+    See also
+    --------
+    crease_ga.adaptaion_params.adaptation_params
     """
 
        
@@ -47,7 +52,26 @@ class Model:
             self.nloci = nloci
             #TODO: check numvars is equal to length of minvalu and maxvalu
         self.adaptation_params = adaptation_params()  
-    def load_shape(self,shape="vesicle", shape_params=None,minvalu=None,maxvalu=None):    
+    def load_shape(self,shape="vesicle", shape_params=None,minvalu=None,maxvalu=None): 
+        '''
+        load a shape.
+
+        Parameters
+        ----------
+        shape: str. name of the shape.
+            Currently supported builtin shapes are "vesicle" and "micelle". Can
+            also be the shape developed in a crease_ga plugin.
+        shape_params: list.
+            Values of shape-specific descriptors. See the API of corresponding
+            shape for details. If not specified, or an incorrect number of
+            shape descriptor values are specified, the default values of the
+            shape-specific descriptors will be loaded.
+        minvalu,maxvalu: list.
+            Values of the minimum and maximum boundaries of the
+            parameters-to-be-fit. If not specified, or an incorrect number of
+            input parameter boundaries are specified, the default boundaries of
+            the input parameters of the shape will be loaded.
+        '''
         builtin_shapes=["vesicle","micelle"]
         if shape in builtin_shapes:
             sg = import_module('crease_ga.shapes.'+shape+'.scatterer_generator')
@@ -135,15 +159,22 @@ class Model:
 
         Parameters
         ----------
+        name: str.
+            Title of the current run. A folder of the name will be created
+            under current working directory (output_dir), and all output files
+            saved in that folder.
         verbose: bool. Default=True.
             If verbose is set to True, a figure will be produced at the end of
             each run, plotting the I(q) resulting from the best-fitness
             individual in the current generation to the target I(q).
 
             Useful for pedagogical purpose on jupyter notebook.
-
-        fitness_metric: string.
-            The metric used to prod
+        fitness_metric: string. Default='log_sse'.
+            The metric used to calculate fitness. Currently supported:
+                "log_sse", log10 of sum of squared error at each q
+                points.
+        output_dir: string. Default="./" 
+            Path to the working directory.
         '''
         pop = utils.initial_pop(self.popnumber, self.nloci, self.numvars)
         os.mkdir(output_dir+'/'+name)

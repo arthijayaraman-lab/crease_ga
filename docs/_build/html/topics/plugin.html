@@ -102,6 +102,8 @@
 <p class="caption" role="heading"><span class="caption-text">Manual for Codes</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../documentations/Model.html">crease_ga.Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentations/shape-vesicle.html">crease_ga.shapes.vesicle.scatterer_generator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentations/adaptation_params.html">crease_ga.adaptation_params</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
 <ul class="current">
@@ -180,7 +182,7 @@
             
   <div class="section" id="contribute-by-developing-your-own-plugins">
 <h1>Contribute by developing your own plugins<a class="headerlink" href="#contribute-by-developing-your-own-plugins" title="Permalink to this headline">¶</a></h1>
-<p>crease_ga allows user to develop and contribute their own <a class="reference internal" href="shape.html#section-shape"><span class="std std-ref">“shapes”</span></a> through external plugins, and is equipped with setups that allow <a class="reference external" href="https://packaging.python.org/guides/creating-and-discovering-plugins/">external plugins to be discoverable through package metadata</a>. See <a class="reference external" href="https://github.com/zijiewu3/cga_bbvesicle">here</a> for an example plugin (cga_bbvesicle) that implements the analytical model for lipid vesicles in the <a class="reference external" href="https://doi.org/10.1107/S0021889804029206">Brzustowicz and Brunger (2005) paper</a>.</p>
+<p>crease_ga allows user to develop and contribute their own <a class="reference internal" href="faq.html#section-shape"><span class="std std-ref">“shapes”</span></a> through external plugins, and is equipped with setups that allow <a class="reference external" href="https://packaging.python.org/guides/creating-and-discovering-plugins/">external plugins to be discoverable through package metadata</a>. See <a class="reference external" href="https://github.com/zijiewu3/cga_bbvesicle">here</a> for an example plugin (cga_bbvesicle) that implements the analytical model for lipid vesicles in the <a class="reference external" href="https://doi.org/10.1107/S0021889804029206">Brzustowicz and Brunger (2005) paper</a>.</p>
 <div class="section" id="how-should-i-design-my-plugins">
 <h2>How should I design my plugins?<a class="headerlink" href="#how-should-i-design-my-plugins" title="Permalink to this headline">¶</a></h2>
 <p>The plugins should be classes that is set up exactly as one of <a class="reference external" href="https://github.com/arthijayaraman-lab/crease_ga/tree/master/crease_ga/shapes">the builtin plugins</a>. In the source code of the package, a <code class="code docutils literal notranslate"><span class="pre">scatterer_generator</span></code> class should exist and contain a <code class="code docutils literal notranslate"><span class="pre">converttoIQ</span></code> method that takes as input a list of q-values (<code class="code docutils literal notranslate"><span class="pre">qrange</span></code>) and a generation of individuals (<code class="code docutils literal notranslate"><span class="pre">params</span></code>), and returns a scattering profile I(q) evaluated at these q-values. Other helper methods can be added as you like, but <code class="code docutils literal notranslate"><span class="pre">converttoIQ</span></code> is the bare minimum and the only method that will be directly called by crease_ga. It is also advised that for each shape-specific descriptor and input parameter, the definition, default value (for shape-specific parameters) and default min/max bounds (for input parameter) should be explained as docstrings for the <code class="code docutils literal notranslate"><span class="pre">scatterer_generator</span></code> class.</p>
@@ -205,6 +207,7 @@
 <span class="n">new_scatterer_generator</span> <span class="o">=</span> <span class="n">a_name_you_prefer</span><span class="p">()</span>
 </pre></div>
 </div>
+<p>More commonly, instead of explicitly loading the scatterer_generator all you will need is to load the shape from your plugin to a <cite>crease_ga.Model</cite> by using <cite>crease_ga.Model.load_shape(shape=’registered-name-of-plugin’)</cite>.</p>
 </div>
 </div>
 
