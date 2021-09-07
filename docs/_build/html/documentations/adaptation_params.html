@@ -98,7 +98,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Crease_ga Workflow</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../example_workflow.html">Simplified Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../example_workflow.html">Sample Workflow</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Manual for Codes</span></p>
 <ul class="current">
@@ -191,12 +191,12 @@
 <dt><strong>gdmmin: float. Default=0.005.</strong></dt><dd><p>The minimum acceptable value of gdm, a measurement of diversity within
 a generation (high gdm means low diversity, and vice versa). If gdm of
 the current generation falls below <cite>gdmmin</cite>, <cite>pc</cite> will be multiplied by
-<cite>kgdm</cite> and <cite>pm</cite> will be divided by <cite>kgdm</cite>.</p>
+<cite>kgdm</cite> and <cite>pm</cite> will be divided by <cite>kgdm</cite> to reduce diversity.</p>
 </dd>
 <dt><strong>gdmmax: float. Default=0.85.</strong></dt><dd><p>The maximum acceptable value of gdm, a measurement of diversity within
 a generation (high gdm means low diversity, and vice versa). If gdm of
 the current generation exceeds <cite>gdmmax</cite>, <cite>pc</cite> will be divided by
-<cite>kgdm</cite> and <cite>pm</cite> will be multiplied by <cite>kgdm</cite>.</p>
+<cite>kgdm</cite> and <cite>pm</cite> will be multiplied by <cite>kgdm</cite> to increase diversity.</p>
 </dd>
 <dt><strong>pcmin: float. Default=0.1.</strong></dt><dd><p>Minimum value of <cite>pc</cite>. <cite>pc</cite> cannot be further adjusted below <cite>pcmin</cite>,
 even if <cite>gdm</cite> is still too high.</p>
@@ -212,7 +212,7 @@ even if <cite>gdm</cite> is still too high.</p>
 </dd>
 <dt><strong>kgdm: float. Default=1.1.</strong></dt><dd><p>Should be &gt; 1. The magnitude of adjustment for <cite>pc</cite> and <cite>pm</cite> in case
 <cite>gdm</cite>
-falls ouside of [<cite>gdmmin</cite>,`gdmmax`].</p>
+falls ouside of [ <cite>gdmmin</cite>,`gdmmax` ].</p>
 </dd>
 <dt><strong>pc: float. Default=0.6.</strong></dt><dd><p>possibility of a crossover action happening on an individual in the
 next generation. <cite>pc</cite> is updated after each

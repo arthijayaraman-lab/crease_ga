@@ -101,7 +101,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Crease_ga Workflow</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="example_workflow.html">Simplified Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_workflow.html">Sample Workflow</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Manual for Codes</span></p>
 <ul>
@@ -196,7 +196,7 @@
 </li>
 <li><p>If you are on a Windows machine</p>
 <blockquote>
-<div><p>If you have installed the full version of Anaconda/Miniconda in Step 1, the most straightforward way to launch a terminal will be using <em>Anaconda prompt</em> that comes with the conda installation. You should be able to find <em>Anaconda prompt</em> from your Start menu. You can also consider installing <a class="reference external" href="https://ubuntu.com/wsl">Windows Subsytem for Linux (WSL)</a>.</p>
+<div><p>If you have installed the full version of Anaconda/Miniconda in Step 1, the most straightforward way to launch a terminal will be using the <em>Anaconda prompt</em> that comes with the conda installation. You should be able to find the <em>Anaconda prompt</em> from your Start menu. You can also consider installing <a class="reference external" href="https://ubuntu.com/wsl">Windows Subsytem for Linux (WSL)</a>.</p>
 </div></blockquote>
 </li>
 </ul>
@@ -208,19 +208,18 @@
 </pre></div>
 </div>
 </li>
-<li><p>You can also directly download the package as a ZIP file from <a class="reference external" href="https://github.com/arthijayaraman_lab/crease_ga">our github webpage</a> by following the guidance [here]     (<a class="reference external" href="https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository">https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository</a>). If you are following this route, you will need to unzip the package to your desired location after the download.</p></li>
+<li><p>You can also directly download the package as a ZIP file from <a class="reference external" href="https://github.com/arthijayaraman_lab/crease_ga">our github webpage</a> by following the guidance <a class="reference external" href="https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository">here</a>. If you are following this route, you will need to unzip the package to your desired location after the download.</p></li>
 </ul>
 </li>
 <li><p>Create a new conda environment and install all the dependencies.</p>
 <ul>
-<li><p><em>Navigate into the root directory of the cloned package</em>. If you are using anaconda prompt, you can look up <a class="reference external" href="http://www.cs.columbia.edu/~sedwards/classes/2015/1102-fall/Command%20Prompt%20Cheatsheet.pdf">common windows command line prompts</a>. If you are using unix-based shell (linux, macOS, or WSL subsystem), yo can look up <a class="reference external" href="http://www.mathcs.emory.edu/~valerie/courses/fall10/155/resources/unix_cheatsheet.html">common commands for Unix</a>. Either case, all you will need would probably be <em>displaying list of files and directories in the current folder</em>(<code class="docutils literal notranslate"><span class="pre">dir</span></code> for windows, <code class="docutils literal notranslate"><span class="pre">ls</span></code> for unix), and <em>moving to different directories</em>(<code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">[new_directory_path]</span></code> for both windows and unix). You should end up at a directory called <code class="docutils literal notranslate"><span class="pre">crease_ga</span></code>, and be able to see files named <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>, <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> and <code class="docutils literal notranslate"><span class="pre">README.md</span></code> (among others) in the directory.</p></li>
+<li><p><em>Navigate into the root directory of the cloned package</em>. If you are using the anaconda prompt, you can look up <a class="reference external" href="http://www.cs.columbia.edu/~sedwards/classes/2015/1102-fall/Command%20Prompt%20Cheatsheet.pdf">common windows command line prompts</a>. If you are using a unix-based shell (linux, macOS, or WSL subsystem), you can look up <a class="reference external" href="http://www.mathcs.emory.edu/~valerie/courses/fall10/155/resources/unix_cheatsheet.html">common commands for Unix</a>. Either case, all you will need would probably be <em>displaying list of files and directories in the current folder</em> (<code class="docutils literal notranslate"><span class="pre">dir</span></code> for windows, <code class="docutils literal notranslate"><span class="pre">ls</span></code> for unix), and <em>moving to different directories</em> (<code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">[new_directory_path]</span></code> for both windows and unix). You should end up at a directory called <code class="docutils literal notranslate"><span class="pre">crease_ga</span></code> and be able to see files named <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>, <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> and <code class="docutils literal notranslate"><span class="pre">README.md</span></code> (among others) in the directory.</p></li>
 <li><p>create a fresh conda environment with dependencies using</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">env</span> <span class="n">create</span> <span class="o">-</span><span class="n">f</span> <span class="n">environment</span><span class="o">.</span><span class="n">yml</span>
 </pre></div>
 </div>
 </li>
-<li><p>Activate the environment with
-.. code-block:</p>
+<li><p>Activate the environment with</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">crease_ga</span>
 </pre></div>
 </div>
@@ -238,7 +237,7 @@
 </li>
 </ol>
 <ul class="simple">
-<li><p><strong>NOTE</strong>: if you intend to run this on a supercomputing cluster, you will need to follow the steps to create a python environment of the corresponding cluster.</p></li>
+<li><p><strong>NOTE</strong>: if you intend to run this on a supercomputing cluster, you will need to follow the steps to create a python environment on the corresponding cluster.</p></li>
 </ul>
 <div class="section" id="try-the-package-without-installation">
 <h2>Try the package without installation<a class="headerlink" href="#try-the-package-without-installation" title="Permalink to this headline">¶</a></h2>

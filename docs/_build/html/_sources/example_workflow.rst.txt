@@ -1,7 +1,7 @@
-Simplified Workflow
+Sample Workflow
 ===================
 
-Crease_ga allows user to fit scattering profiles within several lines of python codes in an intuitive way. Below is a simplified workflow for a user who would like to adopt CREASE to analyze an input scattering profile.
+Crease_ga allows the user to fit scattering profiles only using several lines of python code in an intuitive way. Below is a sample workflow for a user who would like to adopt CREASE to analyze an input scattering profile for vesicles.
 
 .. code:: ipython3
 
