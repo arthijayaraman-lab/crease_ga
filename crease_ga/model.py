@@ -26,9 +26,9 @@ class Model:
         Number of generations to run.
     nloci: int.
         Number of binary bits to represent each parameter in an individual.
-        The decimal parameter value is converted to binary, with "all 0"s
-        corresponding to the min value and "all 1"s corresponding to the
-        max value.
+        The decimal parameter value is converted to binary, with "all 0s"
+        corresponding to the min value and "all 1s" corresponding to the
+        max value. The larger the value, the finer the resultion for each parameter.
     adaptation_params: crease_ga.adaptation_params.adaptation_params
         Object of adaptation parameters used for this model.
 
@@ -54,13 +54,13 @@ class Model:
         self.adaptation_params = adaptation_params()  
     def load_shape(self,shape="vesicle", shape_params=None,minvalu=None,maxvalu=None): 
         '''
-        load a shape.
+        Load a shape.
 
         Parameters
         ----------
         shape: str. name of the shape.
             Currently supported builtin shapes are "vesicle" and "micelle". Can
-            also be the shape developed in a crease_ga plugin.
+            also specify a shape developed in a crease_ga plugin.
         shape_params: list.
             Values of shape-specific descriptors. See the API of corresponding
             shape for details. If not specified, or an incorrect number of
@@ -68,7 +68,7 @@ class Model:
             shape-specific descriptors will be loaded.
         minvalu,maxvalu: list.
             Values of the minimum and maximum boundaries of the
-            parameters-to-be-fit. If not specified, or an incorrect number of
+            parameters to be fit. If not specified, or an incorrect number of
             input parameter boundaries are specified, the default boundaries of
             the input parameters of the shape will be loaded.
         '''
@@ -115,7 +115,7 @@ class Model:
             
     def load_iq(self,input_file_path,q_bounds=None):
         """
-        Load an experimental I(q) profile (Iexp(q)) to the model, so that it can be
+        Load an experimental I(q) profile [Iexp(q)] to the model, so that it can be
         solved later using "Model.solve".
         
         Parameters
@@ -155,24 +155,24 @@ class Model:
     def solve(self,name = 'ga_job',verbose = True,backend = 'debye',fitness_metric = 'log_sse',output_dir='./'):
         '''
         Fit the loaded target I(q) for a set of input parameters that maximize
-        the fitness, or minimize the error metric (fitness_metric).
+        the fitness or minimize the error metric (fitness_metric).
 
         Parameters
         ----------
         name: str.
             Title of the current run. A folder of the name will be created
             under current working directory (output_dir), and all output files
-            saved in that folder.
+            will be saved in that folder.
         verbose: bool. Default=True.
             If verbose is set to True, a figure will be produced at the end of
-            each run, plotting the I(q) resulting from the best-fitness
-            individual in the current generation to the target I(q).
+            each run, plotting the I(q) resulting from the best
+            individual in the current generation and the target I(q).
 
             Useful for pedagogical purpose on jupyter notebook.
         fitness_metric: string. Default='log_sse'.
             The metric used to calculate fitness. Currently supported:
-                "log_sse", log10 of sum of squared error at each q
-                points.
+                "log_sse", sum of squared log10 difference at each q
+                point.
         output_dir: string. Default="./" 
             Path to the working directory.
         '''
