@@ -254,9 +254,9 @@ class scatterer_generator:
 
         Parameters
         ----------
-        qrange: int
+        qrange: numpy.array
             q values.
-        param: int
+        param: numpy.array
             Decoded input parameters. See *Notes* section of the class
             documentation.
 
