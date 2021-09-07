@@ -5,7 +5,7 @@ To install this package on a linux or macOS machine, follow these steps:
 
 
 #. 
-   We will be using Anaconda to handle the python environment. So first, we need to `install anaconda <https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html>`_ on our machine. You can also consider installing `miniconda <https://docs.conda.io/en/latest/miniconda.html>`_ for faster installation and lower storage consumption *only if you are an advanced user*. We recommend installing the full version of anaconda if you have limited experience with python and/or computer programming.
+   We will be using Anaconda to handle the python environment. First, we need to `install anaconda <https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html>`_ on our machine. You can also consider installing `miniconda <https://docs.conda.io/en/latest/miniconda.html>`_ for faster installation and lower storage consumption *only if you are an advanced user*. We recommend installing the full version of anaconda if you have limited experience with python and/or computer programming.
 
 #. 
    At this point, you will need a bash terminal to work with. All the installation steps *after* this step will need to be accomplished from a terminal, using command line interface. 

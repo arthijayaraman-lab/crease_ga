@@ -78,4 +78,4 @@ You are all set to use the `crease_ga` package! Remember to activate the proper 
 Follow the jupyter notebook tutorials (CREASE_vesicles_tutorial-NEW.ipynb) in the `Tutorials` folder, or refer to our documentations at readthedocs.io (currently under construction).
 
 # Contact us
-If you have any questions or feedback, please let us know by emailing arthij@udel.edu and zijiewu@udel.edu
+If you have any questions or feedback, please let us know by emailing creasejayaramanlab AT gmail.com.

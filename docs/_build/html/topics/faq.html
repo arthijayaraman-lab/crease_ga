@@ -42,7 +42,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Contribute by developing your own plugins" href="plugin.html" />
-    <link rel="prev" title="crease_ga.adaptation_params" href="../documentations/adaptation_params.html" /> 
+    <link rel="prev" title="crease_ga.utils" href="../documentations/utils.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -103,13 +103,15 @@
 <p class="caption" role="heading"><span class="caption-text">Manual for Codes</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../documentations/Model.html">crease_ga.Model</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../documentations/shape-vesicle.html">crease_ga.shapes.vesicle.scatterer_generator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentations/shape-vesicle.html">crease_ga.shapes.vesicle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentations/shape-micelle.html">crease_ga.shapes.micelle</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../documentations/adaptation_params.html">crease_ga.adaptation_params</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentations/utils.html">crease_ga.utils</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Frequently Asked Questions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#how-does-crease-ga-support-different-chemistries-vesicle-micelles-fibrils-etc">How does crease_ga support different chemistries (vesicle, micelles, fibrils, etc.)?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-does-crease-ga-support-different-assembled-shapes-and-morphologies-e-g-vesicle-micelles-fibrils-etc">How does crease_ga support different assembled shapes and morphologies (e.g., vesicle, micelles, fibrils, etc.)?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#do-i-have-to-use-debye-scattering-equation-to-evaluate-scattering-profile-i-q-can-i-use-known-analytical-models-trained-neural-network-models-etc">Do I have to use Debye scattering equation to evaluate scattering profile (I(q))? Can I use known analytical models, trained neural network models, etc.?</a></li>
 </ul>
 </li>
@@ -183,21 +185,18 @@
             
   <div class="section" id="frequently-asked-questions">
 <h1>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="how-does-crease-ga-support-different-chemistries-vesicle-micelles-fibrils-etc">
-<span id="section-shape"></span><h2>How does crease_ga support different chemistries (vesicle, micelles, fibrils, etc.)?<a class="headerlink" href="#how-does-crease-ga-support-different-chemistries-vesicle-micelles-fibrils-etc" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="how-does-crease-ga-support-different-assembled-shapes-and-morphologies-e-g-vesicle-micelles-fibrils-etc">
+<span id="section-shape"></span><h2>How does crease_ga support different assembled shapes and morphologies (e.g., vesicle, micelles, fibrils, etc.)?<a class="headerlink" href="#how-does-crease-ga-support-different-assembled-shapes-and-morphologies-e-g-vesicle-micelles-fibrils-etc" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="do-i-have-to-use-debye-scattering-equation-to-evaluate-scattering-profile-i-q-can-i-use-known-analytical-models-trained-neural-network-models-etc">
 <h2>Do I have to use Debye scattering equation to evaluate scattering profile (I(q))? Can I use known analytical models, trained neural network models, etc.?<a class="headerlink" href="#do-i-have-to-use-debye-scattering-equation-to-evaluate-scattering-profile-i-q-can-i-use-known-analytical-models-trained-neural-network-models-etc" title="Permalink to this headline">¶</a></h2>
-<p>With the crease_ga package, we aim to provide a general framework for analyzing scattering profiles using genetic algorithm (GA). The crease_ga-vesicle tutorial provides a example implementation of this workflow, which consists of two parts:</p>
+<p>With the crease_ga package, we aim to provide a general framework for analyzing scattering profiles using genetic algorithm (GA).</p>
 <ol class="arabic simple">
-<li><p>A method to evaluate scattering profile from a set of input parameters is defined (in the vesicle example, placing scatterers based on defined dimensions, and calculating scattering profile using Debye scattering equation)</p></li>
-<li><p>Genetic algorithm (GA) for iteratively evaluating scattering profile from a variety of candidates using algorithm defined in part 1, and searching the “best” set of input parameters that produce the most similar scattering profile with the user-provided target.</p></li>
+<li><p>The GA method can be used to analyze and interpret an input scattering profile by assuming a morphology, defining parameters relevant for that mmorphology (e.g., dimensions, extent of segregation of molecules in various domains within the morphology), placing scatterers computationally within that assumed morphology, calculating a computational scattering profile using the scatterer placements and Debye relationship, and finding the values of the parameters whose computed scattering profile closely matches the input scattering profile.</p></li>
+<li><p>The GA method can also be used to fit an analytical model for that assumed morphology; in this case it would be optimizing the parameters defined in the analytical model.</p></li>
 </ol>
-<p>The second part is largely universal for all possible crease_ga calculations, and the first part, which can be broadly defined as a process of “obtaining a scattering profile from a certain genome (a set of parameters)”, differs by the morphology of interest (vesicelles, micelles, fibrils, etc.), the chosen algorithm to evaluate I(q) (SASView-like analytical models, or debye scattering equation as in the vesicles example, or a pretrained neural network, etc.), and other details (parallelization, assumed distribution of dispersity, etc.). The detailed implementation of this step is delegated to a collection of implementations called “shapes”.</p>
-<p><strong>NOTE</strong>: In this context, “shapes” not only handle difference in the assumed morphology, but also all the other aformentioned details, such as algorithms, parallelization implementation, and so on. So for example, a method to calculate I(q) of vesicles using Debye equation, and a method also to calculate I(q) of vesicles, but using some analytical models, should be considered as two different “shapes”. In a more extreme case, two methods to calculate I(q) of fibrils using Debye equation, but one assuming dispersity in fibril radius following Gaussian distributon, and the other assuming dispersity in fibril radius following Schultz distribution, should alos be ocnsdered as two different “shapes”, as these different assumptions lead to different implementation along the pathway from input parameters to computed scattering profile.</p>
-<p>Each shape requires a set of “shape-specific descriptors”, and results in GA predicting a set of “input parameters”. “Shape-specific descriptors” are values needed to specifically define some additional dimensions or properties of the shape. These descriptors are defined before a crease-ga run, <strong>cannot be changed during the run and are not predicted by GA</strong>. In the case of vesicle, these descriptors include number of scatterers used to describe a chain; the ratio of number of monomers of chemistry A: chemistry B; diameter of monomer of chemistry A and B, <em>etc.</em> “Input parameters” are the parameters a user would like to fit a scattering profile to - those that will be solved and predicted by crease-ga. In the case of vesicle, the input parameters include the radius of the vesicle core, thickness of the inner, middle and outer layer, dispersity of core radius, <em>etc.</em>.</p>
-<p>The full list of shape-specific descriptors and input parameters for vesicles, along with the default values of the former and the default minimum/maximum boundaries for the latter when not specified by the user, can be found at <a class="reference internal" href="../documentations/shape-vesicle.html"><span class="doc">the API for shape vesicle.</span></a></p>
-<p>Currently, we only support two builtin “shapes” in crease_ga codebase: the vesicle model as implemented in Ye, Wu and Jayaraman (under review), and the micelle model as implemented in <a class="reference external" href="https://pubs.acs.org/doi/abs/10.1021/jacs.9b08028">Beltran-Villegas et al.</a>
+<p>In the above, the first approach relies on defining a certain genome (a set of parameters) for the assumed morphology of interest (vesicles, micelles, fibrils, etc.) The detailed implementation of this step and its variations (e.g., incorporation of dispersity, parallelization, etc.) all fall under “shapes”.</p>
+<p>Currently, we support two built-in “shapes” in crease_ga codebase: the vesicle model as implemented in Ye, Wu and Jayaraman (under review), and the micelle model as implemented in <a class="reference external" href="https://pubs.acs.org/doi/abs/10.1021/jacs.9b08028">Beltran-Villegas et al.</a>
 . Both “shapes” are copied as-is from the articles, but without any parallelization, to facilitate the usage of these “shapes” in jupyter notebook for pedagogical purposes. While we plan to expand the codebase to include other “shapes” we have developed and are developing, we also encourage users to implement their own shapes of interest.</p>
 </div>
 </div>
@@ -209,7 +208,7 @@
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="plugin.html" class="btn btn-neutral float-right" title="Contribute by developing your own plugins" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../documentations/adaptation_params.html" class="btn btn-neutral float-left" title="crease_ga.adaptation_params" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../documentations/utils.html" class="btn btn-neutral float-left" title="crease_ga.utils" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

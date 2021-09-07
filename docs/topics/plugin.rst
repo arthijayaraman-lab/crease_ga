@@ -6,7 +6,7 @@ crease_ga allows user to develop and contribute their own :ref:`"shapes" <sectio
 How should I design my plugins?
 -------------------------------
 
-The plugins should be classes that is set up exactly as one of `the builtin plugins <https://github.com/arthijayaraman-lab/crease_ga/tree/master/crease_ga/shapes>`_. In the source code of the package, a :code:`scatterer_generator` class should exist and contain a :code:`converttoIQ` method that takes as input a list of q-values (:code:`qrange`) and a generation of individuals (:code:`params`), and returns a scattering profile I(q) evaluated at these q-values. Other helper methods can be added as you like, but :code:`converttoIQ` is the bare minimum and the only method that will be directly called by crease_ga. It is also advised that for each shape-specific descriptor and input parameter, the definition, default value (for shape-specific parameters) and default min/max bounds (for input parameter) should be explained as docstrings for the :code:`scatterer_generator` class.
+The plugins should be classes that are set up exactly as one of `the builtin shapes <https://github.com/arthijayaraman-lab/crease_ga/tree/master/crease_ga/shapes>`_. In the source code of the package, a :code:`scatterer_generator` class should exist and contain a :code:`converttoIQ` method that takes as input a list of q-values (:code:`qrange`) and an individual (:code:`param`), and returns a scattering profile I(q) evaluated at these q-values. Other helper methods can be added as you like, but :code:`converttoIQ` is the bare minimum and the only method that will be directly called by crease_ga. It is also advised that for each shape-specific descriptor and input parameter, the definition, default value (for shape-specific parameters) and default min/max bounds (for input parameter) should be explained as docstrings for the :code:`scatterer_generator` class.
 
 What do I need to do to make my plugin discoverable?
 ----------------------------------------------------
@@ -26,7 +26,7 @@ A simplified example of :code:`setup.py` is as following:
         py_modules=["name-of-package"],
         )
 
-This will allow the plugins to be registered with crease_ga by the name :code:`registered-name-of-plugin`. If both crease_ga and your plugin are installed properly (in the order of first crease_ga, then your plugin), the :code:`scatterer_generator` class of your plugin can then be loaded with the following code:
+This will allow the plugins to be registered with crease_ga by the name :code:`registered-name-of-plugin`. If both crease_ga and your plugin are installed properly (in the order of first crease_ga, then your plugin), the :code:`scatterer_generator` class of your plugin can be loaded with the following code:
 
 .. code:: ipython3
     
@@ -34,4 +34,4 @@ This will allow the plugins to be registered with crease_ga by the name :code:`r
     a_name_you_prefer = plugins['registered-name-of-plugin'].load()
     new_scatterer_generator = a_name_you_prefer()
 
-More commonly, instead of explicitly loading the scatterer_generator all you will need is to load the shape from your plugin to a `crease_ga.Model` by using `crease_ga.Model.load_shape(shape='registered-name-of-plugin')`.
+More commonly, instead of explicitly loading the scatterer_generator, all you will need is to load the shape from your plugin to a `crease_ga.Model` by using `crease_ga.Model.load_shape(shape='registered-name-of-plugin')`.

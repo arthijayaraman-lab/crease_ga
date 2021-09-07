@@ -176,7 +176,7 @@ class scatterer_generator:
         E.g. an background intensity of 0.001 leads to this value being 3.
         Default [min,max]:  [0.1,4]
     
-    See Also
+    See also
     --------
     crease_ga.Model.load_shape
     '''
@@ -224,8 +224,8 @@ class scatterer_generator:
             Decoded input parameters. See *Notes* section of the class
             documentation.
 
-        Return
-        ------
+        Returns
+        -------
         IQid: A numpy array holding I(q).
         '''
         # q values, decoded parameters, 

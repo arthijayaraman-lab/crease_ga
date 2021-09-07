@@ -19,7 +19,7 @@ import sphinx_rtd_theme
 # -- Project information -----------------------------------------------------
 
 project = 'crease_ga'
-copyright = '2021, Zijie Wu, Arthi Jayaraman'
+copyright = '2021, Jayaraman Research Lab'
 author = 'Zijie Wu, Arthi Jayaraman'
 
 
