@@ -2,7 +2,7 @@ import numpy as np
 from os import path
 import os
 from crease_ga import utils
-from crease_ga.adaptation_params import adaptation_params
+from crease_ga import adaptation_params
 import random    
 import matplotlib
 #matplotlib.use('Agg') ## uncomment this when running on cluster, comment out this line if on local
@@ -14,13 +14,35 @@ from warnings import warn
 from crease_ga.exceptions import CgaError
 
 class Model:
-        
+    """
+    The basic class that defines the model to be used to solve for a scattering
+    profile.
+    
+    Attributes
+    ----------
+    pop_number: int. 
+        Number of individuals within a generation.
+    generations: int.
+        Number of generations to run.
+    nloci: int.
+        Number of binary bits to represent each parameter in an individual.
+        The decimal parameter value is converted to binary, with "all 0s"
+        corresponding to the min value and "all 1s" corresponding to the
+        max value. The larger the value, the finer the resultion for each parameter.
+    adaptation_params: crease_ga.adaptation_params.adaptation_params
+        Object of adaptation parameters used for this model.
+
+    See also
+    --------
+    crease_ga.adaptaion_params.adaptation_params
+    """
+
+       
     def __init__(self,
                  pop_number = 5,
                  generations = 10,
                  nloci = 7,
                  yaml_file='x'):
-        
         if path.isfile(yaml_file):
             pass
             #TODO: populate all input parameters with input from yaml files
@@ -30,8 +52,26 @@ class Model:
             self.nloci = nloci
             #TODO: check numvars is equal to length of minvalu and maxvalu
         self.adaptation_params = adaptation_params()  
-    def load_shape(self,shape="vesicle", shape_params=None,minvalu=None,maxvalu=None):
-        
+    def load_shape(self,shape="vesicle", shape_params=None,minvalu=None,maxvalu=None): 
+        '''
+        Load a shape.
+
+        Parameters
+        ----------
+        shape: str. name of the shape.
+            Currently supported builtin shapes are "vesicle" and "micelle". Can
+            also specify a shape developed in a crease_ga plugin.
+        shape_params: list.
+            Values of shape-specific descriptors. See the API of corresponding
+            shape for details. If not specified, or an incorrect number of
+            shape descriptor values are specified, the default values of the
+            shape-specific descriptors will be loaded.
+        minvalu,maxvalu: list.
+            Values of the minimum and maximum boundaries of the
+            parameters to be fit. If not specified, or an incorrect number of
+            input parameter boundaries are specified, the default boundaries of
+            the input parameters of the shape will be loaded.
+        '''
         builtin_shapes=["vesicle","micelle"]
         if shape in builtin_shapes:
             sg = import_module('crease_ga.shapes.'+shape+'.scatterer_generator')
@@ -74,6 +114,24 @@ class Model:
             
             
     def load_iq(self,input_file_path,q_bounds=None):
+        """
+        Load an experimental I(q) profile [Iexp(q)] to the model, so that it can be
+        solved later using "Model.solve".
+        
+        Parameters
+        ----------
+        input_file_path: str. Path to the input file. 
+            The file should be organized in two column, with q-values in the first column, and
+            corresponding I(q) values in the second.
+        q_bounds: [min,max].
+            Define the minimum and maximum bound of the q region of interest. Any
+            q-I(q) pairs outside of the defined bounds will be ignored during the
+            fitting.
+    
+        See also
+        --------
+            crease_ga.Model.solve()
+        """
         loadvals = np.genfromtxt(input_file_path)
         self.qrange_load = loadvals[:,0]
         IQin_load = loadvals[:,1]
@@ -95,6 +153,29 @@ class Model:
 
         
     def solve(self,name = 'ga_job',verbose = True,backend = 'debye',fitness_metric = 'log_sse',output_dir='./'):
+        '''
+        Fit the loaded target I(q) for a set of input parameters that maximize
+        the fitness or minimize the error metric (fitness_metric).
+
+        Parameters
+        ----------
+        name: str.
+            Title of the current run. A folder of the name will be created
+            under current working directory (output_dir), and all output files
+            will be saved in that folder.
+        verbose: bool. Default=True.
+            If verbose is set to True, a figure will be produced at the end of
+            each run, plotting the I(q) resulting from the best
+            individual in the current generation and the target I(q).
+
+            Useful for pedagogical purpose on jupyter notebook.
+        fitness_metric: string. Default='log_sse'.
+            The metric used to calculate fitness. Currently supported:
+                "log_sse", sum of squared log10 difference at each q
+                point.
+        output_dir: string. Default="./" 
+            Path to the working directory.
+        '''
         pop = utils.initial_pop(self.popnumber, self.nloci, self.numvars)
         os.mkdir(output_dir+'/'+name)
         for gen in range(self.generations):    

@@ -6,15 +6,15 @@ def LPFbead(qrange, sigmabead):
     '''
     Compute the spherical form factor given a range of q values.
     
-    Parameters:
+    Parameters
     ----------
     qrange: numpy.array
         array of values in q-space to compute form factor for.
     sigmabead: float
         diameter of the sphere.
     
-    Return:
-    ----------
+    Returns
+    -------
     Fqb: numpy.array
         array of values of the spherical form factors (F(q)) computed at q-points listed in qrange.
     '''
@@ -174,6 +174,52 @@ def genLP(Rcore,Rmicelle,sigmabead,nB,nA,nLP,Nagg):  #core radius, micelle radiu
 
     
 class scatterer_generator:
+    '''
+    The wrapper class for micelle shape. Default length unit: Angstrom.
+    
+
+    Notes
+    -----
+    **The following 6 shape-specific descriptors are to be specified by user (see
+    *Attributes*) as 
+    a list, in the precise order as listed, while calling `Model.load_shape`
+    to load this shape:**
+
+
+    num_scatterers: 
+        Number of scatterers per chain (num_scatterers). Default: 8
+    N: 
+        Number of beads on chain. Default: 24
+    fA:
+        fraction of beads that are of chemistry A. Default: 0.5
+    rho_core:
+        Density or volume freaction of the solvophobic block. Default: 0.5
+    lmono_a:
+        Monomer contour length (diameter) of chemistry B. Default: 50.4 A
+    lmono_b:
+        Monomer contour length (diameter) of chemistry A. Default: 50.4 A
+
+
+
+    **The following 3 input parameters are to be predicted, in the precise order
+    as listed, by GA:**
+    
+    N_agg:
+        Aggregation number. Default [min,max]: [2 A, 60 A]
+    ecorona:
+        Fraction of the micelle diameter that is occupied by the corona.
+        Default [min,max]: [0,1]
+    log10(bg):
+        Negative log10 of Background intensity. 
+        E.g. an background intensity of 0.001 leads to this value being 3.
+        Default [min,max]:  [0,5]
+    
+    See also
+    --------
+    crease_ga.Model.load_shape
+    '''
+    
+ 
     def __init__(self,
                  shape_params = [8,24,0.5,0.5,50.4, 50.4],
                 minvalu = (2, 0, 0),
@@ -203,6 +249,21 @@ class scatterer_generator:
     
 
     def converttoIQ(self, qrange, param): 
+        '''
+        Calculate computed scattering intensity profile.
+
+        Parameters
+        ----------
+        qrange: numpy.array
+            q values.
+        param: numpy.array
+            Decoded input parameters. See *Notes* section of the class
+            documentation.
+
+        Returns
+        -------
+        IQid: A numpy array holding I(q).
+        '''
         N = self.N
         fa = self.fa
         sigmabead = self.sigmabead

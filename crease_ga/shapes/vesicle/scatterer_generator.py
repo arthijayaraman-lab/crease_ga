@@ -22,15 +22,15 @@ def LPFbead(qrange, sigmabead):
     '''
     Compute the spherical form factor given a range of q values.
     
-    Parameters:
+    Parameters
     ----------
     qrange: numpy.array
         array of values in q-space to compute form factor for.
     sigmabead: float
         diameter of the sphere.
     
-    Return:
-    ----------
+    Return
+    -------
     Fqb: numpy.array
         array of values of the spherical form factors (F(q)) computed at q-points listed in qrange.
     '''
@@ -128,14 +128,21 @@ class scatterer_generator:
     '''
     The wrapper class for vesicle shape. Default length unit: Angstrom.
     
-    Shape-specific descriptors (shape_params):
-    ------------------------------------------
+
+    Notes
+    -----
+    **The following 7 shape-specific descriptors are to be specified by user (see
+    *Attributes*) as 
+    a list, in the precise order as listed, while calling `Model.load_shape`
+    to load this shape:**
+
+
     num_scatterers: 
         Number of scatterers per chain (num_scatterers). Default: 24
     N: 
         Number of beads on chain. Default: 54
     rho_B:
-        Density or volume freaction of beads in B layer. Default: 0.5
+        Density or volume fraction of beads in B layer. Default: 0.5
     lmono_b:
         Monomer contour length (diameter) of chemistry B. Default: 50.4 A
     lmono_a:
@@ -145,8 +152,11 @@ class scatterer_generator:
     nLP:
         Number of replicates for each individual. Default: 7
 
-    Input parameters to be predicted:
-    --------------------------------
+
+
+    **The following 7 input parameters are to be predicted, in the precise order
+    as listed, by GA:**
+    
     R_core:
         Core radius. Default [min,max]: [50 A, 400 A]
     t_Ain:
@@ -156,16 +166,21 @@ class scatterer_generator:
     t_Aout:
         Thickness of outer A layer. Default [min,max]: [30 A, 200 A]
     sigma_Ain:
-        Split of solvophilic scatterers between inner and output layers. 
+        Split of solvophilic scatterers between inner and outer layers. 
         Default [min,max]: [0.1, 0.45]
     sigma_R:
-        Polydispersity n vesicle size as implemented in the core radius.
+        Dispersity in vesicle size as implemented in the core radius.
         Default [min,max]: [0.0, 0.45]
     log10(bg):
         Negative log10 of Background intensity. 
         E.g. an background intensity of 0.001 leads to this value being 3.
         Default [min,max]:  [0.1,4]
+    
+    See also
+    --------
+    crease_ga.Model.load_shape
     '''
+    
     def __init__(self,
                  shape_params = [24,54,0.5,50.4,50.4,0.55,7],
                 minvalu = (50, 30, 30, 30, 0.1, 0.0, 0.1),
@@ -203,13 +218,14 @@ class scatterer_generator:
 
         Parameters
         ----------
-        qrange: int
+        qrange: numpy.array
             q values.
-        param: int
-            Decoded parameters.
+        param: numpy.array
+            Decoded input parameters. See *Notes* section of the class
+            documentation.
 
-        Return
-        ------
+        Returns
+        -------
         IQid: A numpy array holding I(q).
         '''
         # q values, decoded parameters, 
