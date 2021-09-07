@@ -19,7 +19,7 @@ To install this package on a linux or macOS machine, follow these steps:
    * 
      If you are on a Windows machine
 
-      If you have installed the full version of Anaconda/Miniconda in Step 1, the most straightforward way to launch a terminal will be using *Anaconda prompt* that comes with the conda installation. You should be able to find *Anaconda prompt* from your Start menu. You can also consider installing `Windows Subsytem for Linux (WSL) <https://ubuntu.com/wsl>`_.
+      If you have installed the full version of Anaconda/Miniconda in Step 1, the most straightforward way to launch a terminal will be using the *Anaconda prompt* that comes with the conda installation. You should be able to find the *Anaconda prompt* from your Start menu. You can also consider installing `Windows Subsytem for Linux (WSL) <https://ubuntu.com/wsl>`_.
 
 #. 
    Download the package. 
@@ -31,13 +31,13 @@ To install this package on a linux or macOS machine, follow these steps:
 
         git clone https://github.com/arthijayaraman-lab/crease_ga
 
-   * You can also directly download the package as a ZIP file from `our github webpage <https://github.com/arthijayaraman_lab/crease_ga>`_ by following the guidance [here]     (https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository). If you are following this route, you will need to unzip the package to your desired location after the download.
+   * You can also directly download the package as a ZIP file from `our github webpage <https://github.com/arthijayaraman_lab/crease_ga>`_ by following the guidance `here <https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository>`_. If you are following this route, you will need to unzip the package to your desired location after the download.
 
 #. 
    Create a new conda environment and install all the dependencies. 
 
 
-   * *Navigate into the root directory of the cloned package*. If you are using anaconda prompt, you can look up `common windows command line prompts <http://www.cs.columbia.edu/~sedwards/classes/2015/1102-fall/Command%20Prompt%20Cheatsheet.pdf>`_. If you are using unix-based shell (linux, macOS, or WSL subsystem), yo can look up `common commands for Unix <http://www.mathcs.emory.edu/~valerie/courses/fall10/155/resources/unix_cheatsheet.html>`_. Either case, all you will need would probably be *displaying list of files and directories in the current folder*\ (\ ``dir`` for windows, ``ls`` for unix), and *moving to different directories*\ (\ ``cd [new_directory_path]`` for both windows and unix). You should end up at a directory called ``crease_ga``\ , and be able to see files named ``setup.py``\ , ``environment.yml`` and ``README.md`` (among others) in the directory.
+   * *Navigate into the root directory of the cloned package*. If you are using the anaconda prompt, you can look up `common windows command line prompts <http://www.cs.columbia.edu/~sedwards/classes/2015/1102-fall/Command%20Prompt%20Cheatsheet.pdf>`_. If you are using a unix-based shell (linux, macOS, or WSL subsystem), you can look up `common commands for Unix <http://www.mathcs.emory.edu/~valerie/courses/fall10/155/resources/unix_cheatsheet.html>`_. Either case, all you will need would probably be *displaying list of files and directories in the current folder*\  (\ ``dir`` for windows, ``ls`` for unix), and *moving to different directories*\  (\ ``cd [new_directory_path]`` for both windows and unix). You should end up at a directory called ``crease_ga``\  and be able to see files named ``setup.py``\ , ``environment.yml`` and ``README.md`` (among others) in the directory.
    * create a fresh conda environment with dependencies using
      
      .. code-block::
@@ -45,6 +45,7 @@ To install this package on a linux or macOS machine, follow these steps:
         conda env create -f environment.yml
 
    * Activate the environment with
+   
      .. code-block::
 
         conda activate crease_ga
@@ -63,7 +64,7 @@ To install this package on a linux or macOS machine, follow these steps:
        jupyter notebook
 
 * 
-  **NOTE**\ : if you intend to run this on a supercomputing cluster, you will need to follow the steps to create a python environment of the corresponding cluster.
+  **NOTE**\ : if you intend to run this on a supercomputing cluster, you will need to follow the steps to create a python environment on the corresponding cluster.
 
 Try the package without installation
 ____________________________________
