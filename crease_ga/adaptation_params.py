@@ -9,12 +9,12 @@ class adaptation_params:
         The minimum acceptable value of gdm, a measurement of diversity within
         a generation (high gdm means low diversity, and vice versa). If gdm of
         the current generation falls below `gdmmin`, `pc` will be multiplied by
-        `kgdm` and `pm` will be divided by `kgdm`.
+        `kgdm` and `pm` will be divided by `kgdm` to reduce diversity.
     gdmmax: float. Default=0.85.
         The maximum acceptable value of gdm, a measurement of diversity within
         a generation (high gdm means low diversity, and vice versa). If gdm of
         the current generation exceeds `gdmmax`, `pc` will be divided by
-        `kgdm` and `pm` will be multiplied by `kgdm`.
+        `kgdm` and `pm` will be multiplied by `kgdm` to increase diversity.
     pcmin: float. Default=0.1.
         Minimum value of `pc`. `pc` cannot be further adjusted below `pcmin`,
         even if `gdm` is still too high.
@@ -30,7 +30,7 @@ class adaptation_params:
     kgdm: float. Default=1.1.
         Should be > 1. The magnitude of adjustment for `pc` and `pm` in case
         `gdm`
-        falls ouside of [`gdmmin`,`gdmmax`].
+        falls ouside of [ `gdmmin`,`gdmmax` ].
     pc: float. Default=0.6.
         possibility of a crossover action happening on an individual in the
         next generation. `pc` is updated after each
