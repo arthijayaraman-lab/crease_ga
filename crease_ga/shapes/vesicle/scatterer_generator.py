@@ -142,7 +142,7 @@ class scatterer_generator:
     N: 
         Number of beads on chain. Default: 54
     rho_B:
-        Density or volume freaction of beads in B layer. Default: 0.5
+        Density or volume fraction of beads in B layer. Default: 0.5
     lmono_b:
         Monomer contour length (diameter) of chemistry B. Default: 50.4 A
     lmono_a:
@@ -169,7 +169,7 @@ class scatterer_generator:
         Split of solvophilic scatterers between inner and outer layers. 
         Default [min,max]: [0.1, 0.45]
     sigma_R:
-        Dispersity n vesicle size as implemented in the core radius.
+        Dispersity in vesicle size as implemented in the core radius.
         Default [min,max]: [0.0, 0.45]
     log10(bg):
         Negative log10 of Background intensity. 
@@ -218,9 +218,9 @@ class scatterer_generator:
 
         Parameters
         ----------
-        qrange: int
+        qrange: numpy.array
             q values.
-        param: int
+        param: numpy.array
             Decoded input parameters. See *Notes* section of the class
             documentation.
 
