@@ -1,7 +1,7 @@
 import numpy as np
 def initial_pop(popnumber, nloci, numvars):
     '''
-    Generate a generation of (binary) chromosomes.
+    Produce a generation of (binary) chromosomes.
     
     Parameters
     ----------
