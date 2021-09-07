@@ -1,7 +1,7 @@
 Tutorials
 =========
 
-A step-by-step tutorial on using crease-ga for vesicle
+A step-by-step tutorial on using crease-ga for vesicles
 ______________________________________________________
 
 We encourage the user to go through the jupyter notebook tutorial we have prepared.
