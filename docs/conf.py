@@ -1,6 +1,6 @@
 import sphinx_rtd_theme
 import mock
-
+import sys
 MOCK_MODULES = ['numpy', 'matplotlib', 'matplotlib.pyplot']
 for mod_name in MOCK_MODULES:
     sys.modules[mod_name] = mock.Mock()
@@ -17,7 +17,6 @@ for mod_name in MOCK_MODULES:
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
-import sys
 sys.path.insert(0, os.path.abspath('..'))
 
 
