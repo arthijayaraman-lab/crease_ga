@@ -1,7 +1,7 @@
 import sphinx_rtd_theme
 import mock
 import sys
-MOCK_MODULES = ['numpy', 'matplotlib', 'matplotlib.pyplot']
+MOCK_MODULES = ['numpy', 'matplotlib', 'matplotlib.pyplot','numexpr']
 for mod_name in MOCK_MODULES:
     sys.modules[mod_name] = mock.Mock()
 # Configuration file for the Sphinx documentation builder.
