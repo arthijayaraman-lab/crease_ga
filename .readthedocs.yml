@@ -1,5 +1,7 @@
 version: 2
 
+formats:
+   - pdf
 # Build from the docs/ directory with Sphinx
 sphinx:
    configuration: docs/conf.py
