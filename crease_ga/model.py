@@ -2,7 +2,7 @@ import numpy as np
 from os import path
 import os
 from crease_ga import utils
-from crease_ga import adaptation_params
+from crease_ga.adaptation_params import adaptation_params
 import random    
 import matplotlib
 #matplotlib.use('Agg') ## uncomment this when running on cluster, comment out this line if on local
