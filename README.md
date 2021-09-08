@@ -48,9 +48,9 @@ To install this package on a linux or macOS machine, follow these steps:
    ```
    - You can also directly download the package as a ZIP file from [our github webpage](https://github.com/arthijayaraman-lab/crease_ga) by following the guidance [here]     (https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository). If you are following this route, you will need to unzip the package to your desired location after the download.
 
-1. Create a new conda environment and install all the dependencies. 
+1. Create a new conda environment and install the package and all its dependencies. 
    - _Navigate into the root directory of the cloned package_. If you are using anaconda prompt, you can look up [common windows command line prompts](http://www.cs.columbia.edu/~sedwards/classes/2015/1102-fall/Command%20Prompt%20Cheatsheet.pdf). If you are using unix-based shell (linux, macOS, or WSL subsystem), yo can look up [common commands for Unix](http://www.mathcs.emory.edu/~valerie/courses/fall10/155/resources/unix_cheatsheet.html). Either case, all you will need would probably be _displaying list of files and directories in the current folder_(`dir` for windows, `ls` for unix), and _moving to different directories_(`cd [new_directory_path]` for both windows and unix). You should end up at a directory called `crease_ga`, and be able to see files named `setup.py`, `environment.yml` and `README.md` (among others) in the directory.
-   - create a fresh conda environment with dependencies using
+   - create a fresh conda environment with the package and its dependencies installed using
      ```
      conda env create -f environment.yml
      ```
@@ -58,11 +58,6 @@ To install this package on a linux or macOS machine, follow these steps:
      ```
      conda activate crease_ga
      ```
-
-1. Install the `crease_ga` package using
-   ```
-   pip install .
-   ```
 
 To test if the `crease-ga` package is installed properly, run
 ```
