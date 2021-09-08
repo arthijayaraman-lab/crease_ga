@@ -63,7 +63,18 @@ To install this package on a linux or macOS machine, follow these steps:
    ```
    pip install .
    ```
-You are all set to use the `crease_ga` package! Remember to activate the proper environment every time by with `conda activate crease_ga`. You can run the Jupyter notebook tutorials with the command
+
+To test if the `crease-ga` package is installed properly, run
+```
+python3
+```
+to launch python, and then in the resulting python command line, run
+```
+import crease_ga
+crease_ga.__version__
+```
+
+If all installation steps are done properly, you should see the version number of the package printed, and you are all set to use the `crease_ga` package! Remember to activate the proper environment every time by with `conda activate crease_ga`. You can run the Jupyter notebook tutorials with the command
     ```
     jupyter notebook
     ```

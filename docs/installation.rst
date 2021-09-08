@@ -56,8 +56,23 @@ To install this package on a linux or macOS machine, follow these steps:
    .. code-block::
 
       pip install .
+   
+   To check if the package and its dependencies have been properly installed, you can try running
 
-   You are all set to use the ``crease_ga`` package! Remember to activate the proper environment every time by with ``conda activate crease_ga``. You can run the Jupyter notebook tutorials with the command
+   .. code-block::
+
+      python3
+
+   to launch python, and then in the resulting python command line, run
+
+   .. code-block::
+      
+      import crease_ga
+      crease_ga.__version__
+   
+   If everything is properly installed, you should see the current version number of the package printed. In that case, you are all set to use the ``crease_ga`` package! Remember to activate the proper environment every time by with ``conda activate crease_ga``. 
+   
+   You can run the Jupyter notebook tutorials with the command
 
    .. code-block::
 
