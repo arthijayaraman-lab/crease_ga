@@ -78,7 +78,7 @@ Try the package without installation
 ____________________________________
 
 * 
-  If you would like to first try our package by running our tutorial (See #Getting Started), you can directly launch a docker image of our environment, and access and interact with our jupyter notebook tutorial from a web browser *without performing any installation steps above*. To do this,  click this badge:
+  If you would like to first try our package by running our tutorial, you can directly launch a docker image of our environment, and access and interact with our jupyter notebook tutorial from a web browser *without performing any installation steps above*. To do this,  click this badge:
 
   .. image:: https://mybinder.org/badge_logo.svg
      :target: https://mybinder.org/v2/gh/arthijayaraman-lab/crease_ga/master
