@@ -48,10 +48,8 @@ def LPOmega(qrange, nAin, nAout, nB, r):                # qvalues number_of_B nu
     omegaarr=np.zeros((1,len(qrange)))              # initiating array
     rur=r[0,:,:]                                 # selects      
     for i in range(Ntot-1):                         # loops through index and all further indexes to prevent double counting 
-        x = np.square(rur[0,i]-rur[0,(i+1):])
-        y = np.square(rur[1,i]-rur[1,(i+1):])
-        z = np.square(rur[2,i]-rur[2,(i+1):])
-        rij = np.sqrt(np.sum([x,y,z],axis=0))       # calculates the distances
+        all_disp = rur[:,i]-rur[:,(i+1):]
+        rij = np.sqrt(np.sum(np.square(all_disp),axis=0)
         rs = rij[:,np.newaxis]                      # reshapes array for consistency
         Q = qrange[np.newaxis,:]                    # reshapes array for consistency
         vals = ne.evaluate("sin(Q*rs)/(Q*rs)")      # ne is efficient at calculations
