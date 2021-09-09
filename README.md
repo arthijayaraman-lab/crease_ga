@@ -29,7 +29,7 @@ __If you use this code, please cite one or more of the relevant references from 
 
 # Installation
 
-To install this package on a windows, linux, or macOS machine, follow these steps:
+To install this package on a Windows, linux, or macOS machine, follow these steps:
 
 1. We will be using Anaconda to handle the python environment. So first, we need to [install anaconda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html) on our machine. You can also consider installing [miniconda](https://docs.conda.io/en/latest/miniconda.html) for faster installation and lower storage consumption _only if you are an advanced user_. We recommend installing the full version of anaconda if you have limited experience with python and/or computer programming.
 
