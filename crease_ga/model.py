@@ -198,6 +198,7 @@ class Model:
                 ax.set_yscale("log")
                 plt.show()
 
+
             
     def fitness(self,pop,generation,output_dir,metric='log_sse'):
         tic = time.time()
@@ -300,7 +301,11 @@ class Model:
         print('Generation best fitness: {:.4f}'.format(maxfit))
         print('Generation gdm: {:.3f}'.format(gdm))
         print('Generation best parameters '+str(params[elitei]))
-        
+        with open(output_dir+'IQid_best.txt','a') as f:
+            for i in IQid_str[elitei][:-1]:
+                f.write('{:.4e} '.format(i))
+            f.write('{:.4e}\n'.format(IQid_str[elitei][-1]))
+
         return pacc, gdm, elitei, IQid_str
         
     
