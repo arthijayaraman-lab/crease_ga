@@ -20,5 +20,5 @@ With the crease_ga package, we aim to provide a general framework for analyzing 
         
 In the above, the first approach relies on defining a certain genome (a set of parameters) for the assumed morphology of interest (vesicles, micelles, fibrils, etc.) The detailed implementation of this step and its variations (e.g., incorporation of dispersity, parallelization, etc.) all fall under “shapes”.
 
-Currently, we support two built-in “shapes” in the crease_ga codebase: the vesicle model as implemented in Ye, Wu and Jayaraman (under review), and the micelle model as implemented in `Beltran-Villegas et al.  <https://pubs.acs.org/doi/abs/10.1021/jacs.9b08028>`_
+Currently, we support two built-in “shapes” in the crease_ga codebase: the vesicle model as implemented in Ye, Wu and Jayaraman (recently accepted by *JACS Au*), and the micelle model as implemented in `Beltran-Villegas et al.  <https://pubs.acs.org/doi/abs/10.1021/jacs.9b08028>`_
 . Both “shapes” are copied as-is from the articles, without any parallelization, to facilitate the usage of these “shapes” in a jupyter notebook for pedagogical purposes. While we plan to expand the codebase to include other “shapes” we have developed and are developing, we also encourage users to implement their own shapes of interest.
