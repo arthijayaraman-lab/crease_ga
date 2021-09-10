@@ -59,7 +59,6 @@ If you have any questions or feedback, please let us know by emailing creasejaya
 .. toctree::
     :caption: Getting started
     :maxdepth: 1
-
     self
     installation
 .. toctree::
