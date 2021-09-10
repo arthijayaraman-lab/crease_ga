@@ -154,7 +154,7 @@ class scatterer_generator:
 
 
 
-    **The following 7 input parameters are to be predicted, in the precise order
+    **The following 7 parameters are to be predicted, in the precise order
     as listed, by GA:**
     
     R_core:
