@@ -142,7 +142,7 @@ class scatterer_generator:
     N: 
         Number of beads on chain. Default: 54
     rho_B:
-        Density or volume fraction of beads in B layer. Default: 0.5
+        Number density of of beads in B layer. Default: 0.5
     lmono_b:
         Monomer contour length (diameter) of chemistry B. Default: 50.4 A
     lmono_a:
