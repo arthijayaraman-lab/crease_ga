@@ -49,7 +49,7 @@ __________
 #. 
    Extension of CREASE for vesicles as well as the the ability to estimate polydispersity in dimensions of the domains in the assembled structure and distribution of molecules between the different domains of the assembled structure: 
 
-   Ye, Z.; Wu, Z.; Jayaraman, A. Computational Reverse-Engineering Analysis for Scattering Experiments (CREASE) on Vesicles Assembled from Amphiphilic Macromolecular Solutions. (under review)
+   Ye, Z.; Wu, Z.; Jayaraman, A. Computational Reverse-Engineering Analysis for Scattering Experiments (CREASE) on Vesicles Assembled from Amphiphilic Macromolecular Solutions. *JACS Au (Accepted)*
 
 Contact us
 __________
@@ -59,19 +59,22 @@ If you have any questions or feedback, please let us know by emailing creasejaya
 .. toctree::
     :caption: Getting started
     :maxdepth: 1
-
+    
     self
     installation
+
 .. toctree::
     :caption: Tutorials
     :maxdepth: 1
 
     CREASE_GA Vesicle <tutorials>
+
 .. toctree::
     :caption: Crease_ga Workflow
     :maxdepth: 1
 
     example_workflow
+
 .. toctree::    
     :caption: Manual for Codes
     :maxdepth: 1
@@ -81,6 +84,7 @@ If you have any questions or feedback, please let us know by emailing creasejaya
     documentations/shape-micelle
     documentations/adaptation_params
     documentations/utils
+
 .. toctree::    
     :caption: Miscellaneous
     :maxdepth: 1

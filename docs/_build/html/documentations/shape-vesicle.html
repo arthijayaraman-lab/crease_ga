@@ -87,12 +87,7 @@
               
             
             
-              <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../index.html">What is CREASE?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials.html">CREASE_GA Vesicle</a></li>
 </ul>
@@ -197,22 +192,22 @@
 a list, in the precise order as listed, while calling `Model.load_shape`
 to load this shape:</strong></p>
 <dl class="simple">
-<dt>num_scatterers: </dt><dd><p>Number of scatterers per chain (num_scatterers). Default: 24</p>
+<dt>num_scatterers: </dt><dd><p>Number of scatterers used to represent a chain. Default: 24</p>
 </dd>
-<dt>N: </dt><dd><p>Number of beads on chain. Default: 54</p>
+<dt>N: </dt><dd><p>Number of monomers in a chain. Default: 54</p>
 </dd>
-<dt>rho_B:</dt><dd><p>Density or volume fraction of beads in B layer. Default: 0.5</p>
+<dt>eta_B:</dt><dd><p>Packing fraction of scatterers in B layer. Default: 0.5</p>
 </dd>
-<dt>lmono_b:</dt><dd><p>Monomer contour length (diameter) of chemistry B. Default: 50.4 A</p>
+<dt>lmono_b:</dt><dd><p>Diameter of a monomer of chemistry B. Default: 50.4 A</p>
 </dd>
-<dt>lmono_a:</dt><dd><p>Monomer contour length (diameter) of chemistry A. Default: 50.4 A</p>
+<dt>lmono_a:</dt><dd><p>Diameter of a monomer of chemistry A. Default: 50.4 A</p>
 </dd>
-<dt>fb: </dt><dd><p>Fraction of monomers of chemistry B. fa = 1-fb. Default: 0.55</p>
+<dt>fb: </dt><dd><p>Fraction of monomers in chain that are of B type. fa = 1-fb. Default: 0.55</p>
 </dd>
 <dt>nLP:</dt><dd><p>Number of replicates for each individual. Default: 7</p>
 </dd>
 </dl>
-<p><strong>The following 7 input parameters are to be predicted, in the precise order
+<p><strong>The following 7 parameters are to be predicted, in the precise order
 as listed, by GA:</strong></p>
 <dl class="simple">
 <dt>R_core:</dt><dd><p>Core radius. Default [min,max]: [50 A, 400 A]</p>
@@ -229,7 +224,7 @@ Default [min,max]: [0.1, 0.45]</p>
 <dt>sigma_R:</dt><dd><p>Dispersity in vesicle size as implemented in the core radius.
 Default [min,max]: [0.0, 0.45]</p>
 </dd>
-<dt>log10(bg):</dt><dd><p>Negative log10 of Background intensity. 
+<dt>log10(bg):</dt><dd><p>Negative log10 of background intensity. 
 E.g. an background intensity of 0.001 leads to this value being 3.
 Default [min,max]:  [0.1,4]</p>
 </dd>

@@ -40,9 +40,7 @@
 
     
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Tutorials" href="tutorials.html" />
-    <link rel="prev" title="What is CREASE?" href="index.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -87,15 +85,7 @@
               
             
             
-              <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="index.html">What is CREASE?</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#try-the-package-without-installation">Try the package without installation</a></li>
-</ul>
-</li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">CREASE_GA Vesicle</a></li>
 </ul>
@@ -211,10 +201,10 @@
 <li><p>You can also directly download the package as a ZIP file from <a class="reference external" href="https://github.com/arthijayaraman-lab/crease_ga">our github webpage</a> by following the guidance <a class="reference external" href="https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository">here</a>. If you are following this route, you will need to unzip the package to your desired location after the download.</p></li>
 </ul>
 </li>
-<li><p>Create a new conda environment and install all the dependencies.</p>
+<li><p>Create a new conda environment and install the package along with all the dependencies.</p>
 <ul>
 <li><p><em>Navigate into the root directory of the cloned package</em>. If you are using the anaconda prompt, you can look up <a class="reference external" href="http://www.cs.columbia.edu/~sedwards/classes/2015/1102-fall/Command%20Prompt%20Cheatsheet.pdf">common windows command line prompts</a>. If you are using a unix-based shell (linux, macOS, or WSL subsystem), you can look up <a class="reference external" href="http://www.mathcs.emory.edu/~valerie/courses/fall10/155/resources/unix_cheatsheet.html">common commands for Unix</a>. Either case, all you will need would probably be <em>displaying list of files and directories in the current folder</em> (<code class="docutils literal notranslate"><span class="pre">dir</span></code> for windows, <code class="docutils literal notranslate"><span class="pre">ls</span></code> for unix), and <em>moving to different directories</em> (<code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">[new_directory_path]</span></code> for both windows and unix). You should end up at a directory called <code class="docutils literal notranslate"><span class="pre">crease_ga</span></code> and be able to see files named <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>, <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code> and <code class="docutils literal notranslate"><span class="pre">README.md</span></code> (among others) in the directory.</p></li>
-<li><p>create a fresh conda environment with dependencies using</p>
+<li><p>create a fresh conda environment with creaes_ga package and its dependencies installed using</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">env</span> <span class="n">create</span> <span class="o">-</span><span class="n">f</span> <span class="n">environment</span><span class="o">.</span><span class="n">yml</span>
 </pre></div>
 </div>
@@ -226,23 +216,30 @@
 </li>
 </ul>
 </li>
-<li><p>Install the <code class="docutils literal notranslate"><span class="pre">crease_ga</span></code> package using</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>
+</ol>
+<p>To check if the package and its dependencies have been properly installed, you can try running</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span>
 </pre></div>
 </div>
-<p>You are all set to use the <code class="docutils literal notranslate"><span class="pre">crease_ga</span></code> package! Remember to activate the proper environment every time by with <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">crease_ga</span></code>. You can run the Jupyter notebook tutorials with the command</p>
+<p>to launch python, and then in the resulting python command line, run</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">crease_ga</span>
+<span class="n">crease_ga</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+</div>
+<p>If everything is properly installed, you should see the current version number of the package printed. In that case, you are all set to use the <code class="docutils literal notranslate"><span class="pre">crease_ga</span></code> package! Remember to activate the proper environment every time by with <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">crease_ga</span></code>.</p>
+<p>You can run the Jupyter notebook tutorials with the command</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jupyter</span> <span class="n">notebook</span>
 </pre></div>
 </div>
-</li>
-</ol>
+</div></blockquote>
 <ul class="simple">
 <li><p><strong>NOTE</strong>: if you intend to run this on a supercomputing cluster, you will need to follow the steps to create a python environment on the corresponding cluster.</p></li>
 </ul>
 <div class="section" id="try-the-package-without-installation">
 <h2>Try the package without installation<a class="headerlink" href="#try-the-package-without-installation" title="Permalink to this headline">¶</a></h2>
 <ul>
-<li><p>If you would like to first try our package by running our tutorial (See #Getting Started), you can directly launch a docker image of our environment, and access and interact with our jupyter notebook tutorial from a web browser <em>without performing any installation steps above</em>. To do this,  click this badge:</p>
+<li><p>If you would like to first try our package by running our tutorial, you can directly launch a docker image of our environment, and access and interact with our jupyter notebook tutorial from a web browser <em>without performing any installation steps above</em>. To do this,  click this badge:</p>
 <a class="reference external image-reference" href="https://mybinder.org/v2/gh/arthijayaraman-lab/crease_ga/master"><img alt="Binder" src="https://mybinder.org/badge_logo.svg" /></a>
 </li>
 </ul>
@@ -254,10 +251,6 @@
            
           </div>
           <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="tutorials.html" class="btn btn-neutral float-right" title="Tutorials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="index.html" class="btn btn-neutral float-left" title="What is CREASE?" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-    </div>
 
   <hr/>
 

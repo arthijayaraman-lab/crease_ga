@@ -59,18 +59,22 @@ If you have any questions or feedback, please let us know by emailing creasejaya
 .. toctree::
     :caption: Getting started
     :maxdepth: 1
+    
     self
     installation
+
 .. toctree::
     :caption: Tutorials
     :maxdepth: 1
 
     CREASE_GA Vesicle <tutorials>
+
 .. toctree::
     :caption: Crease_ga Workflow
     :maxdepth: 1
 
     example_workflow
+
 .. toctree::    
     :caption: Manual for Codes
     :maxdepth: 1
@@ -80,6 +84,7 @@ If you have any questions or feedback, please let us know by emailing creasejaya
     documentations/shape-micelle
     documentations/adaptation_params
     documentations/utils
+
 .. toctree::    
     :caption: Miscellaneous
     :maxdepth: 1
