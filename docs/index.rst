@@ -91,4 +91,5 @@ If you have any questions or feedback, please let us know by emailing creasejaya
     
     Frequently Asked Questions <topics/faq>
     How can you contribute? <topics/plugin>
+    topics/feedback
 
