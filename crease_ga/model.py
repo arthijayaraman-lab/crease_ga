@@ -301,10 +301,9 @@ class Model:
         print('Generation best fitness: {:.4f}'.format(maxfit))
         print('Generation gdm: {:.3f}'.format(gdm))
         print('Generation best parameters '+str(params[elitei]))
+        IQid_str = np.array(IQid_str)
         with open(output_dir+'IQid_best.txt','a') as f:
-            for i in IQid_str[elitei][:-1]:
-                f.write('{:.4e} '.format(i))
-            f.write('{:.4e}\n'.format(IQid_str[elitei][-1]))
+            f.write(np.array2string(IQid_str[elitei][0])+'\n')
 
         return pacc, gdm, elitei, IQid_str
         
