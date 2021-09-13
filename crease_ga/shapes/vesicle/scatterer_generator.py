@@ -138,17 +138,17 @@ class scatterer_generator:
 
 
     num_scatterers: 
-        Number of scatterers per chain (num_scatterers). Default: 24
+        Number of scatterers used to represent a chain. Default: 24
     N: 
-        Number of beads on chain. Default: 54
-    rho_B:
-        Number density of of beads in B layer. Default: 0.5
+        Number of monomers in a chain. Default: 54
+    eta_B:
+        Packing fraction of scatterers in B layer. Default: 0.5
     lmono_b:
-        Monomer contour length (diameter) of chemistry B. Default: 50.4 A
+        Diameter of a monomer of chemistry B. Default: 50.4 A
     lmono_a:
-        Monomer contour length (diameter) of chemistry A. Default: 50.4 A
+        Diameter of a monomer of chemistry A. Default: 50.4 A
     fb: 
-        Fraction of monomers of chemistry B. fa = 1-fb. Default: 0.55
+        Fraction of monomers in chain that are of B type. fa = 1-fb. Default: 0.55
     nLP:
         Number of replicates for each individual. Default: 7
 
@@ -172,7 +172,7 @@ class scatterer_generator:
         Dispersity in vesicle size as implemented in the core radius.
         Default [min,max]: [0.0, 0.45]
     log10(bg):
-        Negative log10 of Background intensity. 
+        Negative log10 of background intensity. 
         E.g. an background intensity of 0.001 leads to this value being 3.
         Default [min,max]:  [0.1,4]
     
