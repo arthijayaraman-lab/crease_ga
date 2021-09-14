@@ -5,7 +5,7 @@ from crease_ga import utils
 from crease_ga.adaptation_params import adaptation_params
 import random    
 import matplotlib
-matplotlib.use('Agg') ## uncomment this when running on cluster, comment out this line if on local
+#matplotlib.use('Agg') ## uncomment this when running on cluster, comment out this line if on local
 import matplotlib.pyplot as plt
 import sys
 from importlib import import_module
