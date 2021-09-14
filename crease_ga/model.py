@@ -5,7 +5,7 @@ from crease_ga import utils
 from crease_ga.adaptation_params import adaptation_params
 import random    
 import matplotlib
-#matplotlib.use('Agg') ## uncomment this when running on cluster, comment out this line if on local
+matplotlib.use('Agg') ## uncomment this when running on cluster, comment out this line if on local
 import matplotlib.pyplot as plt
 import sys
 from importlib import import_module
@@ -178,24 +178,35 @@ class Model:
         '''
         pop = utils.initial_pop(self.popnumber, self.nloci, self.numvars)
         os.mkdir(output_dir+'/'+name)
+        bestIQ = []
+        with open(output_dir+'best_iq.txt','w') as f:
+            np.savetxt(f,self.qrange,fmt="%-10f",newline='')
         for gen in range(self.generations):    
             if backend == 'debye':
                 pacc,gdm,elitei,IQid_str = self.fitness(pop,gen,output_dir+'/'+name+'/',metric='log_sse')
                 IQid_str = np.array(IQid_str)
             pop = self.genetic_operations(pop,pacc,elitei)
             self.adaptation_params.update(gdm)
+            bestIQ.append(IQid_str[elitei])
+            with open(output_dir+'best_iq.txt','a') as f:
+                f.write('\n')
+                np.savetxt(f,IQid_str[elitei],fmt="%-10f",newline='')
             
             if verbose:
                 figsize=(4,4)
                 fig, ax = plt.subplots(figsize=(figsize))
                 ax.plot(self.qrange_load,self.IQin_load,color='k',linestyle='-',ms=8,linewidth=1.3,marker='o')
-                ax.plot(self.qrange,IQid_str[elitei].transpose(),color='fuchsia',linestyle='-',ms=8,linewidth=2)#,marker='o')
+                for i in range(gen+1):
+                    mix = i/(self.generations-1)
+                    colors = (1.0*(1-mix),0,1.0*mix)
+                    ax.plot(self.qrange,bestIQ[i].transpose(),color=colors,linestyle='-',ms=8,linewidth=2)
                 plt.xlim(self.qrange[0],self.qrange[-1])
                 plt.ylim(2*10**(-5),20)
                 plt.xlabel(r'q, $\AA^{-1}$',fontsize=20)
                 plt.ylabel(r'$I$(q)',fontsize=20)
                 ax.set_xscale("log")
                 ax.set_yscale("log")
+                fig.savefig(output_dir+'plot'+str(gen)+'.png')
                 plt.show()
 
 
