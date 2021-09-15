@@ -179,6 +179,7 @@ class Model:
         pop = utils.initial_pop(self.popnumber, self.nloci, self.numvars)
         os.mkdir(output_dir+'/'+name)
         bestIQ = []
+        colors = plt.cm.coolwarm_r(np.linspace(0,1,self.generations))
         with open(output_dir+'best_iq.txt','w') as f:
             np.savetxt(f,self.qrange,fmt="%-10f",newline='')
         for gen in range(self.generations):    
@@ -197,9 +198,7 @@ class Model:
                 fig, ax = plt.subplots(figsize=(figsize))
                 ax.plot(self.qrange_load,self.IQin_load,color='k',linestyle='-',ms=8,linewidth=1.3,marker='o')
                 for i in range(gen+1):
-                    mix = i/(self.generations-1)
-                    colors = (1.0*(1-mix),0,1.0*mix)
-                    ax.plot(self.qrange,bestIQ[i].transpose(),color=colors,linestyle='-',ms=8,linewidth=2)
+                    ax.plot(self.qrange,bestIQ[i].transpose(),color=colors[i],linestyle='-',ms=8,linewidth=2)
                 plt.xlim(self.qrange[0],self.qrange[-1])
                 plt.ylim(2*10**(-5),20)
                 plt.xlabel(r'q, $\AA^{-1}$',fontsize=20)
