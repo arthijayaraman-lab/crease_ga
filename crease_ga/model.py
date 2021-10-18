@@ -186,17 +186,23 @@ class Model:
             pc = temp[1]
             self.adaptation_params.pc = pc
             self.adaptation_params.pm = pm
+            # read in best iq for each generation
+            bestIQ = np.genfromtxt(address+'best_iq.txt')
+            print(bestIQ.shape)
+            bestIQ = bestIQ[1:]
+            print(bestIQ.shape)
             print('Restarting from gen #{:d}'.format(currentgen+1))
         else:
             os.mkdir(address)
             currentgen = 0
             pop = utils.initial_pop(self.popnumber, self.nloci, self.numvars)
+            # save best iq for each generation (plus q values)
+            with open(address+'best_iq.txt','w') as f:
+                np.savetxt(f,self.qrange,fmt="%-10f",newline='')
+            bestIQ = []
             print('New run')
         pop = utils.initial_pop(self.popnumber, self.nloci, self.numvars)
-        bestIQ = []
         colors = plt.cm.coolwarm(np.linspace(0,1,self.generations))
-        with open(address+'best_iq.txt','w') as f:
-            np.savetxt(f,self.qrange,fmt="%-10f",newline='')
         for gen in range(self.generations):    
             if backend == 'debye':
                 pacc,gdm,elitei,IQid_str = self.fitness(pop,gen,output_dir+'/'+name+'/',metric='log_sse')
