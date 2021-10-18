@@ -209,7 +209,7 @@ class Model:
                 IQid_str = np.array(IQid_str)
             pop = self.genetic_operations(pop,pacc,elitei)
             self.adaptation_params.update(gdm)
-            bestIQ.append(IQid_str[elitei])
+            bestIQ = np.append(bestIQ,IQid_str[elitei])
             with open(address+'best_iq.txt','a') as f:
                 f.write('\n')
                 np.savetxt(f,IQid_str[elitei],fmt="%-10f",newline='')
