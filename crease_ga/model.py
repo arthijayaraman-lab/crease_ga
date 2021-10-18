@@ -176,11 +176,26 @@ class Model:
         output_dir: string. Default="./" 
             Path to the working directory.
         '''
+        ### checking if starting new run or restarting partial run
+        address = output_dir+'/'+name+'/'
+        if path.isfile(address+'current_gen.txt'):
+            currentgen = int(np.genfromtxt(address+'current_gen.txt'))
+            pop = np.genfromtxt(address+'current_pop.txt')
+            temp = np.genfromtxt(address+'current_pm_pc.txt')
+            pm = temp[0]
+            pc = temp[1]
+            self.adaptation_params.pc = pc
+            self.adaptation_params.pm = pm
+            print('Restarting from gen #{:d}'.format(currentgen+1))
+        else:
+            os.mkdir(address)
+            currentgen = 0
+            pop = utils.initial_pop(self.popnumber, self.nloci, self.numvars)
+            print('New run')
         pop = utils.initial_pop(self.popnumber, self.nloci, self.numvars)
-        os.mkdir(output_dir+'/'+name)
         bestIQ = []
-        colors = plt.cm.coolwarm_r(np.linspace(0,1,self.generations))
-        with open(output_dir+'best_iq.txt','w') as f:
+        colors = plt.cm.coolwarm(np.linspace(0,1,self.generations))
+        with open(address+'best_iq.txt','w') as f:
             np.savetxt(f,self.qrange,fmt="%-10f",newline='')
         for gen in range(self.generations):    
             if backend == 'debye':
@@ -189,9 +204,14 @@ class Model:
             pop = self.genetic_operations(pop,pacc,elitei)
             self.adaptation_params.update(gdm)
             bestIQ.append(IQid_str[elitei])
-            with open(output_dir+'best_iq.txt','a') as f:
+            with open(address+'best_iq.txt','a') as f:
                 f.write('\n')
                 np.savetxt(f,IQid_str[elitei],fmt="%-10f",newline='')
+
+            ### save output from current generation in case want to restart run
+            np.savetxt(address+'current_gen.txt',np.c_[gen])
+            np.savetxt(address+'current_pop.txt',np.c_[pop])
+            np.savetxt(address+'current_pm_pc.txt',np.c_[self.adaptation_params.pm,self.adaptation_params.pc])
             
             if verbose:
                 figsize=(4,4)
