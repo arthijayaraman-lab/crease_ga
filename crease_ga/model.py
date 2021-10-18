@@ -176,14 +176,34 @@ class Model:
         output_dir: string. Default="./" 
             Path to the working directory.
         '''
+        ### checking if starting new run or restarting partial run
+        address = output_dir+'/'+name+'/'
+        if path.isfile(address+'current_gen.txt'):
+            currentgen = int(np.genfromtxt(address+'current_gen.txt'))
+            pop = np.genfromtxt(address+'current_pop.txt')
+            temp = np.genfromtxt(address+'current_pm_pc.txt')
+            pm = temp[0]
+            pc = temp[1]
+            self.adaptation_params.pc = pc
+            self.adaptation_params.pm = pm
+            print('Restarting from gen #{:d}'.format(currentgen+1))
+        else:
+            os.mkdir(address)
+            currentgen = 0
+            pop = utils.initial_pop(self.popnumber, self.nloci, self.numvars)
+            print('New run')
         pop = utils.initial_pop(self.popnumber, self.nloci, self.numvars)
-        os.mkdir(output_dir+'/'+name)
         for gen in range(self.generations):    
             if backend == 'debye':
                 pacc,gdm,elitei,IQid_str = self.fitness(pop,gen,output_dir+'/'+name+'/',metric='log_sse')
                 IQid_str = np.array(IQid_str)
             pop = self.genetic_operations(pop,pacc,elitei)
             self.adaptation_params.update(gdm)
+
+            ### save output from current generation in case want to restart run
+            np.savetxt(address+'current_gen.txt',np.c_[gen])
+            np.savetxt(address+'current_pop.txt',np.c_[pop])
+            np.savetxt(address+'current_pm_pc.txt',np.c_[self.adaptation_params.pm,self.adaptation_params.pc])
             
             if verbose:
                 figsize=(4,4)
