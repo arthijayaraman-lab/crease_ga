@@ -22,15 +22,15 @@ def LPFbead(qrange, sigmabead):
     '''
     Compute the spherical form factor given a range of q values.
     
-    Parameters:
+    Parameters
     ----------
     qrange: numpy.array
         array of values in q-space to compute form factor for.
     sigmabead: float
         diameter of the sphere.
     
-    Return:
-    ----------
+    Return
+    -------
     Fqb: numpy.array
         array of values of the spherical form factors (F(q)) computed at q-points listed in qrange.
     '''
@@ -46,12 +46,12 @@ def LPOmega(qrange, nAin, nAout, nB, r):                # qvalues number_of_B nu
     omegaarrt=np.zeros((1,len(qrange)))                 # initiating array
     
     omegaarr=np.zeros((1,len(qrange)))              # initiating array
-    rur=r[0,:,:]                                 # selects      
+    rur=r[0,:,:]# selects
+    rur=rur.transpose()
     for i in range(Ntot-1):                         # loops through index and all further indexes to prevent double counting 
-        x = np.square(rur[0,i]-rur[0,(i+1):])
-        y = np.square(rur[1,i]-rur[1,(i+1):])
-        z = np.square(rur[2,i]-rur[2,(i+1):])
-        rij = np.sqrt(np.sum([x,y,z],axis=0))       # calculates the distances
+        all_disp = rur[i,:]-rur[(i+1):,:]
+        rij = np.sqrt(np.sum(np.square(all_disp),axis=1))
+        rij = rij.transpose()
         rs = rij[:,np.newaxis]                      # reshapes array for consistency
         Q = qrange[np.newaxis,:]                    # reshapes array for consistency
         vals = ne.evaluate("sin(Q*rs)/(Q*rs)")      # ne is efficient at calculations
@@ -128,25 +128,35 @@ class scatterer_generator:
     '''
     The wrapper class for vesicle shape. Default length unit: Angstrom.
     
-    Shape-specific descriptors (shape_params):
-    ------------------------------------------
+
+    Notes
+    -----
+    **The following 7 shape-specific descriptors are to be specified by user (see
+    *Attributes*) as 
+    a list, in the precise order as listed, while calling `Model.load_shape`
+    to load this shape:**
+
+
     num_scatterers: 
-        Number of scatterers per chain (num_scatterers). Default: 24
+        Number of scatterers used to represent a chain. Default: 24
     N: 
-        Number of beads on chain. Default: 54
-    rho_B:
-        Density or volume freaction of beads in B layer. Default: 0.5
+        Number of monomers in a chain. Default: 54
+    eta_B:
+        Packing fraction of scatterers in B layer. Default: 0.5
     lmono_b:
-        Monomer contour length (diameter) of chemistry B. Default: 50.4 A
+        Diameter of a monomer of chemistry B. Default: 50.4 A
     lmono_a:
-        Monomer contour length (diameter) of chemistry A. Default: 50.4 A
+        Diameter of a monomer of chemistry A. Default: 50.4 A
     fb: 
-        Fraction of monomers of chemistry B. fa = 1-fb. Default: 0.55
+        Fraction of monomers in chain that are of B type. fa = 1-fb. Default: 0.55
     nLP:
         Number of replicates for each individual. Default: 7
 
-    Input parameters to be predicted:
-    --------------------------------
+
+
+    **The following 7 parameters are to be predicted, in the precise order
+    as listed, by GA:**
+    
     R_core:
         Core radius. Default [min,max]: [50 A, 400 A]
     t_Ain:
@@ -156,16 +166,21 @@ class scatterer_generator:
     t_Aout:
         Thickness of outer A layer. Default [min,max]: [30 A, 200 A]
     sigma_Ain:
-        Split of solvophilic scatterers between inner and output layers. 
+        Split of solvophilic scatterers between inner and outer layers. 
         Default [min,max]: [0.1, 0.45]
     sigma_R:
-        Polydispersity n vesicle size as implemented in the core radius.
+        Dispersity in vesicle size as implemented in the core radius.
         Default [min,max]: [0.0, 0.45]
     log10(bg):
-        Negative log10 of Background intensity. 
+        Negative log10 of background intensity. 
         E.g. an background intensity of 0.001 leads to this value being 3.
         Default [min,max]:  [0.1,4]
+    
+    See also
+    --------
+    crease_ga.Model.load_shape
     '''
+    
     def __init__(self,
                  shape_params = [24,54,0.5,50.4,50.4,0.55,7],
                 minvalu = (50, 30, 30, 30, 0.1, 0.0, 0.1),
@@ -203,13 +218,14 @@ class scatterer_generator:
 
         Parameters
         ----------
-        qrange: int
+        qrange: numpy.array
             q values.
-        param: int
-            Decoded parameters.
+        param: numpy.array
+            Decoded input parameters. See *Notes* section of the class
+            documentation.
 
-        Return
-        ------
+        Returns
+        -------
         IQid: A numpy array holding I(q).
         '''
         # q values, decoded parameters, 

@@ -1,5 +1,6 @@
 import numpy as np
 from os import path
+import os
 from crease_ga import utils
 from crease_ga.adaptation_params import adaptation_params
 import random    
@@ -9,18 +10,39 @@ import matplotlib.pyplot as plt
 import sys
 from importlib import import_module
 import time
-import sys
 from warnings import warn
 from crease_ga.exceptions import CgaError
 
 class Model:
-        
+    """
+    The basic class that defines the model to be used to solve for a scattering
+    profile.
+    
+    Attributes
+    ----------
+    pop_number: int. 
+        Number of individuals within a generation.
+    generations: int.
+        Number of generations to run.
+    nloci: int.
+        Number of binary bits to represent each parameter in an individual.
+        The decimal parameter value is converted to binary, with "all 0s"
+        corresponding to the min value and "all 1s" corresponding to the
+        max value. The larger the value, the finer the resultion for each parameter.
+    adaptation_params: crease_ga.adaptation_params.adaptation_params
+        Object of adaptation parameters used for this model.
+
+    See also
+    --------
+    crease_ga.adaptaion_params.adaptation_params
+    """
+
+       
     def __init__(self,
                  pop_number = 5,
                  generations = 10,
                  nloci = 7,
                  yaml_file='x'):
-        
         if path.isfile(yaml_file):
             pass
             #TODO: populate all input parameters with input from yaml files
@@ -30,34 +52,59 @@ class Model:
             self.nloci = nloci
             #TODO: check numvars is equal to length of minvalu and maxvalu
         self.adaptation_params = adaptation_params()  
-    def load_shape(self,shape="vesicle", shape_params=None,minvalu=None,maxvalu=None):
-        
+    def load_shape(self,shape="vesicle", shape_params=None,minvalu=None,maxvalu=None): 
+        '''
+        Load a shape.
+
+        Parameters
+        ----------
+        shape: str. name of the shape.
+            Currently supported builtin shapes are "vesicle" and "micelle". Can
+            also specify a shape developed in a crease_ga plugin.
+        shape_params: list.
+            Values of shape-specific descriptors. See the API of corresponding
+            shape for details. If not specified, or an incorrect number of
+            shape descriptor values are specified, the default values of the
+            shape-specific descriptors will be loaded.
+        minvalu,maxvalu: list.
+            Values of the minimum and maximum boundaries of the
+            parameters to be fit. If not specified, or an incorrect number of
+            input parameter boundaries are specified, the default boundaries of
+            the input parameters of the shape will be loaded.
+        '''
         builtin_shapes=["vesicle","micelle"]
         if shape in builtin_shapes:
             sg = import_module('crease_ga.shapes.'+shape+'.scatterer_generator')
+            sg = sg.scatterer_generator
+            print('imported builtin shape {}\n'.format(shape))
         else:
-            raise CgaError('Currently unsupported shape {}'.format(shape))
+            from crease_ga.plugins import plugins
+            if shape in plugins.keys():
+                sg = plugins[shape].load()
+                print('imported shape {} as a plugin'.format(shape))
+            else:
+                raise CgaError('Currently unsupported shape {}'.format(shape))
         
         #TODO: Complete the checker
         if shape_params == None:
-            self.scatterer_generator = sg.scatterer_generator()
+            self.scatterer_generator = sg()
         elif minvalu == None or maxvalu == None:
             warn("Unspecified minimum and/or maximum parameter boundaries. Fall back to the default minimum "
                  "and maximum parameter boundaries of shape {}.\n".format(shape),stacklevel = 2)
-            self.scatterer_generator = sg.scatterer_generator(shape_params)
+            self.scatterer_generator = sg(shape_params)
             print("minimum parameter boundaries have been set to {},\n"
                   "maximum parameter boundaries have been set to {}.\n".format(
                    self.scatterer_generator.minvalu,
                    self.scatterer_generator.maxvalu))
 
-        elif sg.scatterer_generator().numvars != len(minvalu) or sg.scatterer_generator().numvars != len(maxvalu):
+        elif sg().numvars != len(minvalu) or sg().numvars != len(maxvalu):
                
             raise CgaError("Number of parameters in minvalu and/or maxvalu is not equal to number of parameters "
                  "required by shape {}.\n Shape {} requires {:d} parameters.\nminvalu has {:d} parameters.\n"
-                 "maxvalu has {:d} parameters.".format(shape,shape,sg.scatterer_generator().numvars,
+                 "maxvalu has {:d} parameters.".format(shape,shape,sg().numvars,
                                                      len(minvalu),len(maxvalu))) 
         else:
-             self.scatterer_generator = sg.scatterer_generator(shape_params,minvalu,maxvalu)
+             self.scatterer_generator = sg(shape_params,minvalu,maxvalu)
 
 
         self.numvars = self.scatterer_generator.numvars   
@@ -67,7 +114,25 @@ class Model:
             
             
     def load_iq(self,input_file_path,q_bounds=None):
-        loadvals = np.loadtxt(input_file_path)
+        """
+        Load an experimental I(q) profile [Iexp(q)] to the model, so that it can be
+        solved later using "Model.solve".
+        
+        Parameters
+        ----------
+        input_file_path: str. Path to the input file. 
+            The file should be organized in two column, with q-values in the first column, and
+            corresponding I(q) values in the second.
+        q_bounds: [min,max].
+            Define the minimum and maximum bound of the q region of interest. Any
+            q-I(q) pairs outside of the defined bounds will be ignored during the
+            fitting.
+    
+        See also
+        --------
+            crease_ga.Model.solve()
+        """
+        loadvals = np.genfromtxt(input_file_path)
         self.qrange_load = loadvals[:,0]
         IQin_load = loadvals[:,1]
         self.IQin_load=np.true_divide(IQin_load,np.max(IQin_load))
@@ -78,8 +143,8 @@ class Model:
         else:
             lowQ = q_bounds[0]
             highQ = q_bounds[1]
-            self.IQin = self.IQin_load[ np.where(self.qrange_load>=lowQ)[0][0]:np.where(self.qrange_load>=highQ)[0][0] ]
-            self.qrange = self.qrange_load[ np.where(self.qrange_load>=lowQ)[0][0]:np.where(self.qrange_load>=highQ)[0][0] ]
+            self.IQin = self.IQin_load[ np.where(self.qrange_load>=lowQ)[0][0]:np.where(self.qrange_load<=highQ)[0][-1] ]
+            self.qrange = self.qrange_load[ np.where(self.qrange_load>=lowQ)[0][0]:np.where(self.qrange_load<=highQ)[0][-1] ]
             
 
         baseline = self.IQin[0]
@@ -87,47 +152,72 @@ class Model:
         self.IQin_load = np.true_divide(self.IQin_load,baseline)
 
         
-    def solve(self,verbose = True,backend = 'debye',fitness_metric = 'log_sse',output_dir='./'):
+    def solve(self,name = 'ga_job',verbose = True,backend = 'debye',fitness_metric = 'log_sse',output_dir='./'):
+        '''
+        Fit the loaded target I(q) for a set of input parameters that maximize
+        the fitness or minimize the error metric (fitness_metric).
+
+        Parameters
+        ----------
+        name: str.
+            Title of the current run. A folder of the name will be created
+            under current working directory (output_dir), and all output files
+            will be saved in that folder.
+        verbose: bool. Default=True.
+            If verbose is set to True, a figure will be produced at the end of
+            each run, plotting the I(q) resulting from the best
+            individual in the current generation and the target I(q).
+
+            Useful for pedagogical purpose on jupyter notebook.
+        fitness_metric: string. Default='log_sse'.
+            The metric used to calculate fitness. Currently supported:
+                "log_sse", sum of squared log10 difference at each q
+                point.
+        output_dir: string. Default="./" 
+            Path to the working directory.
+        '''
         ### checking if starting new run or restarting partial run
-        if path.isfile('current_gen.txt'):
-            currentgen = int(np.genfromtxt('current_gen.txt'))
-            pop = np.genfromtxt('current_pop.txt')
-            temp = np.genfromtxt('current_pm_pc.txt')
+        address = output_dir+'/'+name+'/'
+        if path.isfile(address+'current_gen.txt'):
+            currentgen = int(np.genfromtxt(address+'current_gen.txt'))
+            pop = np.genfromtxt(address+'current_pop.txt')
+            temp = np.genfromtxt(address+'current_pm_pc.txt')
             pm = temp[0]
             pc = temp[1]
             self.adaptation_params.pc = pc
             self.adaptation_params.pm = pm
             print('Restarting from gen #{:d}'.format(currentgen+1))
         else:
+            os.mkdir(address)
             currentgen = 0
             pop = utils.initial_pop(self.popnumber, self.nloci, self.numvars)
             print('New run')
-
         pop = utils.initial_pop(self.popnumber, self.nloci, self.numvars)
         for gen in range(self.generations):    
             if backend == 'debye':
-                pacc,gdm,elitei,IQid_str = self.fitness(pop,gen,output_dir,metric='log_sse')
+                pacc,gdm,elitei,IQid_str = self.fitness(pop,gen,output_dir+'/'+name+'/',metric='log_sse')
                 IQid_str = np.array(IQid_str)
             pop = self.genetic_operations(pop,pacc,elitei)
             self.adaptation_params.update(gdm)
 
             ### save output from current generation in case want to restart run
-            np.savetxt('current_gen.txt',np.c_[gen])
-            np.savetxt('current_pop.txt',np.c_[pop])
-            np.savetxt('current_pm_pc.txt',np.c_[self.adaptation_params.pm,self.adaptation_params.pc])
+            np.savetxt(address+'current_gen.txt',np.c_[gen])
+            np.savetxt(address+'current_pop.txt',np.c_[pop])
+            np.savetxt(address+'current_pm_pc.txt',np.c_[self.adaptation_params.pm,self.adaptation_params.pc])
             
             if verbose:
                 figsize=(4,4)
                 fig, ax = plt.subplots(figsize=(figsize))
                 ax.plot(self.qrange_load,self.IQin_load,color='k',linestyle='-',ms=8,linewidth=1.3,marker='o')
                 ax.plot(self.qrange,IQid_str[elitei].transpose(),color='fuchsia',linestyle='-',ms=8,linewidth=2)#,marker='o')
-                plt.xlim(0.001,0.1)
+                plt.xlim(self.qrange[0],self.qrange[-1])
                 plt.ylim(2*10**(-5),20)
                 plt.xlabel(r'q, $\AA^{-1}$',fontsize=20)
                 plt.ylabel(r'$I$(q)',fontsize=20)
                 ax.set_xscale("log")
                 ax.set_yscale("log")
                 plt.show()
+
 
             
     def fitness(self,pop,generation,output_dir,metric='log_sse'):
@@ -144,7 +234,7 @@ class Model:
         IQid_str=[]
         params=[]
         for val in range(self.popnumber):
-            sys.stdout.write("\rGen {:d}/{:d}, individual {:d}/{:d}\n".format(generation+1,self.generations,val+1,self.popnumber))
+            sys.stdout.write("\rGen {:d}/{:d}, individual {:d}/{:d}".format(generation+1,self.generations,val+1,self.popnumber))
             sys.stdout.flush()
             param=utils.decode(pop, val, self.nloci, self.minvalu, self.maxvalu) # gets the current structure variables
             params.append(param)
@@ -231,7 +321,10 @@ class Model:
         print('Generation best fitness: {:.4f}'.format(maxfit))
         print('Generation gdm: {:.3f}'.format(gdm))
         print('Generation best parameters '+str(params[elitei]))
-        
+        IQid_str = np.array(IQid_str)
+        with open(output_dir+'IQid_best.txt','a') as f:
+            f.write(np.array2string(IQid_str[elitei][0])+'\n')
+
         return pacc, gdm, elitei, IQid_str
         
     
