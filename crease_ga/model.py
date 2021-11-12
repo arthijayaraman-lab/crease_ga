@@ -188,9 +188,8 @@ class Model:
             self.adaptation_params.pm = pm
             # read in best iq for each generation
             bestIQ = np.genfromtxt(address+'best_iq.txt')
-            print(bestIQ.shape)
+            # do not include q values in bestIQ array
             bestIQ = bestIQ[1:]
-            print(bestIQ.shape)
             print('Restarting from gen #{:d}'.format(currentgen+1))
         else:
             os.mkdir(address)
@@ -233,9 +232,7 @@ class Model:
                 ax.set_yscale("log")
                 fig.savefig(output_dir+'plot'+str(gen)+'.png')
                 plt.show()
-
-
-            
+      
     def fitness(self,pop,generation,output_dir,metric='log_sse'):
         tic = time.time()
         cs=10
@@ -268,9 +265,7 @@ class Model:
                     if metric == 'log_sse':
                         err+=wil*(np.log(np.true_divide(self.IQin[qi],IQid[qi])))**2  # squared log error 
             fit[val]=err
-            IQid_str.append(IQid)
-
-            
+            IQid_str.append(IQid)  
 
             F1.write(str(val)+' ')
             for p in param:
@@ -352,9 +347,7 @@ class Model:
         pm = self.adaptation_params.pm
         
         for i in range(self.popnumber-1):
-
             #####################    Crossover    ####################
-
             #Selection based on fitness
             testoff=random.random()
             isit=0
@@ -371,9 +364,7 @@ class Model:
                     npart2=j
 
             #Fit parents put in array popn
-
             popn[i,:]=pop[npart1,:]
-
 
             testoff=random.random()
             loc=int((testoff*(self.numvars-1))*self.nloci)
@@ -388,17 +379,13 @@ class Model:
 
 
         #####################    Mutation    ####################
-
-
             for j in range(self.nloci*self.numvars):
                 testoff=random.random()
                 if (testoff<=pm):
                     popn[i,j]=random.randint(0,1)
                     mute+=1
 
-
         #####################    Elitism    ####################
-
         popn[-1,:]=pop[elitei,:]
 
         
