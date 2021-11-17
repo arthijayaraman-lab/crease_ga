@@ -202,7 +202,7 @@ class Model:
             print('New run')
         pop = utils.initial_pop(self.popnumber, self.nloci, self.numvars)
         colors = plt.cm.coolwarm(np.linspace(0,1,self.generations))
-        for gen in range(self.generations):    
+        for gen in range(currentgen, self.generations):    
             if backend == 'debye':
                 pacc,gdm,elitei,IQid_str = self.fitness(pop,gen,output_dir+'/'+name+'/',metric='log_sse')
                 IQid_str = np.array(IQid_str)
