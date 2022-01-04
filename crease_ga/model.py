@@ -189,7 +189,7 @@ class Model:
             # read in best iq for each generation
             bestIQ = np.genfromtxt(address+'best_iq.txt')
             # do not include q values in bestIQ array
-            bestIQ = bestIQ[1:]
+            bestIQ = bestIQ[1:,:]
             print('Restarting from gen #{:d}'.format(currentgen+1))
         else:
             os.mkdir(address)
@@ -208,7 +208,10 @@ class Model:
                 IQid_str = np.array(IQid_str)
             pop = self.genetic_operations(pop,pacc,elitei)
             self.adaptation_params.update(gdm)
-            bestIQ = np.append(bestIQ,IQid_str[elitei])
+            if bestIQ == []:
+                bestIQ = IQid_str[elitei]
+            else:
+                bestIQ = np.vstack((bestIQ,IQid_str[elitei]))
             with open(address+'best_iq.txt','a') as f:
                 f.write('\n')
                 np.savetxt(f,IQid_str[elitei],fmt="%-10f",newline='')
@@ -223,7 +226,7 @@ class Model:
                 fig, ax = plt.subplots(figsize=(figsize))
                 ax.plot(self.qrange_load,self.IQin_load,color='k',linestyle='-',ms=8,linewidth=1.3,marker='o')
                 for i in range(gen+1):
-                    ax.plot(self.qrange,bestIQ[i].transpose(),color=colors[i],linestyle='-',ms=8,linewidth=2)
+                    ax.plot(self.qrange,bestIQ[i],color=colors[i],linestyle='-',ms=8,linewidth=2)
                 plt.xlim(self.qrange[0],self.qrange[-1])
                 plt.ylim(2*10**(-5),20)
                 plt.xlabel(r'q, $\AA^{-1}$',fontsize=20)
