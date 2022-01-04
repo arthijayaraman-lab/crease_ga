@@ -235,6 +235,8 @@ class Model:
                 ax.set_yscale("log")
                 fig.savefig(output_dir+'plot'+str(gen)+'.png')
                 plt.show()
+                if gen == self.generations-1:
+                    plt.savefig('iq_evolution.png',dpi=169,bbox_inches='tight')
       
     def fitness(self,pop,generation,output_dir,metric='log_sse'):
         tic = time.time()
