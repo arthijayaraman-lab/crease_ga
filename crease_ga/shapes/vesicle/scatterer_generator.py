@@ -3,6 +3,9 @@ import random
 import numexpr as ne
 
 def gen_layer(rin, rout, nsize):
+    '''
+    Get a set of (x,y,z) coordinates in the layer.
+    '''
         R = 1.0
 
         phi = np.random.uniform(0, 2*np.pi, size=(nsize))

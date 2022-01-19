@@ -223,20 +223,21 @@ class Model:
             
             if verbose:
                 figsize=(4,4)
-                fig, ax = plt.subplots(figsize=(figsize))
-                ax.plot(self.qrange_load,self.IQin_load,color='k',linestyle='-',ms=8,linewidth=1.3,marker='o')
+                fig = plt.figure(figsize=(figsize))
+                ax = plt.gca()
+                plt.plot(self.qrange_load,self.IQin_load,color='k',linestyle='-',ms=8,linewidth=1.3,marker='o')
                 for i in range(gen+1):
-                    ax.plot(self.qrange,bestIQ[i],color=colors[i],linestyle='-',ms=8,linewidth=2)
+                    plt.plot(self.qrange,bestIQ[i],color=colors[i],linestyle='-',ms=8,linewidth=2)
                 plt.xlim(self.qrange[0],self.qrange[-1])
                 plt.ylim(2*10**(-5),20)
                 plt.xlabel(r'q, $\AA^{-1}$',fontsize=20)
                 plt.ylabel(r'$I$(q)',fontsize=20)
                 ax.set_xscale("log")
                 ax.set_yscale("log")
-                fig.savefig(output_dir+'plot'+str(gen)+'.png')
+                #fig.savefig(output_dir+'plot'+str(gen)+'.png')
                 plt.show()
-                if gen == self.generations-1:
-                    plt.savefig('iq_evolution.png',dpi=169,bbox_inches='tight')
+                
+                plt.savefig(address+'+iq_evolution.png',dpi=169,bbox_inches='tight')
       
     def fitness(self,pop,generation,output_dir,metric='log_sse'):
         tic = time.time()
