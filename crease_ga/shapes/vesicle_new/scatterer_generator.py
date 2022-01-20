@@ -2,22 +2,25 @@ import numpy as np
 import random
 import numexpr as ne
 
-def gen_layer(rin, rout):
-    '''
-    Get a set of (x,y,z) coordinates in the layer.
-    '''
-        
-        rin_embed = rin/1.732
-        x = -1
-        y = -1
-        z = -1
-        while (x**2+y**2+z**2 > rout**2 or x**2+y**2+z**2 < rin**2):
-            x = np.random.uniform(rin_embed,rout)
-            y = np.random.uniform(rin_embed,rout)
-            z = np.random.uniform(rin_embed,rout)
-            
+def gen_layer(rin, rout, nsize):
+        R = 1.0
 
-        return [x, y, z]
+        phi = np.random.uniform(0, 2*np.pi, size=(nsize))
+        costheta = np.random.uniform(-1, 1, size=(nsize))
+        u = np.random.uniform(rin**3, rout**3, size=(nsize)) 
+
+        theta = np.arccos( costheta )
+        r = R * np.cbrt( u ) #ensures an even distribution
+
+        x = r * np.sin( theta ) * np.cos( phi )
+        y = r * np.sin( theta ) * np.sin( phi )
+        z = r * np.cos( theta )
+        
+        ret = np.zeros((len(x),3))
+        ret[:,0] = x
+        ret[:,1] = y
+        ret[:,2] = z
+        return ret
     
 def LPFbead(qrange, sigmabead):
     '''
@@ -44,14 +47,12 @@ def LPFbead(qrange, sigmabead):
 
 def LPOmega(qrange, r, sigmabead, sld_Ain, sld_B, sld_Aout):                # qvalues number_of_B number_of_A scatterer_coordinates
     
-    omegaarr=np.zeros((1,len(qrange)))              # initiating array
-    rur=r[0,:,:]# selects
-    rur=rur.transpose()
+    omegaarr=np.zeros(len(qrange))              # initiating array
     sff = LPFbead(qrange,sigmabead)
     sld = [sld_Ain, sld_B, sld_Aout]
     for ri in range(len(r)):
         rur = r[ri]
-        fi = sff*sld[i]
+        fi = sff*sld[ri]
         for i in range(len(rur)):
             all_disp = rur[i,:]-rur[(i+1):,:]
             rij = np.sqrt(np.sum(np.square(all_disp),axis=1))
@@ -65,7 +66,7 @@ def LPOmega(qrange, r, sigmabead, sld_Ain, sld_B, sld_Aout):                # qv
                     vals[val[0],val[1]]=1
             vals = ne.evaluate("sum((vals), axis=0)")   # adds together scatterer contributions for each q value
             omegaarr += fi**2*(2*vals+1)      # 1 accounts for the guarenteed overlap of same bead  # 2* accounts for double counting avoided to reduce computational expense by looping for all other pairs
-            for rj in range(ri,len(r)):
+            for rj in range(ri+1,len(r)):
                 rsec = r[rj]
                 all_disp = rur[i,:]-rsec
                 rij = np.sqrt(np.sum(np.square(all_disp),axis=1))
@@ -78,8 +79,8 @@ def LPOmega(qrange, r, sigmabead, sld_Ain, sld_B, sld_Aout):                # qv
                     for val in inds:
                         vals[val[0],val[1]]=1
                 vals = ne.evaluate("sum((vals), axis=0)")   # adds together scatterer contributions for each q value
-                fj = sff*sld[j]
-                omeagaarr += fi*fj*vals
+                fj = sff*sld[rj]
+                omegaarr += fi*fj*vals
             
 
     return omegaarr
@@ -88,49 +89,41 @@ def visualize(r, Rcore, dR_Ain, dR_B, dR_Aout, sigmabead):
     import py3Dmol
     view = py3Dmol.view()
     
-    for ri in r[0,:,:].transpose():
-        if np.linalg.norm(ri) < Rcore+dR_Ain or np.linalg.norm(ri) > (Rcore+dR_Ain+dR_B):
-            col = 'blue'
-        else:
-            col = 'red'
-        view.addSphere(
-            {
-                'center': {'x': ri[0], 'y': ri[1], 'z': ri[2]},
-                       'radius': sigmabead/2,
-                       'color': col,
-                       'alpha': 0.9,
-            }
-                      )
-    #view.zoomTo()
-    view.show()
-    
-    return view
+    for rur in r:
+        for ri in rur:
+            if np.linalg.norm(ri) < Rcore+dR_Ain or np.linalg.norm(ri) > (Rcore+dR_Ain+dR_B):
+                col = 'blue'
+            else:
+                col = 'red'
+            view.addSphere(
+                {
+                    'center': {'x': ri[0], 'y': ri[1], 'z': ri[2]},
+                           'radius': sigmabead/2,
+                           'color': col,
+                           'alpha': 0.9,
+                }
+                          )
+        #view.zoomTo()
+        view.show()
+
+        return view
     
            
 
-def genLP(Rcore, dR_Ain, dR_B, dR_Aout, scat_density):  
+def genLP(R_core, dR_Ain, dR_B, dR_Aout, scat_density):  
         # core radius, inner A layer thickness, B layer thickness, outer A layer thickness, 
         # bead diameter, # of inner A beads, # of outer A beads, # of B beads
 
         r = [[],[],[]]
         ### Create configuration for each replicate with dispersity ###
-        for step in range(0, 1):
-            ### Populate A inner Layer ###
-            nAin = 4/3*np.pi*((R_core+dR_Ain)**3-R_core**3)*scat_density
-            for i in range(nAin):
-                r[0].append(np.array(gen_layer(Rcore,Rcore+dR_Ain)))
-
-            ### Populate B middle Layer ###
-            nB = 4/3*np.pi*((R_core+dR_Ain+dR_B)**3-(R_core+dR_Ain)**3)*scat_density
-            for i in range(nB):
-                r[1].append(np.array(gen_layer(Rcore+dR_Ain,Rcore+dR_Ain+dR_B)))
-
-            ### Populate A outer Layer ###
-            nAout = 4/3*np.pi*((R_core+dR_Ain+dR_B+dR_Aout)**3-(R_core+dR_Ain+dR_B)**3)*scat_density
-            for i in range(nAout):
-                r[2].append(np.array(gen_layer(Rcore+dR_Ain+dR_B+dR_Aout,Rcore+dR_Ain+dR_B)))
-                
-        r = [np.array(ele) for ele in r]
+       
+        nAin = int(4/3*np.pi*((R_core+dR_Ain)**3-R_core**3)*scat_density)
+        r[0] = gen_layer(R_core,R_core+dR_Ain,nAin)
+        nB = int(4/3*np.pi*((R_core+dR_Ain+dR_B)**3-(R_core+dR_Ain)**3)*scat_density)
+        r[1] = gen_layer(R_core+dR_Ain,R_core+dR_Ain+dR_B,nB)
+        nAout = int(4/3*np.pi*((R_core+dR_Ain+dR_B+dR_Aout)**3-(R_core+dR_Ain+dR_B)**3)*scat_density)
+        r[2] = gen_layer(R_core+dR_Ain+dR_B,R_core+dR_Ain+dR_B+dR_Aout,nAout)
+        
         return r
 
     
@@ -187,7 +180,7 @@ class scatterer_generator:
     def __init__(self,
                  shape_params = [0.5,1],
                 minvalu = (20, 0.1, 0.01, 0.01, -1, -1, -1, 0.1),
-                maxvalu = (5000, 0.95, 0.99, 0.99, 1, 1, 1, 4)):
+                maxvalu = (3000, 0.95, 0.99, 0.99, 1, 1, 1, 4)):
         scat_density = shape_params[0]
         sigmabead = shape_params[1]
         self._numvars = 2
@@ -224,7 +217,6 @@ class scatterer_generator:
         # number of scatterers per chain, # of replicates, stdev in Rcore size
         sigmabead = self.sigmabead
         scat_density = self.scat_density
-        nLP = self.nLP
         
         IQid=np.zeros((len(qrange)))      #initiates array for output IQ
 
@@ -241,11 +233,11 @@ class scatterer_generator:
 
         R_core = R_total*f_core
         dR_Ain = R_total*(1-f_core)*f_Ain
-        dR_Aout = f_Aout*(R_total-R_core-R_Ain)
-        dR_B = R_total-R_core-R_Ain-R_Aout
+        dR_Aout = f_Aout*(R_total-R_core-dR_Ain)
+        dR_B = R_total-R_core-dR_Ain-dR_Aout
         
-        r = genLP(Rcore, dR_Ain, dR_B, dR_Aout, scat_density) 
-        IQid = LPOmega(r,qrange, sigmabead, sld_Ain, sld_B, sld_Aout)
+        r = genLP(R_core, dR_Ain, dR_B, dR_Aout, scat_density) 
+        IQid = LPOmega(qrange, r, sigmabead, sld_Ain, sld_B, sld_Aout)
         maxIQ=np.max(IQid)                                  
         IQid=np.true_divide(IQid,maxIQ)                    # normalizes the I(q) to have its maximum = 1
         IQid+=Background                                   # add background
