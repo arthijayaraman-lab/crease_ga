@@ -54,18 +54,21 @@ def LPOmega(qrange, r, sigmabead, sld_Ain, sld_B, sld_Aout):                # qv
         rur = r[ri]
         fi = sff*sld[ri]
         for i in range(len(rur)):
-            all_disp = rur[i,:]-rur[(i+1):,:]
-            rij = np.sqrt(np.sum(np.square(all_disp),axis=1))
-            rij = rij.transpose()
-            rs = rij[:,np.newaxis]                      # reshapes array for consistency
-            Q = qrange[np.newaxis,:]                    # reshapes array for consistency
-            vals = ne.evaluate("sin(Q*rs)/(Q*rs)")      # ne is efficient at calculations
-            inds=np.argwhere(np.isnan(vals))            # error catching in case there are NaN values
-            if len(inds)>0:
-                for val in inds:
-                    vals[val[0],val[1]]=1
-            vals = ne.evaluate("sum((vals), axis=0)")   # adds together scatterer contributions for each q value
-            omegaarr += fi**2*(2*vals+1)      # 1 accounts for the guarenteed overlap of same bead  # 2* accounts for double counting avoided to reduce computational expense by looping for all other pairs
+            if i != len(rur)-1:
+                all_disp = rur[i,:]-rur[(i+1):,:]
+                rij = np.sqrt(np.sum(np.square(all_disp),axis=1))
+                rij = rij.transpose()
+                rs = rij[:,np.newaxis]                      # reshapes array for consistency
+                Q = qrange[np.newaxis,:]                    # reshapes array for consistency
+                vals = ne.evaluate("sin(Q*rs)/(Q*rs)")      # ne is efficient at calculations
+                inds=np.argwhere(np.isnan(vals))            # error catching in case there are NaN values
+                if len(inds)>0:
+                    for val in inds:
+                        vals[val[0],val[1]]=1
+
+                vals = ne.evaluate("sum(vals, axis=0)")   # adds together scatterer contributions for each q value
+                #vals = vals.flatten()
+                omegaarr += fi**2*(2*vals+1)      # 1 accounts for the guarenteed overlap of same bead  # 2* accounts for double counting avoided to reduce computational expense by looping for all other pairs
             for rj in range(ri+1,len(r)):
                 rsec = r[rj]
                 all_disp = rur[i,:]-rsec
