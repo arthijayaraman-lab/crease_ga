@@ -1,7 +1,7 @@
 import numpy as np
 import random
 import numexpr as ne
-
+import sys
 def gen_layer(rin, rout, nsize):
         R = 1.0
 
@@ -54,6 +54,7 @@ def LPOmega(qrange, r, sigmabead, sld_Ain, sld_B, sld_Aout):                # qv
         rur = r[ri]
         fi = sff*sld[ri]
         for i in range(len(rur)):
+            sys.stdout.flush()
             if i != len(rur)-1:
                 all_disp = rur[i,:]-rur[(i+1):,:]
                 rij = np.sqrt(np.sum(np.square(all_disp),axis=1))
@@ -83,7 +84,7 @@ def LPOmega(qrange, r, sigmabead, sld_Ain, sld_B, sld_Aout):                # qv
                         vals[val[0],val[1]]=1
                 vals = ne.evaluate("sum((vals), axis=0)")   # adds together scatterer contributions for each q value
                 fj = sff*sld[rj]
-                omegaarr += fi*fj*vals
+                omegaarr += fi*fj*2*vals
             
 
     return omegaarr
@@ -153,7 +154,7 @@ class scatterer_generator:
     as listed, by GA:**
     
     R_total:
-        R_core+R_in+R_b+R_out. Default [min,max]: [20 A, 5000 A]
+        R_core+R_in+R_b+R_out. Default [min,max]: [20 A, 2000 A]
     f_core:
         R_core/R_total. Default [min,max]: [0.1,0.95]
     f_Ain:
@@ -170,7 +171,7 @@ class scatterer_generator:
         SLD of Aout layer. 
         Default [min,max]: [-1,1]
 
-    log10(bg):
+    -log10(bg):
         Negative log10 of background intensity. 
         E.g. an background intensity of 0.001 leads to this value being 3.
         Default [min,max]:  [0.1,4]
@@ -232,7 +233,7 @@ class scatterer_generator:
         sld_B=param[5]     # split of type A scatterer 
         sld_Aout=param[6]   # variation in Rcore, dispersity
         #print(Rcore, dR_Ain, dR_B, dR_Aout, sAin)
-        Background=10**(-param[6])
+        Background=10**(-param[7])
 
         R_core = R_total*f_core
         dR_Ain = R_total*(1-f_core)*f_Ain
