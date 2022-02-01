@@ -189,7 +189,7 @@ class Model:
             # read in best iq for each generation
             bestIQ = np.genfromtxt(address+'best_iq.txt')
             # do not include q values in bestIQ array
-            bestIQ = bestIQ[1:,:]
+            #bestIQ = bestIQ[1:,:]
             print('Restarting from gen #{:d}'.format(currentgen+1))
         else:
             os.mkdir(address)
@@ -278,7 +278,6 @@ class Model:
                 F1.write(str(p)+' ')
             F1.write(str(err)+'\n')
             F1.flush()
-
         params = np.array(params)
         maxerr=np.max(fit)           #determines maximum SSerror for the population
         fitn=np.subtract(maxerr,fit) #determines error differences
