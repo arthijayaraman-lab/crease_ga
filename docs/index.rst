@@ -41,19 +41,19 @@ __________
 #. 
    Machine Learning Enhanced CREASE:  
 
-   Wessels, M. G.; Jayaraman, A. Machine Learning Enhanced Computational Reverse Engineering Analysis for Scattering Experiments (CREASE) to Determine Structures in Amphiphilic Polymer Solutions. ACS Polym. Au 2021, Advance Article. `link to article <https://pubs.acs.org/doi/abs/10.1021/acspolymersau.1c00015>`_ 
+   Wessels, M. G.; Jayaraman, A. Machine Learning Enhanced Computational Reverse Engineering Analysis for Scattering Experiments (CREASE) to Determine Structures in Amphiphilic Polymer Solutions. ACS Polym. Au 2021, 1, 3, 153-164. `link to article <https://pubs.acs.org/doi/abs/10.1021/acspolymersau.1c00015>`_ 
 
 
 #. 
    Extension of CREASE's Genetic Algorithm Step to Handle Structure Factors:  
 
-   Heil, C. M.; Jayaraman, A. Computational Reverse-Engineering Analysis for Scattering Experiments of Assembled Binary Mixture of Nanoparticles. ACS Mater. Au 2021, Advance Article. `link to article <https://pubs.acs.org/doi/10.1021/acsmaterialsau.1c00015>`_ 
+   Heil, C. M.; Jayaraman, A. Computational Reverse-Engineering Analysis for Scattering Experiments of Assembled Binary Mixture of Nanoparticles. ACS Mater. Au 2021, 1, 2, 140-156. `link to article <https://pubs.acs.org/doi/10.1021/acsmaterialsau.1c00015>`_ 
 
 
 #. 
    Extension of CREASE for vesicles as well as the the ability to estimate polydispersity in dimensions of the domains in the assembled structure and distribution of molecules between the different domains of the assembled structure: 
 
-   Ye, Z.; Wu, Z.; Jayaraman, A. Computational Reverse-Engineering Analysis for Scattering Experiments (CREASE) on Vesicles Assembled from Amphiphilic Macromolecular Solutions. JACS Au 2021, Advanced Article. `link to article <https://pubs.acs.org/doi/10.1021/jacsau.1c00305>`_
+   Ye, Z.; Wu, Z.; Jayaraman, A. Computational Reverse-Engineering Analysis for Scattering Experiments (CREASE) on Vesicles Assembled from Amphiphilic Macromolecular Solutions. JACS Au 2021, 1, 11, 1925-1936. `link to article <https://pubs.acs.org/doi/10.1021/jacsau.1c00305>`_
 
 Contact us
 __________
