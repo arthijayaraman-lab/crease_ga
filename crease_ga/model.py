@@ -72,7 +72,7 @@ class Model:
             input parameter boundaries are specified, the default boundaries of
             the input parameters of the shape will be loaded.
         '''
-        builtin_shapes=["vesicle","micelle"]
+        builtin_shapes=["vesicle","micelle","vesicle_new"]
         if shape in builtin_shapes:
             sg = import_module('crease_ga.shapes.'+shape+'.scatterer_generator')
             sg = sg.scatterer_generator
