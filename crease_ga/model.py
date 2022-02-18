@@ -165,7 +165,12 @@ class Model:
 #        self.IQin_load = np.true_divide(self.IQin_load,baseline)
 
         
-    def solve(self,name = 'ga_job',verbose = True,backend = 'debye',fitness_metric = 'log_sse',output_dir='./'):
+    def solve(self,name = 'ga_job',
+              verbose = True,
+              backend = 'debye',
+              fitness_metric = 'log_sse',
+              output_dir='./',
+              needs_postprocess = 'False'):
         '''
         Fit the loaded target I(q) for a set of input parameters that maximize
         the fitness or minimize the error metric (fitness_metric).
@@ -234,6 +239,9 @@ class Model:
             np.savetxt(address+'current_pop.txt',np.c_[pop])
             np.savetxt(address+'current_pm_pc.txt',np.c_[self.adaptation_params.pm,self.adaptation_params.pc])
             
+            if needs_postprocess:
+                self.postprocess()
+
             if verbose:
                 figsize=(4,4)
                 fig, ax = plt.subplots(figsize=(figsize))
@@ -250,6 +258,10 @@ class Model:
                 plt.show()
                 if gen == self.generations-1:
                     plt.savefig('iq_evolution.png',dpi=169,bbox_inches='tight')
+    
+    def postprocess(self):
+        import weakref
+        self.scatterer_generator.postprocess(weakref.ref(self))
       
     def fitness(self,pop,generation,output_dir,metric='log_sse',n_cores=1):
         tic = time.time()
