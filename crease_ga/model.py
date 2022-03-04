@@ -136,7 +136,7 @@ class Model:
         loadvals = np.genfromtxt(input_file_path)
         self.qrange_load = loadvals[:,0]
         IQin_load = loadvals[:,1]
-        if len(loadvals>2):
+        if len(loadvals.T)>2:
             IQerr_load = loadvals[:,2]
             IQerr_load = np.true_divide(IQerr_load,np.max(IQin_load))
         else:
@@ -146,7 +146,7 @@ class Model:
         if q_bounds == None:
             self.qrange = self.qrange_load
             self.IQin = self.IQin_load
-            self.IQerr = self.IQerr_load
+            self.IQerr = IQerr_load
         else:
             lowQ = q_bounds[0]
             highQ = q_bounds[1]
@@ -154,7 +154,7 @@ class Model:
             if IQerr_load == None:
                 self.IQerr = None
             else:
-                self.IQerr = self.IQerr_load[ np.where(self.qrange_load>=lowQ)[0][0]:np.where(self.qrange_load<=highQ)[0][-1] +1]
+                self.IQerr = IQerr_load[ np.where(self.qrange_load>=lowQ)[0][0]:np.where(self.qrange_load<=highQ)[0][-1] +1]
             self.qrange = self.qrange_load[ np.where(self.qrange_load>=lowQ)[0][0]:np.where(self.qrange_load<=highQ)[0][-1] +1]
             
 
@@ -170,7 +170,8 @@ class Model:
               backend = 'debye',
               fitness_metric = 'log_sse',
               output_dir='./',
-              needs_postprocess = 'False'):
+              n_cores=1,
+              needs_postprocess = False):
         '''
         Fit the loaded target I(q) for a set of input parameters that maximize
         the fitness or minimize the error metric (fitness_metric).
@@ -222,7 +223,7 @@ class Model:
         colors = plt.cm.coolwarm(np.linspace(0,1,self.generations))
         for gen in range(currentgen, self.generations):    
             if backend == 'debye':
-                pacc,gdm,elitei,IQid_str = self.fitness(pop,gen,output_dir+'/'+name+'/',metric='log_sse')
+                pacc,gdm,elitei,IQid_str = self.fitness(pop,gen,output_dir+'/'+name+'/',fitness_metric,n_cores)
                 IQid_str = np.array(IQid_str)
             pop = self.genetic_operations(pop,pacc,elitei)
             self.adaptation_params.update(gdm)
@@ -260,8 +261,8 @@ class Model:
                     plt.savefig('iq_evolution.png',dpi=169,bbox_inches='tight')
     
     def postprocess(self):
-        import weakref
-        self.scatterer_generator.postprocess(weakref.ref(self))
+        #import weakref
+        self.scatterer_generator.postprocess(self)
       
     def fitness(self,pop,generation,output_dir,metric='log_sse',n_cores=1):
         tic = time.time()

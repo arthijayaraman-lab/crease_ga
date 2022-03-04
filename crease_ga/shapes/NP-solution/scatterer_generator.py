@@ -2,9 +2,9 @@ import numpy as np
 import random
 import numexpr as ne
 from scipy import spatial, stats
-from crease_ga_diameter.exceptions import CgaError
+from crease_ga.exceptions import CgaError
 import sys
-from crease_ga_diameter import utils
+from crease_ga import utils
 from subprocess import check_output, run
 from itertools import repeat
 from os import path
@@ -88,13 +88,12 @@ def generateDistribution(phi1, D1, S1, D2, S2, natoms):
     Nps = np.append(hist1, hist2)
     return Nps
 
-
-def ps(self, param, individual):
-    phi1 = param[3]
-    D1 = param[5]
-    S1 = param[6]
-    D2 = param[7]
-    S2 = param[8]
+def ps(self, param, individual,output_dir):
+    D2 = param[0]
+    S2 = param[1]
+    D1 = param[2]
+    S1 = param[3]
+    phi1 = 1-param[4]
     # get diameter
     binmin1 = stats.lognorm.ppf(0.01, S1, scale=D1)
     binmax1 = stats.lognorm.ppf(0.99, S1, scale=D1)
@@ -156,8 +155,8 @@ def ps(self, param, individual):
     dict[domain] = neighbors
     # now apply genes and go through rest of particles to swap
     for i in range(swap):
-        # see if param[0] passes -- do we continue the current domain?
-        if (np.random.random() <= param[0]) and (len(neighbors) > 0):
+        # see if param[5] passes -- do we continue the current domain?
+        if (np.random.random() <= param[5]) and (len(neighbors) > 0):
             # pick a type1 neighbor of current domain to become type2
             while True:
                 pick = np.random.choice(
@@ -167,7 +166,7 @@ def ps(self, param, individual):
                     neigh = tree.query_ball_point(pos[neighbors[pick]], cutoff)
                     bneigh = np.sum(types[neigh] > 0)
                     frac = bneigh/(len(neigh)-1)
-                    if (np.random.random() <= 1-np.sqrt(np.square(param[2]-frac))):
+                    if (np.random.random() <= 1-np.sqrt(np.square(param[6]-frac))):
                         types[neighbors[pick]] = domain
                         break
                 else:
@@ -184,19 +183,19 @@ def ps(self, param, individual):
             neighbors = neighbors[types[neighbors] != domain]
             dict[domain] = neighbors
         else:
-            # if param[0] fails, need to select spot to start next domain
+            # if param[5] fails, need to select spot to start next domain
             mask = types == 0
             locs = np.where(mask == True)[0]
             ranger = np.sum(mask)
             while True:
                 pick = np.random.choice(
                     np.arange(ranger), size=1, replace=False)[0]
-                # get neighbors to deal with param[1]
+                # get neighbors to deal with param[7]
                 neigh = tree.query_ball_point(pos[mask][pick], cutoff)
                 bneigh = np.sum(types[neigh] > 0)
                 frac = bneigh/(len(neigh)-1)
                 # low gene2 means wants only SP, high means wants SMP
-                if (np.random.random() <= 1-np.sqrt(np.square(param[1]-frac))):
+                if (np.random.random() <= 1-np.sqrt(np.square(param[7]-frac))):
                     # update ntypes, domain
                     domain += 1
                     types[locs[pick]] = domain
@@ -253,7 +252,7 @@ def ps(self, param, individual):
     l = add
     # here expand particle position to reduce overlap
     pos = pos + pos/(l/2.)*((l-length)/2.+(length/2.-np.max(pos)))
-    f1 = open('datafile'+str(individual), 'w')
+    f1 = open(output_dir+'datafile'+str(individual), 'w')
     header = [
         '#LAMMPS datafile\n{} atoms\n0 bonds\n22 atom types\n0 bond types\n0 angles\n'.format(len(atype))]
     header.append(
@@ -270,7 +269,7 @@ def ps(self, param, individual):
     f1.close()
     le = np.abs(l/2.0)
     # need to write box size for lammps
-    f1 = open('lammps.relax'+str(individual),'w')
+    f1 = open(output_dir+'lammps.relax'+str(individual),'w')
     f1.write('units lj\natom_style bond\nboundary p p p\n')
     f1.write('region box block {} {} {} {} {} {} units box\n'.format(-le,le,-le,le,-le,le))
     f1.write('create_box 22 box\n')
@@ -297,13 +296,13 @@ def ps(self, param, individual):
     f1.close()
 
 
-def read(gen, pair, d):
+def read(pair, d,output_dir):
     d = np.array(d)
-    check = int(check_output(["bash","run3.sh",str(pair)]))
+    check = int(check_output(["bash",output_dir+"run3.sh",str(pair)]))
     if check == 0:
         return 0, 0, True
         
-    with open('end'+str(pair), 'r') as f:
+    with open(output_dir+'end'+str(pair), 'r') as f:
         text = f.read()
     lines = text.splitlines()
     # deal with failed individual
@@ -369,14 +368,13 @@ def read(gen, pair, d):
     for i in range(len(d)):
         v += 4/3.*np.pi*len(atype[atype == (i+1)])*(d[i]/2)**3
     eta = v/vol
-    #print('Gen {} individual {}: eta = {}'.format(gen, pair, eta))
     # want eta > 0.5
-    etacut = 0.52
+    etacut = 0.5
     return pos, atype, eta < etacut
 
 
-def setFormFactor(fFactor, diameters, qrange, cs_split, custom_form):
-    builtin_forms = ["hard_sphere", "core_shell", "custom"]
+def setFormFactor(fFactor, diameters, qrange, custom_form):
+    builtin_forms = ["hard_sphere", "custom"]
     if not (fFactor in builtin_forms):
         print(fFactor, builtin_forms)
         print(fFactor in builtin_forms)
@@ -392,23 +390,6 @@ def setFormFactor(fFactor, diameters, qrange, cs_split, custom_form):
         f2[:11] = 0
         return f1, f2
     elif fFactor in builtin_forms[1]:
-        # core-shell morphologies are A) type2-type1 and B) type1-type2
-        rqOut = diameters[:, np.newaxis]/2. * qrange[np.newaxis, :]
-        volOut = 4./3.*np.pi*(diameters/2.)**3
-        fOut = 3.0*volOut[:, np.newaxis] * \
-            (np.sin(rqOut)-rqOut*np.cos(rqOut))/(rqOut*rqOut*rqOut)
-        rqIn = cs_split * diameters[:, np.newaxis]/2. * qrange[np.newaxis, :]
-        volIn = 4./3.*np.pi*(cs_split * diameters/2.)**3
-        fIn = 3.0*volIn[:, np.newaxis] * \
-            (np.sin(rqIn)-rqIn*np.cos(rqIn))/(rqIn*rqIn*rqIn)
-        f1 = np.copy(fOut)
-        # f1 gets outer[:11] and inner [11:]
-        f1[11:] = fIn[11:]
-        f2 = np.copy(fOut)
-        # f2 gets outer[11:] and inner [:11]
-        f2[:11] = fIn[:11]
-        return f1, f2
-    elif fFactor in builtin_forms[2]:
         # custom assumes user is aware of proper format for form factor
         # to ensure correct scattering calculation
         loadvals = np.loadtxt(custom_form)
@@ -430,13 +411,13 @@ def iqCalc(atype, pos, qrange, ffactor1, ffactor2):
     for i in range(natoms):
         a1 = int(atype[i]-1)
         # do the f^2 term in front
-        if a1 < 11:
-            fi = ffactor1[a1]
+        if a1 >10:
+            fi = ffactor2[a1]
             I1 += fi*fi
-            ### ignore type A particles as solvent
+            ### ignore type B particles as solvent
             continue
         else:
-            fi = ffactor2[a1]
+            fi = ffactor1[a1]
             I2 += fi*fi
         # pair distances
         rij = np.sqrt(np.sum(np.square(pos[i,:]-pos[(i+1):,:]),axis=1))
@@ -446,76 +427,33 @@ def iqCalc(atype, pos, qrange, ffactor1, ffactor2):
         # factor of 2 necessary since only doing each pair once
         sq = ne.evaluate("2*sin(qi*R)/(qi*R)")
         # apply form factor to get Iq
-        # start with type A particles
-        #### ignore type A particles as solvent
-        #mask = (atype[(i+1):]-1 < 11)
-        #I1 += np.sum(ffactor1[a1]*ffactor1[atype[(i+1):]-1][mask]*sq[mask], axis=0)
         # end with type B particles
-        mask = (atype[(i+1):]-1 >= 11)
-        I2 += np.sum(ffactor2[a1]*ffactor2[atype[(i+1):]-1][mask]*sq[mask], axis=0)
-    # normalize I(q) to 1.0 at highest q value
-    #I1 /= I1[-1]
-    return I2 ### ignore type A particles as solvent
-    #return I1, I2
-
-## this is for slit height = 0 & slit width = value
-def weightMatrix(qext,q,h):
-    # using SasView as template 
-    qedge = np.hstack([qext[0]-0.5*(qext[1]-qext[0]),0.5*(qext[1:]+qext[:-1]),qext[-1]+0.5*(qext[-1]-qext[-2]),])
-    weight = np.zeros((len(q),len(qext)))
-    for i, qi in enumerate(q):
-        # assumes w = 0
-        inx = 1. * ((qext >= qi-h) & (qext <= qi+h))
-        absx = 1. * (qext < abs(qi-h)) if qi<h else 0.
-        weight[i,:] = (inx + absx) * np.diff(qedge) / (2.*h)
-    return weight.transpose()
-
-## this is for slit height = value & slit width = 0
-def weightMatrix2(qext,q,h):
-    qedge = np.hstack([qext[0]-0.5*(qext[1]-qext[0]),0.5*(qext[1:]+qext[:-1]),qext[-1]+0.5*(qext[-1]-qext[-2]),])
-    weight = np.zeros((len(q),len(qext)))
-    for i, qi in enumerate(q):
-        u_limit = np.sqrt(qi**2 + h**2)
-        u_edges = qedge**2 - qi**2
-        u_edges[qedge < abs(qi)] = 0.
-        u_edges[qedge > u_limit] = u_limit**2 - qi**2
-        weight[i,:] = np.diff(np.sqrt(u_edges))/h
-    return weight.transpose()
-
-def smearSlit(q,qext,iq,h=0.23969):
-    #weight = weightMatrix(qext,q,h)
-    weight = weightMatrix2(qext,q,h)
-    iqsmear = np.dot(iq[None,:],weight).flatten()
-    return iqsmear
+        mask = (atype[(i+1):]-1 < 11)
+        I2 += np.sum(ffactor1[a1]*ffactor1[atype[(i+1):]-1][mask]*sq[mask], axis=0)
+    return I2
 
 class scatterer_generator:
     def __init__(self,
-                 chemistry_params=['hard_sphere', 20000,False,0],
-                 minvalu=(0, 0, 0, 0, 0.001,200,0.,200,0.),
-                 maxvalu=(1, 1, 1, 1, 4,240,0.15,240,0.15), core_shell_split=0.5, custom_form=None,pinholeSmear=False,slitSmear=False,slit_h=0):
-        form_factor = chemistry_params[0]
-        N = chemistry_params[1]
-        self.slit = chemistry_params[2]
-        self.slit_h = chemistry_params[3]
-        self.smear = self.slit
+                 shape_params=['hard_sphere', 20000],
+                 minvalu=(200,0.,200,0.,0.,0, 0, 0.,2),
+                 maxvalu=(240,0.15,240,0.15,1,1,1,1,10), 
+                 custom_form=None):
+        form_factor = shape_params[0]
+        N = shape_params[1]
         self._numvars = 9
         self.minvalu = minvalu
         self.maxvalu = maxvalu
         self.form_factor = form_factor  # form factor of particles
         self.N = N  # Number of particles to use
-        self.cs_split = core_shell_split
         self.cust_form = custom_form
-        if path.isfile('current_sse.txt'):
-            self.best_fit = np.genfromtxt('current_fit.txt')
-        else:
-            self.best_fit = 1e10
+        self.best_fit = 1e10
 
     @property
     def numvars(self):
         return self._numvars
     
     def produceStructure(self, param, individual):
-        ps(self, param, individual)
+        ps(self, param, individual,self.output_dir)
     
     def calculateScattering(self,qrange,params,output_dir,n_cores=1):
         '''
@@ -535,30 +473,38 @@ class scatterer_generator:
         -------
         IQids: A numpy array holding each individual's I(q).
         '''
+        if path.isfile(output_dir+'current_sse.txt'):
+            self.best_fit = np.genfromtxt(output_dir+'current_fit.txt')
+        self.output_dir = output_dir
+        self.qrange = qrange
+        self.output_dir = output_dir
+        #"""
         ## produce structures for LAMMPS
         pool = mp.Pool(n_cores)
-        one = pool.starmap(produceStructure, 
+        one = pool.starmap(self.produceStructure, 
                 zip(params,range(len(params))))
         pool.close()
         pool.join()
         # now run LAMMPS to create close-packed strucutres
         f1 = open(output_dir+'run.sh','w')
-        f1.write('d={}\nfor f in $( seq 0 $1 ); do\n  lmp -in $d/lammps.relax$f > log.lammps &\n  echo "made" > "$d/done$f.txt"\ndone\nwait'.format(output_dir))
+        f1.write('d={}\ncd $d\nfor f in $( seq 0 $1 ); do\n  lmp -in ./lammps.relax$f > log.lammps &\n  echo "made" > "./done$f.txt"\ndone\nwait\ncd ..'.format(output_dir))
         f1.close()
         f1 = open(output_dir+'run2.sh','w')
-        f1.write('d={}\necho $(ls $d/done* | wc -l\n'.format(output_dir))
+        f1.write('d={}\necho $(ls $d/done* | wc -l)\n'.format(output_dir))
         f1.close()
         f1 = open(output_dir+'run3.sh','w')
-        f1.write('d={}\necho $(wc -l "$d/$1.txt" | head -c 1\n'.format(output_dir))
+        f1.write('d={}\necho $(wc -l "$d/$1.txt" | head -c 1)\n'.format(output_dir))
         f1.close()
         
-        run(['bash','run.sh',str(self.popnumber-1)])
-        while (int(check_output(['bash','run2.sh'])) < self.popnumber):
+        run(['bash',output_dir+'run.sh',str(len(params)-1)])
+        while (int(check_output(['bash',output_dir+'run2.sh'])) < len(params)):
             time.sleep(30)
+        #"""
+        #print('skipping structure part')
         # calculate scattering
         pool = mp.Pool(n_cores)
-            one = pool.starmap(doScattering, zip(
-                    repeat(gen), range(self.popnumber), params))
+        one = pool.starmap(self.doScattering, zip(
+                range(len(params)), params))
         pool.close()
         pool.join()
         one = np.array(one,dtype=object)
@@ -570,7 +516,7 @@ class scatterer_generator:
         self.iq = IQids
         return IQids
 
-    def postProcess(self,model):
+    def postprocess(self,model):
         '''
         Save struture of best overall individual
 
@@ -582,19 +528,19 @@ class scatterer_generator:
         # save necessary information for structure
         if np.min(model.fit) < self.best_fit:
             self.best_fit = np.min(model.fit)
-            val = np.where(model.fit == self.best_fit)[0]
-            pos = self.pos[val][0]
-            atype = self.atype[val][0]
+            val = np.where(model.fit == self.best_fit)[0][0]
+            pos = self.pos[val]
+            atype = self.atype[val]
             iq = self.iq[val].flatten()
             best_param = self.params[val].flatten()
             del self.atype, self.pos, self.params, self.iq
-            np.savetxt('current_fit.txt',np.c_[self.best_fit])
-            np.savetxt('current_genes.txt',np.c_[best_param])
+            np.savetxt(self.output_dir+'current_fit.txt',np.c_[self.best_fit])
+            np.savetxt(self.output_dir+'current_genes.txt',np.c_[best_param])
             # get diameter
-            D1 = best_param[5]
-            S1 = best_param[6]
-            D2 = best_param[7]
-            S2 = best_param[8]
+            D1 = best_param[0]
+            S1 = best_param[1]
+            D2 = best_param[2]
+            S2 = best_param[3]
             binmin1 = stats.lognorm.ppf(0.01, S1, scale=D1)
             binmax1 = stats.lognorm.ppf(0.99, S1, scale=D1)
             sizes1 = np.linspace(binmin1, binmax1, 11)
@@ -602,8 +548,8 @@ class scatterer_generator:
             binmax2 = stats.lognorm.ppf(0.99, S2, scale=D2)
             sizes2 = np.linspace(binmin2, binmax2, 11)
             diameters = np.append(sizes1,sizes2)
-            np.savetxt('current_diameters.txt',np.c_[diameters])
-            f1 = open('best_structure.txt','w')  # write as LAMMPS file
+            np.savetxt(self.output_dir+'current_diameters.txt',np.c_[diameters])
+            f1 = open(self.output_dir+'best_structure.txt','w')  # write as LAMMPS file
             f1.write('ITEM: TIMESTEP\n0\nITEM: NUMBER OF ATOMS\n{}\nITEM: BOX BOUNDS pp pp pp\n'.format(len(pos)))
             f1.write('-3e5 3e5\n-3e5 3e5\n-3e5 3e5\n')
             f1.write('ITEM: ATOMS id mol type x y z\n')
@@ -611,18 +557,18 @@ class scatterer_generator:
                 f1.write('{} 0 {} {} {} {}\n'.format(
                     j+1, int(atype[j]), pos[j][0], pos[j][1], pos[j][2]))
             f1.close()
-            f1 = open('best_Icomp.txt', 'w') 
+            f1 = open(self.output_dir+'best_Icomp.txt', 'w') 
             for j in range(len(iq)):
                 f1.write('{} {} \n'.format(
                     model.qrange[j], iq[j]))
             f1.close()
 
-    def doScattering(self, pop, individual, param):
-        Background = 10**(-param[4])
-        D1 = param[5]
-        S1 = param[6]
-        D2 = param[7]
-        S2 = param[8]
+    def doScattering(self, individual, param):
+        Background = 10**(-param[8])
+        D1 = param[0]
+        S1 = param[1]
+        D2 = param[2]
+        S2 = param[3]
         binmin1 = stats.lognorm.ppf(0.01, S1, scale=D1)
         binmax1 = stats.lognorm.ppf(0.99, S1, scale=D1)
         sizes1 = np.linspace(binmin1, binmax1, 11)
@@ -630,273 +576,16 @@ class scatterer_generator:
         binmax2 = stats.lognorm.ppf(0.99, S2, scale=D2)
         sizes2 = np.linspace(binmin2, binmax2, 11)
         diameters = np.append(sizes1,sizes2)
-        p, a, flag = read(pop, individual, diameters)
+        p, a, flag = read(individual, diameters,self.output_dir)
         if flag:        # if close-packed failed, return large SSE
             print('error',individual)
             return [np.zeros((10000)), np.zeros((10000, 3)), -self.IQin]
 
-        if self.smear == True:
-            if self.slit == True:
-                h = self.slit_h
-                qmin, qmax = np.min(self.qrange-h), np.max(np.sqrt((self.qrange-h)**2))
-                if qmin < 0:
-                    qmin = self.qrange[0]*0.02
-                log_delta_q = (len(self.qrange) - 1) / (np.log(self.qrange[-1]) - np.log(self.qrange[0]))
-                nlow = int(np.ceil(log_delta_q * (np.log(self.qrange[0])-np.log(qmin))))
-                qlow = np.logspace(np.log10(qmin), np.log10(self.qrange[0]), nlow+1)[:-1]
-                nhigh = int(np.ceil(log_delta_q * (np.log(qmax)-np.log(self.qrange[-1]))))
-                qhigh = np.logspace(np.log10(self.qrange[-1]), np.log10(qmax), nhigh+1)[1:]
-                qext = np.concatenate([qlow,self.qrange,qhigh])
-                ff1, ff2 = setFormFactor(
-                    self.form_factor, diameters, qext, self.cs_split, self.cust_form)
-                icomp = iqCalc(a, p, qext, ff1, ff2)
-                icompSmear = smearSlit(self.qrange, qext, icomp, h)
-                icompSmear = np.true_divide(icompSmear,icompSmear[0])
-                icompSmear += Background
-                return [a, p, icompSmear]
-                
+        # need to set form factor stuff
+        ff1, ff2 = setFormFactor(
+            self.form_factor, diameters, self.qrange, self.cust_form)
+        icomp = iqCalc(a, p, self.qrange, ff1, ff2)
+        icomp = np.true_divide(icomp,icomp[0])
+        icomp += Background
+        return [a, p, icomp]
 
-        else:
-            # need to set form factor stuff
-            ff1, ff2 = setFormFactor(
-                self.form_factor, diameters, self.qrange, self.cs_split, self.cust_form)
-            icomp = iqCalc(a, p, self.qrange, ff1, ff2)
-            icomp = np.true_divide(icomp,icomp[0])
-            icomp += Background
-            return [a, p, icomp]
-
-    def fitness(self, pop, generation, output_dir, atype, pos, iq, params, metric='chi2'):
-        cs = 10
-        F1 = open(output_dir+'z_temp_results_'+str(generation)+'.txt', 'w')
-        F1.write('Individual gene1 gene2 gene3 composition background error\n')
-        #np.savetxt(output_dir+'z_temp_population_' +
-        #           str(generation)+'.txt', np.c_[pop])
-
-        fitn = np.zeros(self.popnumber)
-        fitnfr = np.zeros(self.popnumber)
-        fit = np.zeros(self.popnumber)
-        qfin = self.qrange[-1]
-        IQid_str = []
-        params = []
-        for val in range(self.popnumber):
-            # gets the current structure variables
-            param = utils.decode(pop, val, self.nloci,
-                                 self.minvalu, self.maxvalu)
-            params.append(param)
-            IQid = iq[val]
-
-            err = 0
-            for qi, qval in enumerate(self.qrange):
-                if (IQid[qi] > 0) & (self.IQin[qi] > 0):
-                    if metric == 'log_sse':
-                        if (qi < qfin):
-                            # weighting factor
-                            wil = np.log(np.true_divide(
-                                self.qrange[qi+1], self.qrange[qi]))
-                        else:
-                            # weighting factor
-                            wil = np.log(np.true_divide(
-                                self.qrange[qi], self.qrange[qi-1]))
-                        # squared log error
-                        err += wil * \
-                            (np.log(np.true_divide(
-                                self.IQin[qi], IQid[qi])))**2
-                    elif metric == 'chi2':
-                        if self.IQerr is None:
-                            # chi^2 with weighting of sqrt(IQin)
-                            err += np.true_divide(
-                                np.square(self.IQin[qi]-IQid[qi]), np.square(self.IQin[qi]))
-                        else:
-                            # chi^2 with weighting of (IQerr)**2
-                            err += np.true_divide(
-                                np.square(self.IQin[qi]-IQid[qi]), np.square(self.IQerr[qi]))
-                else:
-                    if self.IQerr is None:
-                        err += 2 #*self.IQin[qi]/np.sqrt(self.IQin[qi])
-                    else:
-                        err += 2*self.IQin[qi]/self.IQerr[qi]
-            fit[val] = err
-            IQid_str.append(IQid)
-            F1.write(
-                ('{:>2d} '.format(val)+'{:.4f} '.format(param[0])+'{:.4f} '.format(param[1])+'{:.4f} '.format(param[2])+'{:.4f} '.format(param[3])+'{:.4f} '.format(param[4])+'{:.4f} '.format(param[7])+'{:.4f} '.format(param[8])+'{:.5g} '.format(err)+'\n'))
-            F1.flush()
-
-            """
-            print('outputing all information to check error calculation')
-            f21 = open("xhelp-pos-"+str(val),'w')
-            D1 = params[val][5]
-            S1 = params[val][6]
-            D2 = params[val][7]
-            S2 = params[val][8]
-            binmin1 = stats.lognorm.ppf(0.01, S1, scale=D1)
-            binmax1 = stats.lognorm.ppf(0.99, S1, scale=D1)
-            sizes1 = np.linspace(binmin1, binmax1, 11)
-            binmin2 = stats.lognorm.ppf(0.01, S2, scale=D2)
-            binmax2 = stats.lognorm.ppf(0.99, S2, scale=D2)
-            sizes2 = np.linspace(binmin2, binmax2, 11)
-            diameters = np.append(sizes1,sizes2)
-            f2dia = open('xhelp-diameters-'+str(val),'w')
-            for i in range(len(diameters)):
-                f2dia.write('{}\n'.format(diameters[i]))
-            f2dia.close()
-            f21.write('ITEM: TIMESTEP\n0\nITEM: NUMBER OF ATOMS\n{}\nITEM: BOX BOUNDS pp pp pp\n'.format(
-                len(atype[val].flatten())))
-            f21.write('-3e5 3e5\n-3e5 3e5\n-3e5 3e5\n')
-            f21.write('ITEM: ATOMS id mol type x y z\n')
-            for j in range(len(atype[val].flatten())):
-                if len(pos[val].shape) == 3:
-                    f21.write('{} 0 {} {} {} {}\n'.format(j+1, int(atype[val].flatten()[j]), pos[val][0][j][0], pos[val][0][j][1], pos[val][0][j][2]))
-                else:
-                    f21.write('{} 0 {} {} {} {}\n'.format(j+1, int(atype[val].flatten()[j]), pos[val][j][0], pos[val][j][1], pos[val][j][2]))
-            f21.close()
-            f21 = open('xhelp-icomp-'+str(val), 'w')  # I(q)
-            for j in range(len(IQid)):
-                f21.write('{} {} \n'.format(
-                    self.qrange[j], iq[val].flatten()[j]))
-            f21.close()
-            """
-
-        print('SSE',fit) 
-        print('min SSE',np.min(fit))
-        maxerr = np.max(fit)  # determines maximum SSerror for the population
-        fitn = np.subtract(maxerr,fit) # determines error differences
-        bestfit = np.max(fitn)
-        sumup = np.sum(fitn)
-        avgfit = np.true_divide(sumup, self.popnumber)
-        dval = bestfit-avgfit
-        # linear scaling with cs as a scaleFactor
-        ascale = np.true_divide(avgfit, dval)*(cs-1.0)
-        bscale = avgfit*(1.0-ascale)
-        sumup = 0
-        # get scaled fitness to enable selection of bad candidates
-        for val in range(self.popnumber):
-            if (fitn[val] > avgfit):
-                fitnfr[val] = ascale*fitn[val]+bscale
-            else:
-                fitnfr[val] = fitn[val]
-        sumup = np.sum(fitnfr)
-        pacc = np.zeros(self.popnumber)
-        prob = np.true_divide(fitnfr, sumup)
-        pacc = np.cumsum(prob)
-        ### returns cummulative relative error from which individuals can be selected ###
-        maxfit = np.min(fit)
-        elitei = np.where(fit == maxfit)[0]                  # Best candidate
-        secondfit = sorted(fit)[1]
-        # Second best candidate
-        secondi = np.where(fit == secondfit)[0]
-        avgfit = np.average(fit)
-        avgi = np.array([(np.abs(fit-avgfit)).argmin()])   # Average candidate
-        minfit = np.max(fit)
-        mini = np.where(fit == minfit)[0]                    # Worst candidate
-        if avgfit == 0:
-            avgfit = 1
-        gdm = np.true_divide(maxfit, avgfit)
-        if len(elitei) > 1:
-            elitei = elitei[0]
-        if len(secondi) > 1:
-            secondi = secondi[0]
-        if len(avgi) > 1:
-            avgi = avgi[0]
-        if len(mini) > 1:
-            mini = mini[0]
-        # for structure, need to save atype, pos, & iq as the structure matters
-        params = np.array(params)
-        if generation == 0:
-            self.best_pos = pos[elitei][0]
-            self.best_atype = atype[elitei][0]
-            self.best_iq = iq[elitei][0]
-            self.best_sse = fit[elitei]
-            print('params',params.shape)
-            print('elitei',elitei)
-            print('both',params[elitei])
-            best_param = params[elitei].flatten()
-            np.savetxt('current_sse.txt',np.c_[fit[elitei]])
-            np.savetxt('current_genes.txt',np.c_[best_param])
-            # get diameter
-            D1 = best_param[5]
-            S1 = best_param[6]
-            D2 = best_param[7]
-            S2 = best_param[8]
-            binmin1 = stats.lognorm.ppf(0.01, S1, scale=D1)
-            binmax1 = stats.lognorm.ppf(0.99, S1, scale=D1)
-            sizes1 = np.linspace(binmin1, binmax1, 11)
-            binmin2 = stats.lognorm.ppf(0.01, S2, scale=D2)
-            binmax2 = stats.lognorm.ppf(0.99, S2, scale=D2)
-            sizes2 = np.linspace(binmin2, binmax2, 11)
-            diameters = np.append(sizes1,sizes2)
-            np.savetxt('current_diameters.txt',np.c_[diameters])
-            f1 = open(output_dir+'best_structure.txt',
-                      'w')  # write as LAMMPS file
-            f1.write('ITEM: TIMESTEP\n0\nITEM: NUMBER OF ATOMS\n{}\nITEM: BOX BOUNDS pp pp pp\n'.format(
-                len(pos[elitei][0])))
-            f1.write('-3e5 3e5\n-3e5 3e5\n-3e5 3e5\n')
-            f1.write('ITEM: ATOMS id mol type x y z\n')
-            print('elitei',elitei)
-            print('pos',pos[elitei].shape)
-            print('atype',atype[elitei].shape)
-            print('iq',iq[elitei].shape)
-            for j in range(len(pos[elitei][0])):
-                f1.write('{} 0 {} {} {} {}\n'.format(
-                    j+1, int(atype[elitei][0][j]), pos[elitei][0][j][0], pos[elitei][0][j][1], pos[elitei][0][j][2]))
-            f1.close()
-            f1 = open(output_dir+'best_Icomp.txt', 'w')  # I(q)
-#            f1.write('q Icomp(q) \n')
-            for j in range(len(IQid)):
-                f1.write('{} {} \n'.format(
-                    self.qrange[j], iq[elitei][0][j]))
-            f1.close()
-        else:
-            if fit[elitei] < self.best_sse:
-                self.best_pos = pos[elitei]
-                self.best_atype = atype[elitei]
-                self.best_iq = iq[elitei]
-                self.best_sse = fit[elitei]
-                best_param = params[elitei].flatten()
-                np.savetxt('current_sse.txt',np.c_[fit[elitei]])
-                np.savetxt('current_genes.txt',np.c_[best_param])
-                # get diameter
-                D1 = best_param[5]
-                S1 = best_param[6]
-                D2 = best_param[7]
-                S2 = best_param[8]
-                binmin1 = stats.lognorm.ppf(0.01, S1, scale=D1)
-                binmax1 = stats.lognorm.ppf(0.99, S1, scale=D1)
-                sizes1 = np.linspace(binmin1, binmax1, 11)
-                binmin2 = stats.lognorm.ppf(0.01, S2, scale=D2)
-                binmax2 = stats.lognorm.ppf(0.99, S2, scale=D2)
-                sizes2 = np.linspace(binmin2, binmax2, 11)
-                diameters = np.append(sizes1,sizes2)
-                np.savetxt('current_diameters.txt',np.c_[diameters])
-                f1 = open(output_dir+'best_structure.txt',
-                          'w')  # write as LAMMPS file
-                f1.write('ITEM: TIMESTEP\n0\nITEM: NUMBER OF ATOMS\n{}\nITEM: BOX BOUNDS pp pp pp\n'.format(
-                    len(pos[elitei][0])))
-                f1.write('-3e5 3e5\n-3e5 3e5\n-3e5 3e5\n')
-                f1.write('ITEM: ATOMS id mol type x y z\n')
-                for j in range(len(pos[elitei][0])):
-                    f1.write('{} 0 {} {} {} {}\n'.format(
-                        j+1, int(atype[elitei][0][j]), pos[elitei][0][j][0], pos[elitei][0][j][1], pos[elitei][0][j][2]))
-                f1.close()
-                f1 = open(output_dir+'best_Icomp.txt', 'w')  # I(q)
-#                f1.write('q Icomp(q)\n')
-                for j in range(len(IQid)):
-                    f1.write('{} {} \n'.format(
-                        self.qrange[j], iq[elitei][0][j]))
-                f1.close()
-
-        f = open(output_dir+'fitness_vs_gen.txt', 'a')
-        if generation == 0:
-            f.write('gen mini min avgi avg secondi second besti best\n')
-        f.write('%d ' % (generation))
-        f.write('%d %.8lf ' % (mini, minfit))
-        f.write('%d %.8lf ' % (avgi, avgfit))
-        f.write('%d %.8lf ' % (secondi, secondfit))
-        f.write('%d %.8lf ' % (elitei, maxfit))
-        f.write('\n')
-        f.close()
-        print('Generation best fitness: {:.4f}'.format(maxfit))
-        print('Generation best fitness: {:.3f}'.format(gdm))
-        params = np.array(params)
-        print('Generation best parameters '+str(params[elitei]))
-
-        return pacc, gdm, elitei, IQid_str
