@@ -72,7 +72,7 @@ class Model:
             input parameter boundaries are specified, the default boundaries of
             the input parameters of the shape will be loaded.
         '''
-        builtin_shapes=["vesicle","micelle"]
+        builtin_shapes=["vesicle","micelle","NP-solution","binary-NP-assembly"]
         if shape in builtin_shapes:
             sg = import_module('crease_ga.shapes.'+shape+'.scatterer_generator')
             sg = sg.scatterer_generator
@@ -121,8 +121,9 @@ class Model:
         Parameters
         ----------
         input_file_path: str. Path to the input file. 
-            The file should be organized in two column, with q-values in the first column, and
-            corresponding I(q) values in the second.
+            The file should be organized in up to three column, with q-values in the first column, 
+            corresponding I(q) values in the second, and optionally, corresponding error for the 
+            I(q) in the third.
         q_bounds: [min,max].
             Define the minimum and maximum bound of the q region of interest. Any
             q-I(q) pairs outside of the defined bounds will be ignored during the
@@ -135,24 +136,42 @@ class Model:
         loadvals = np.genfromtxt(input_file_path)
         self.qrange_load = loadvals[:,0]
         IQin_load = loadvals[:,1]
+        if len(loadvals.T)>2:
+            IQerr_load = loadvals[:,2]
+            IQerr_load = np.true_divide(IQerr_load,np.max(IQin_load))
+        else:
+            IQerr_load = None
         self.IQin_load=np.true_divide(IQin_load,np.max(IQin_load))
         #TODO: highQ and lowQ needs to be able to be dynamically set
         if q_bounds == None:
             self.qrange = self.qrange_load
             self.IQin = self.IQin_load
+            self.IQerr = IQerr_load
         else:
             lowQ = q_bounds[0]
             highQ = q_bounds[1]
             self.IQin = self.IQin_load[ np.where(self.qrange_load>=lowQ)[0][0]:np.where(self.qrange_load<=highQ)[0][-1] +1]
+            if IQerr_load == None:
+                self.IQerr = None
+            else:
+                self.IQerr = IQerr_load[ np.where(self.qrange_load>=lowQ)[0][0]:np.where(self.qrange_load<=highQ)[0][-1] +1]
             self.qrange = self.qrange_load[ np.where(self.qrange_load>=lowQ)[0][0]:np.where(self.qrange_load<=highQ)[0][-1] +1]
             
 
         baseline = self.IQin[0]
+        if self.IQerr != None:
+            self.IQerr = np.true_divide(self.IQerr,baseline)
         self.IQin = np.true_divide(self.IQin,baseline)
-        self.IQin_load = np.true_divide(self.IQin_load,baseline)
+#        self.IQin_load = np.true_divide(self.IQin_load,baseline)
 
         
-    def solve(self,name = 'ga_job',verbose = True,backend = 'debye',fitness_metric = 'log_sse',output_dir='./'):
+    def solve(self,name = 'ga_job',
+              verbose = True,
+              backend = 'debye',
+              fitness_metric = 'log_sse',
+              output_dir='./',
+              n_cores=1,
+              needs_postprocess = False):
         '''
         Fit the loaded target I(q) for a set of input parameters that maximize
         the fitness or minimize the error metric (fitness_metric).
@@ -200,11 +219,11 @@ class Model:
                 np.savetxt(f,self.qrange,fmt="%-10f",newline='')
             bestIQ = []
             print('New run')
-        pop = utils.initial_pop(self.popnumber, self.nloci, self.numvars)
+        
         colors = plt.cm.coolwarm(np.linspace(0,1,self.generations))
         for gen in range(currentgen, self.generations):    
             if backend == 'debye':
-                pacc,gdm,elitei,IQid_str = self.fitness(pop,gen,output_dir+'/'+name+'/',metric='log_sse')
+                pacc,gdm,elitei,IQid_str = self.fitness(pop,gen,output_dir+'/'+name+'/',fitness_metric,n_cores)
                 IQid_str = np.array(IQid_str)
             pop = self.genetic_operations(pop,pacc,elitei)
             self.adaptation_params.update(gdm)
@@ -221,6 +240,9 @@ class Model:
             np.savetxt(address+'current_pop.txt',np.c_[pop])
             np.savetxt(address+'current_pm_pc.txt',np.c_[self.adaptation_params.pm,self.adaptation_params.pc])
             
+            if needs_postprocess:
+                self.postprocess()
+
             if verbose:
                 figsize=(4,4)
                 fig, ax = plt.subplots(figsize=(figsize))
@@ -237,28 +259,33 @@ class Model:
                 plt.show()
                 if gen == self.generations-1:
                     plt.savefig('iq_evolution.png',dpi=169,bbox_inches='tight')
+    
+    def postprocess(self):
+        #import weakref
+        self.scatterer_generator.postprocess(self)
       
-    def fitness(self,pop,generation,output_dir,metric='log_sse'):
+    def fitness(self,pop,generation,output_dir,metric='log_sse',n_cores=1):
         tic = time.time()
         cs=10
         F1= open(output_dir+'results_'+str(generation)+'.txt','w')
         F1.write('#individual...all params...error\n')
         np.savetxt(output_dir+'population_'+str(generation)+'.txt',np.c_[pop])
+
+        params=[]
+        # calculate scattering for each individual
+        for val in range(self.popnumber):
+            param=utils.decode(pop, val, self.nloci, self.minvalu, self.maxvalu) # gets the current structure variables
+            params.append(param)
+        IQids = self.scatterer_generator.calculateScattering(self.qrange,params,output_dir,n_cores)
         
         fitn=np.zeros(self.popnumber)
         fitnfr=np.zeros(self.popnumber)
         fit=np.zeros(self.popnumber)
         qfin=self.qrange[-1]
         IQid_str=[]
-        params=[]
         for val in range(self.popnumber):
-            sys.stdout.write("\rGen {:d}/{:d}, individual {:d}/{:d}".format(generation+1,self.generations,val+1,self.popnumber))
-            sys.stdout.flush()
-            param=utils.decode(pop, val, self.nloci, self.minvalu, self.maxvalu) # gets the current structure variables
-            params.append(param)
-
             ### calculate computed Icomp(q) ###
-            IQid=self.scatterer_generator.converttoIQ(self.qrange, param)
+            IQid=IQids[val]
 
             err=0
             for qi,qval in enumerate(self.qrange):
@@ -269,6 +296,15 @@ class Model:
                         wil=np.log(np.true_divide(self.qrange[qi],self.qrange[qi-1]))  # weighting factor
                     if metric == 'log_sse':
                         err+=wil*(np.log(np.true_divide(self.IQin[qi],IQid[qi])))**2  # squared log error 
+                elif metric == 'chi2':
+                    if self.IQerr is None:
+                        # chi^2 with weighting of IQin
+                        err += np.true_divide(
+                            np.square(self.IQin[qi]-IQid[qi]), np.square(self.IQin[qi]))
+                    else:
+                        # chi^2 with weighting of IQerr
+                        err += np.true_divide(
+                            np.square(self.IQin[qi]-IQid[qi]), np.square(self.IQerr[qi]))
             fit[val]=err
             IQid_str.append(IQid)  
 
@@ -277,6 +313,7 @@ class Model:
                 F1.write(str(p)+' ')
             F1.write(str(err)+'\n')
             F1.flush()
+        self.fit = fit
 
         params = np.array(params)
         maxerr=np.max(fit)           #determines maximum SSerror for the population

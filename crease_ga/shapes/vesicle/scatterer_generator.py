@@ -211,6 +211,34 @@ class scatterer_generator:
     def numvars(self):
         return self._numvars
     
+    def calculateScattering(self,qrange,params,output_dir,n_cores):
+        '''
+        Determine each individual's computed scattering intensity profile.
+
+        Parameters
+        ----------
+        qrange: numpy.array
+            q values.
+        params: numpy.array
+            Decoded input parameters. See *Notes* section of the class
+            documentation.
+        output_dir: string
+            folder to output any generated files
+        n_cores: int
+            number of cores to use for parallelization (if implemented)
+
+        Returns
+        -------
+        IQids: A numpy array holding each individual's I(q).
+        '''
+        IQids = []
+        for val in range(len(params)):
+            sys.stdout.write("\rindividual {:d}/{:d}".format(val+1,len(params)))
+            sys.stdout.flush()
+            IQid=converttoIQ(qrange, params[val])
+            IQids.append(IQi)
+        IQids = np.array(IQids)
+        return IQids
 
     def converttoIQ(self, qrange, param):
         '''
