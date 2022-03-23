@@ -1,6 +1,7 @@
 import numpy as np
 import random
 import numexpr as ne
+import sys
 
 def gen_layer(rin, rout, nsize):
         R = 1.0
@@ -235,8 +236,8 @@ class scatterer_generator:
         for val in range(len(params)):
             sys.stdout.write("\rindividual {:d}/{:d}".format(val+1,len(params)))
             sys.stdout.flush()
-            IQid=converttoIQ(qrange, params[val])
-            IQids.append(IQi)
+            IQid=self.converttoIQ(qrange, params[val])
+            IQids.append(IQid)
         IQids = np.array(IQids)
         return IQids
 
