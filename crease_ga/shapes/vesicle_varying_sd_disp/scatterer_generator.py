@@ -122,7 +122,7 @@ def genLP(R_core, dR_Ain, dR_B, dR_Aout, scat_density, sB, sAin):
         if scat_density < 1:
             n_total = int(4/3*np.pi*((R_core+dR_Ain+dR_B+dR_Aout)**3-R_core**3)*scat_density)
         else:
-            n_total = scat_density
+            n_total = int(scat_density)
         nB = int(n_total*sB)
         v_Ain = 4/3*np.pi*((R_core+dR_Ain)**3-R_core**3)
         v_Aout = 4/3*np.pi*((R_core+dR_Ain+dR_B+dR_Aout)**3-(R_core+dR_Ain+dR_B)**3)
