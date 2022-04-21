@@ -2,6 +2,8 @@ import numpy as np
 import random
 import numexpr as ne
 import sys
+def gaussian(x,mu,sigma):
+    return 1/np.sqrt(2*np.pi*sigma**2)*np.exp(-(x-mu)**2/(2*sigma**2))
 def gen_layer(rin, rout, nsize):
         R = 1.0
 
@@ -252,7 +254,7 @@ class scatterer_generator:
         IQid = np.zeros(len(qrange))
         for delta in np.arange(-1.5,1.6,0.5):
             r = genLP(R_core+delta*sigma, dR_Ain, dR_B, dR_Aout, scat_density, self.sB, sAin) 
-            IQid += LPOmega(qrange, r, sigmabead, 1, 1, 1)
+            IQid += LPOmega(qrange, r, sigmabead, 1, 1, 1)*gaussian(Rcore+delta*sigma,R_core,sigma)
         maxIQ=np.max(IQid)                                  
         IQid=np.true_divide(IQid,maxIQ)                    # normalizes the I(q) to have its maximum = 1
         IQid+=Background                                   # add background
