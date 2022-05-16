@@ -2,6 +2,7 @@ import numpy as np
 import random
 import numexpr as ne
 import sys
+import calc_iq_euler as cle
 def gaussian(x,mu,sigma):
     return 1/np.sqrt(2*np.pi*sigma**2)*np.exp(-(x-mu)**2/(2*sigma**2))
 def gen_layer(rin, rout, nsize):
@@ -162,17 +163,13 @@ class scatterer_generator:
         molar fraction of the B type chemistry. Default: 0.5
 
 
-    **The following 7 parameters are to be predicted, in the precise order
+    **The following 5 parameters are to be predicted, in the precise order
     as listed, by GA:**
     
     R_total:
         R_core+R_in+R_b+R_out. Default [min,max]: [20 A, 2000 A]
-    f_core:
-        R_core/R_total. Default [min,max]: [0.1,0.95]
-    f_Ain:
-        R_Ain/(R_total-R_core). Default [min,max]: [0.01,0.99]
-    f_Aout:
-        R_Aout/(R_total-R_core-R_Ain). Default [min,max]: [0.01,0.99]
+    t_B_over_t_A:
+        t_B/t_A. Default [min,max]: [0.1,2.5]
     sAin:
         Scatterer density_in/scatterer_density out. 
         Default [min,max]: [0.4,1]
@@ -191,18 +188,24 @@ class scatterer_generator:
     '''
     
     def __init__(self,
-                 shape_params = [2e-3,1,0.5],
-                minvalu = (20, 0.1, 0.01, 0.01, 0.4, 0.1, 1),
-                maxvalu = (3000, 0.95, 0.99, 0.99, 1, 0.5, 6)):
+                 shape_params = [2e-3,1,0.5,10,True],
+                minvalu = (20, 0.1, 0.4, 0.1, 1),
+                maxvalu = (3000, 2, 1.0, 0.5, 6)):
         scat_density = shape_params[0]
         sigmabead = shape_params[1]
         sB = shape_params[2]
-        self._numvars = 7
+        tA = shape_params[3]
+        euler = shape_params[4]
+        self._numvars = 5
         self.minvalu = minvalu
         self.maxvalu = maxvalu
         self.scat_density = scat_density    ## scatterer density
         self.sigmabead = sigmabead    ## scatterer density
         self.sB = sB
+        self.tA = tA
+        self.euler = euler
+	
+
     
     @property
     def numvars(self):
@@ -232,29 +235,30 @@ class scatterer_generator:
         # number of scatterers per chain, # of replicates, stdev in Rcore size
         sigmabead = self.sigmabead
         scat_density = self.scat_density
-        
+        tA = self.tA
         IQid=np.zeros((len(qrange)))      #initiates array for output IQ
 
         ### Parameters used to generate scatterer placements ###
         R_total=param[0]
-        f_core=param[1]
-        f_Ain=param[2]
-        f_Aout=param[3]
-        sAin=param[4]     # split of type A scatterer 
+        tB_over_tA = param[1]
+        sAin=param[2]     # split of type A scatterer 
         #print(Rcore, dR_Ain, dR_B, dR_Aout, sAin)
-        pd = param[5]
-        Background=10**(-param[6])
+        pd = param[3]
+        Background=10**(-param[4])
 
-        R_core = R_total*f_core
+        dR_Ain = self.tA
+        dR_Aout = self.tA
+        dR_B = self.tA*tB_over_tA
+        R_core = R_total-dR_Ain-dR_Aout-dR_B 
         sigma = R_core*pd
-        dR_Ain = R_total*(1-f_core)*f_Ain
-        dR_Aout = f_Aout*(R_total-R_core-dR_Ain)
-        dR_B = R_total-R_core-dR_Ain-dR_Aout
         
         IQid = np.zeros(len(qrange))
         for delta in np.arange(-1.5,1.6,0.5):
-            r = genLP(R_core+delta*sigma, dR_Ain, dR_B, dR_Aout, scat_density, self.sB, sAin) 
-            IQid += LPOmega(qrange, r, sigmabead, 1, 1, 1)*gaussian(R_core+delta*sigma,R_core,sigma)
+            r = genLP(R_core+delta*sigma, dR_Ain, dR_B, dR_Aout, scat_density, self.sB, sAin)
+            if self.euler:
+                IQid += cle.calc_iq_euler_np_qonce_2(qrange,r,[1,1,1],theta_spacing=10,phi_spacing=10)
+            else:
+                IQid += LPOmega(qrange, r, sigmabead, 1, 1, 1)*gaussian(R_core+delta*sigma,R_core,sigma)
         maxIQ=np.max(IQid)                                  
         IQid=np.true_divide(IQid,maxIQ)                    # normalizes the I(q) to have its maximum = 1
         IQid+=Background                                   # add background
