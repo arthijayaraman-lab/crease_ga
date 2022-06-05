@@ -170,8 +170,10 @@ class Model:
               backend = 'debye',
               fitness_metric = 'log_sse',
               output_dir='./',
-              n_cores=1,
-              needs_postprocess = False):
+              needs_postprocess = False,
+              *args,
+              **kwargs
+             ):
         '''
         Fit the loaded target I(q) for a set of input parameters that maximize
         the fitness or minimize the error metric (fitness_metric).
@@ -194,6 +196,8 @@ class Model:
                 point.
         output_dir: string. Default="./" 
             Path to the working directory.
+        *args, **kwargs:
+            other parameters for scatterer_generator.calculateScattering
         '''
         ### checking if starting new run or restarting partial run
         address = output_dir+'/'+name+'/'
@@ -223,7 +227,7 @@ class Model:
         colors = plt.cm.coolwarm(np.linspace(0,1,self.generations))
         for gen in range(currentgen, self.generations):    
             if backend == 'debye':
-                pacc,gdm,elitei,IQid_str = self.fitness(pop,gen,output_dir+'/'+name+'/',fitness_metric,n_cores)
+                pacc,gdm,elitei,IQid_str = self.fitness(pop,gen,output_dir+'/'+name+'/',fitness_metric,*args,**kwargs)
                 IQid_str = np.array(IQid_str)
             pop = self.genetic_operations(pop,pacc,elitei)
             self.adaptation_params.update(gdm)
@@ -264,7 +268,7 @@ class Model:
         #import weakref
         self.scatterer_generator.postprocess(self)
       
-    def fitness(self,pop,generation,output_dir,metric='log_sse',n_cores=1):
+    def fitness(self,pop,generation,output_dir,metric='log_sse',*args,**kwargs):
         tic = time.time()
         cs=10
         F1= open(output_dir+'results_'+str(generation)+'.txt','w')
@@ -276,7 +280,7 @@ class Model:
         for val in range(self.popnumber):
             param=utils.decode(pop, val, self.nloci, self.minvalu, self.maxvalu) # gets the current structure variables
             params.append(param)
-        IQids = self.scatterer_generator.calculateScattering(self.qrange,params,output_dir,n_cores)
+        IQids = self.scatterer_generator.calculateScattering(self.qrange,params,output_dir,*args,**kwargs)
         
         fitn=np.zeros(self.popnumber)
         fitnfr=np.zeros(self.popnumber)
