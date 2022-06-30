@@ -93,7 +93,7 @@ def ps(self, param, individual,output_dir):
     S2 = param[1]
     D1 = param[2]
     S1 = param[3]
-    phi1 = 1-param[4]
+    phi1 = param[4]
     # get diameter
     binmin1 = stats.lognorm.ppf(0.01, S1, scale=D1)
     binmax1 = stats.lognorm.ppf(0.99, S1, scale=D1)
