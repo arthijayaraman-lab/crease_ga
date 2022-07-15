@@ -86,7 +86,7 @@ class Model:
                 raise CgaError('Currently unsupported shape {}'.format(shape))
         
         #TODO: Complete the checker
-        if shape_params == None:
+        if shape_params is None:
             self.scatterer_generator = sg()
         elif minvalu == None or maxvalu == None:
             warn("Unspecified minimum and/or maximum parameter boundaries. Fall back to the default minimum "
@@ -138,12 +138,12 @@ class Model:
         IQin_load = loadvals[:,1]
         if len(loadvals.T)>2:
             IQerr_load = loadvals[:,2]
-            IQerr_load = np.true_divide(IQerr_load,np.max(IQin_load))
+            #IQerr_load = np.true_divide(IQerr_load,np.max(IQin_load))
         else:
             IQerr_load = None
-        self.IQin_load=np.true_divide(IQin_load,np.max(IQin_load))
+        #self.IQin_load=np.true_divide(IQin_load,np.max(IQin_load))
         #TODO: highQ and lowQ needs to be able to be dynamically set
-        if q_bounds == None:
+        if q_bounds is None:
             self.qrange = self.qrange_load
             self.IQin = self.IQin_load
             self.IQerr = IQerr_load
@@ -151,7 +151,7 @@ class Model:
             lowQ = q_bounds[0]
             highQ = q_bounds[1]
             self.IQin = self.IQin_load[ np.where(self.qrange_load>=lowQ)[0][0]:np.where(self.qrange_load<=highQ)[0][-1] +1]
-            if IQerr_load == None:
+            if IQerr_load is None:
                 self.IQerr = None
             else:
                 self.IQerr = IQerr_load[ np.where(self.qrange_load>=lowQ)[0][0]:np.where(self.qrange_load<=highQ)[0][-1] +1]
@@ -159,7 +159,7 @@ class Model:
             
 
         baseline = self.IQin[0]
-        if self.IQerr != None:
+        if self.IQerr is not None:
             self.IQerr = np.true_divide(self.IQerr,baseline)
         self.IQin = np.true_divide(self.IQin,baseline)
 #        self.IQin_load = np.true_divide(self.IQin_load,baseline)
