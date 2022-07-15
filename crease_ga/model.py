@@ -138,10 +138,10 @@ class Model:
         IQin_load = loadvals[:,1]
         if len(loadvals.T)>2:
             IQerr_load = loadvals[:,2]
-            #IQerr_load = np.true_divide(IQerr_load,np.max(IQin_load))
+            IQerr_load = np.true_divide(IQerr_load,np.max(IQin_load))
         else:
             IQerr_load = None
-        #self.IQin_load=np.true_divide(IQin_load,np.max(IQin_load))
+        self.IQin_load=np.true_divide(IQin_load,np.max(IQin_load))
         #TODO: highQ and lowQ needs to be able to be dynamically set
         if q_bounds is None:
             self.qrange = self.qrange_load
@@ -157,12 +157,10 @@ class Model:
                 self.IQerr = IQerr_load[ np.where(self.qrange_load>=lowQ)[0][0]:np.where(self.qrange_load<=highQ)[0][-1] +1]
             self.qrange = self.qrange_load[ np.where(self.qrange_load>=lowQ)[0][0]:np.where(self.qrange_load<=highQ)[0][-1] +1]
             
-
         baseline = self.IQin[0]
         if self.IQerr is not None:
             self.IQerr = np.true_divide(self.IQerr,baseline)
         self.IQin = np.true_divide(self.IQin,baseline)
-#        self.IQin_load = np.true_divide(self.IQin_load,baseline)
 
         
     def solve(self,name = 'ga_job',
@@ -246,7 +244,7 @@ class Model:
             if verbose:
                 figsize=(4,4)
                 fig, ax = plt.subplots(figsize=(figsize))
-                ax.plot(self.qrange_load,self.IQin_load,color='k',linestyle='-',ms=8,linewidth=1.3,marker='o')
+                ax.plot(self.qrange_load,self.IQin,color='k',linestyle='-',ms=8,linewidth=1.3,marker='o')
                 for i in range(gen+1):
                     ax.plot(self.qrange,bestIQ[i],color=colors[i],linestyle='-',ms=8,linewidth=2)
                 plt.xlim(self.qrange[0],self.qrange[-1])
