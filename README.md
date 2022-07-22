@@ -27,7 +27,7 @@ __If you use this code, please cite one or more of the relevant references from 
 
    Ye, Z.; Wu, Z.; Jayaraman, A. Computational Reverse-Engineering Analysis for Scattering Experiments (CREASE) on Vesicles Assembled from Amphiphilic Macromolecular Solutions. JACS Au 2021, 1, 11, 1925-1936. [link to article](https://pubs.acs.org/doi/10.1021/jacsau.1c00305)
 
-6. Machine Learning Enhanced CREASE for Structure Factors with expansion to nanoparticle solutions:  
+6. Machine Learning Enhanced CREASE for Structure Factors with Expansion to Nanoparticle Solutions:  
 
    Heil, C. M., Patil, A., Dhinojwala, A., & Jayaraman, A. (2022). Computational Reverse-Engineering Analysis for Scattering Experiments (CREASE) with Machine Learning Enhancement to Determine Structure of Nanoparticle Mixtures and Solutions. ACS Central Science. [link to article](https://pubs.acs.org/doi/full/10.1021/acscentsci.2c00382) 
 
