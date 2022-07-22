@@ -225,20 +225,22 @@ def ps(self, param, individual,output_dir):
         ender += lens[i]
         at1[c1[starter:ender]] = i+1
         starter = ender
-    internal = np.arange(swap+1)
+    # update atype based on domains and randomly assigning diameters
+    temp = np.sum(lens[11:])
+    internal = np.arange(temp)
     # get random order of particle ids for type2
-    c1 = np.random.choice(internal, size=(swap+1), replace=False)
+    c1 = np.random.choice(internal, size=temp, replace=False)
+    # go through and assign first lens[i] to each type
     starter = 0
     ender = 0
-    # go through and assign first lens[i] to each type
-    at2 = np.zeros((swap+1))
+    at2 = np.zeros((temp))
     for i in range(11):
         ender += lens[i+11]
         at2[c1[starter:ender]] = i+12
         starter = ender
     # finally update atype using at1, at2, and types
-    atype[types == 0] = at1
-    atype[types > 0] = at2
+    atype[types == 0] = at2
+    atype[types > 0] = at1
     # once all required particles are swapped to type2, need to generate lammps file
     v = 0
     # get particle volume
