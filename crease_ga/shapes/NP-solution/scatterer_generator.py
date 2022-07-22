@@ -134,7 +134,7 @@ def ps(self, param, individual,output_dir):
     domain = 1
     types = np.zeros((len(atype)), dtype=int)
     # how many particles need to be type B during loop
-    swap = np.sum(lens[-11:])-1
+    swap = np.sum(lens[:11])-1
     # randomly select a particle to be first domain
     old = np.random.choice(np.arange(len(atype)), size=1, replace=False)[0]
     types[old] = domain
