@@ -89,10 +89,10 @@ def generateDistribution(phi1, D1, S1, D2, S2, natoms):
     return Nps
 
 def ps(self, param, individual,output_dir):
-    D2 = param[0]
-    S2 = param[1]
-    D1 = param[2]
-    S1 = param[3]
+    D1 = param[0]
+    S1 = param[1]
+    D2 = param[2]
+    S2 = param[3]
     phi1 = param[4]
     # get diameter
     binmin1 = stats.lognorm.ppf(0.01, S1, scale=D1)
