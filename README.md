@@ -29,7 +29,15 @@ __If you use this code, please cite one or more of the relevant references from 
 
 6. Machine Learning Enhanced CREASE for Structure Factors with Expansion to Nanoparticle Solutions:  
 
-   Heil, C. M., Patil, A., Dhinojwala, A., & Jayaraman, A. (2022). Computational Reverse-Engineering Analysis for Scattering Experiments (CREASE) with Machine Learning Enhancement to Determine Structure of Nanoparticle Mixtures and Solutions. ACS Central Science. [link to article](https://pubs.acs.org/doi/full/10.1021/acscentsci.2c00382) 
+   Heil, C. M.; Patil, A.; Dhinojwala, A.; & Jayaraman, A. (2022). Computational Reverse-Engineering Analysis for Scattering Experiments (CREASE) with Machine Learning Enhancement to Determine Structure of Nanoparticle Mixtures and Solutions. ACS Central Science. [link to article](https://pubs.acs.org/doi/full/10.1021/acscentsci.2c00382) 
+   
+7. Machine Learning Enhanced CREASE for Semi-flexible fibrils:  
+
+   Wu, Z. & Jayaraman, A. (2022).
+   
+8. Machine Learning Enhanced CREASE for Simultaneous Form Factor and Structure Factor Elucidation for Concentrated Macromolecular Solutions (e.g., micelles, polymer coated nanoparticles):  
+
+   Heil, C. M.; Ma, Y.; Bharti, B.; & Jayaraman, A. (ArXiv preprint). Computational Reverse-Engineering Analysis for Scattering Experiments for Form Factor and Structure Factor Determination ('P(q) and S(q) CREASE'). [link to article](https://arxiv.org/abs/2212.03154)
 
 # Installation
 
