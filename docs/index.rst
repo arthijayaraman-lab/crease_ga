@@ -55,6 +55,18 @@ __________
 
    Ye, Z.; Wu, Z.; Jayaraman, A. Computational Reverse-Engineering Analysis for Scattering Experiments (CREASE) on Vesicles Assembled from Amphiphilic Macromolecular Solutions. JACS Au 2021, 1, 11, 1925-1936. `link to article <https://pubs.acs.org/doi/10.1021/jacsau.1c00305>`_
 
+
+#. 
+   Machine Learning Enhanced CREASE for Semi-flexible Fibrils:  
+
+   Wu, Z. & Jayaraman, A. (2022). Machine learning enhanced computational reverse-engineering analysis for scattering experiments (CREASE) for analyzing fibrillar structures in polymer solutions. Macromolecule. `link to article <https://pubs-acs-org.udel.idm.oclc.org/doi/full/10.1021/acs.macromol.2c02165>`_ 
+   
+#.
+   Machine Learning Enhanced CREASE for Simultaneous Form Factor and Structure Factor Elucidation for Concentrated Macromolecular Solutions (e.g., micelles, polymer coated nanoparticles):  
+
+   Heil, C. M.; Ma, Y.; Bharti, B.; & Jayaraman, A. (ArXiv preprint). Computational Reverse-Engineering Analysis for Scattering Experiments for Form Factor and Structure Factor Determination ('P(q) and S(q) CREASE'). `link to article <https://arxiv.org/abs/2212.03154>`_ 
+
+
 Contact us
 __________
 
