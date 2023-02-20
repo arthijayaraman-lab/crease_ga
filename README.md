@@ -37,7 +37,7 @@ __If you use this code, please cite one or more of the relevant references from 
    
 8. Machine Learning Enhanced CREASE for Simultaneous Form Factor and Structure Factor Elucidation for Concentrated Macromolecular Solutions (e.g., micelles, polymer coated nanoparticles):  
 
-   Heil, C. M.; Ma, Y.; Bharti, B.; & Jayaraman, A. (ArXiv preprint). Computational Reverse-Engineering Analysis for Scattering Experiments for Form Factor and Structure Factor Determination ('P(q) and S(q) CREASE'). [link to article](https://arxiv.org/abs/2212.03154)
+   Heil, C. M.; Ma, Y.; Bharti, B.; & Jayaraman, A.  Computational Reverse-Engineering Analysis for Scattering Experiments for Form Factor and Structure Factor Determination ('P(q) and S(q) CREASE'). JACS Au 2023, ASAP. [link to article](https://pubs-acs-org.udel.idm.oclc.org/doi/10.1021/jacsau.2c00697#)
 
 # Installation
 
