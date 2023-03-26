@@ -8,5 +8,6 @@ dependencies:
   - py3dmol
   - jupyter
   - pip
+  - tensorflow
   - pip:
       - .

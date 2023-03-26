@@ -73,7 +73,7 @@ class Model:
             the input parameters of the shape will be loaded.
         '''
         builtin_shapes=["vesicle","micelle","NP-solution","binary-NP-assembly",
-                        "sffibril"]
+                        "sffibril","non-ml-pqsq-core-shell","ml-pqsq-core-shell"]
         if shape in builtin_shapes:
             sg = import_module('crease_ga.shapes.'+shape+'.scatterer_generator')
             sg = sg.scatterer_generator
@@ -170,6 +170,7 @@ class Model:
               fitness_metric = 'log_sse',
               output_dir='./',
               n_cores=1,
+              converge=10,
               needs_postprocess = False):
         '''
         Fit the loaded target I(q) for a set of input parameters that maximize
@@ -193,6 +194,16 @@ class Model:
                 point.
         output_dir: string. Default="./" 
             Path to the working directory.
+        n_cores: int. Default=1
+            Number of cores to parallelize over
+        converge: int. Default=10
+            The generation countdown to stop optimization. If the minimum
+            error does not improve after converge generations, the 
+            optimization ends.
+        needs_postprocess: bool. Default=False
+            Some CREASE versions require additional steps.
+            Typically required for S(q) CREASE that outputs a 3D
+            visualization.
         '''
         ### checking if starting new run or restarting partial run
         address = output_dir+'/'+name+'/'
@@ -238,7 +249,18 @@ class Model:
             np.savetxt(address+'current_gen.txt',np.c_[gen])
             np.savetxt(address+'current_pop.txt',np.c_[pop])
             np.savetxt(address+'current_pm_pc.txt',np.c_[self.adaptation_params.pm,self.adaptation_params.pc])
-            
+            np.savetxt(address+'current_con.txt',np.c_[self.converge_count,self.min_error])
+ 
+            # check if converged
+            if self.min_error < np.min(self.fit):
+                self.converge_count += 1
+                if self.converge_count == self.converge and gen >= 10:
+                    print('hit convergence at generation', gen)
+                    break
+            else:
+                self.converge_count = 0
+                self.min_error = np.min(self.fit)
+ 
             if needs_postprocess:
                 self.postprocess()
 
