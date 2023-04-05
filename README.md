@@ -1,9 +1,9 @@
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/arthijayaraman-lab/crease_ga/master) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Documentation Status](https://readthedocs.org/projects/crease-ga/badge/?version=latest)](https://crease-ga.readthedocs.io/en/latest/?badge=latest) [![DOI](https://zenodo.org/badge/387868834.svg)](https://zenodo.org/badge/latestdoi/387868834)
 
 # Introduction
-Computational Reverse Engineering Analysis for Scattering Experiments (CREASE) originally developed by Daniel Beltran-Villegas, Michiel Wessels, and Arthi Jayaraman (References 1, 2, and 3 below) is a two step approach that takes as input small angle scattering profile [I(q) vs. q] and provides as output structural information of the assembled structure.  It combines a genetic algorithm (GA) as the first step with molecular simulations based reconstruction as the second step. For macromolecular solutions at dilute concentrations, when the primary component of [I(q) vs. q] is the form factor of the assembled structure, the two steps of CREASE provide structural information about the assembled structure ranging from dimensions of the domains as well as the chain- and monomer- level packing (as shown in References 1, 2, 3, and 5). The work in Reference 4 below describes early implementation of CREASE to analyze input small angle scattering profiles when the structure factor is the primary component of [I(q) vs. q].
+Computational Reverse Engineering Analysis for Scattering Experiments (CREASE) originally developed by Daniel Beltran-Villegas, Michiel Wessels, and Arthi Jayaraman (References 1, 2, and 3 below) is a two step approach that takes as input small angle scattering profile [I(q) vs. q] and provides as output structural information of the assembled structure.  For macromolecular solutions at dilute concentrations, when the primary component of [I(q) vs. q] is the form factor of the assembled structure, CREASE provides structural information about the assembled structure ranging from dimensions of the domains as well as the chain- and monomer- level packing (as shown in References 1, 2, 3, 5, and 7). For macromolecular solutions at high concentrations, I(q) vs. q has both form factor and structure factor information; References 6 and 8 show how CREASE can be applied for these systems.
 
-This open source `crease_ga` package has been co-created by Zijie Wu, Ziyu Ye, Christian Heil, and Arthi Jayaraman at University of Delaware.
+This open source `crease_ga` package was co-created by Zijie Wu, Ziyu Ye, Christian Heil, and Arthi Jayaraman at University of Delaware. Currently `crease_ga` package is maintained by Zijie Wu, Nitant Gupta, and Stephen Kronenberger. 
 
 __If you use this code, please cite one or more of the relevant references from the list below:__
 
@@ -27,7 +27,7 @@ __If you use this code, please cite one or more of the relevant references from 
 
    Ye, Z.; Wu, Z.; Jayaraman, A. Computational Reverse-Engineering Analysis for Scattering Experiments (CREASE) on Vesicles Assembled from Amphiphilic Macromolecular Solutions. JACS Au 2021, 1, 11, 1925-1936. [link to article](https://pubs.acs.org/doi/10.1021/jacsau.1c00305)
 
-6. Machine Learning Enhanced CREASE for Structure Factors with Expansion to Nanoparticle Solutions:  
+6. Machine Learning Enhanced CREASE for determining structure (e.g., extent of mixing/demixing, particle aggretation/dispersion) of nanoparticle mixtures and solutions:  
 
    Heil, C. M.; Patil, A.; Dhinojwala, A.; & Jayaraman, A. Computational Reverse-Engineering Analysis for Scattering Experiments (CREASE) with Machine Learning Enhancement to Determine Structure of Nanoparticle Mixtures and Solutions. ACS Central Science 2022, 8, 7, 996-1007. [link to article](https://pubs.acs.org/doi/full/10.1021/acscentsci.2c00382) 
    
@@ -37,7 +37,7 @@ __If you use this code, please cite one or more of the relevant references from 
    
 8. Machine Learning Enhanced CREASE for Simultaneous Form Factor and Structure Factor Elucidation for Concentrated Macromolecular Solutions (e.g., micelles, polymer coated nanoparticles):  
 
-   Heil, C. M.; Ma, Y.; Bharti, B.; & Jayaraman, A.  Computational Reverse-Engineering Analysis for Scattering Experiments for Form Factor and Structure Factor Determination ('P(q) and S(q) CREASE'). JACS Au 2023, ASAP. [link to article](https://pubs-acs-org.udel.idm.oclc.org/doi/10.1021/jacsau.2c00697#)
+   Heil, C. M.; Ma, Y.; Bharti, B.; & Jayaraman, A.  Computational Reverse-Engineering Analysis for Scattering Experiments for Form Factor and Structure Factor Determination ('P(q) and S(q) CREASE'). JACS Au 2023, 3, 3, 889-904. [link to article](https://pubs-acs-org.udel.idm.oclc.org/doi/10.1021/jacsau.2c00697)
 
 # Installation
 
