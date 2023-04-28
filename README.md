@@ -81,19 +81,14 @@ import crease_ga
 crease_ga.__version__
 ```
 
-If all installation steps are done properly, you should see the version number of the package printed, and you are all set to use the `crease_ga` package! Remember to activate the proper environment every time by with `conda activate crease_ga`. You can run the Jupyter notebook tutorials with the command
-    ```
-    jupyter notebook
-    ```
-
-- **NOTE1**: If you would like to first try our package by running our tutorial (See #Getting Started), you can directly launch a docker image of our environment to access and interact with our jupyter notebook tutorial from a web browser _without performing any installation steps above_. To do this,  click this badge:
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/arthijayaraman-lab/crease_ga/master).
-
-- **NOTE2**: if you intend to run this on a supercomputing cluster, you will need to follow the steps to create a python environment of the corresponding cluster.
+If all installation steps are done properly, you should see the version number of the package printed, and you are all set to use the `crease_ga` package! Remember to activate the proper environment every time by with `conda activate crease_ga`. 
 
 
-# Getting started
-Follow the jupyter notebook tutorials (CREASE_vesicles_tutorial-NEW.ipynb) in the `Tutorials` folder, or refer to our documentations at readthedocs.io (currently under construction).
+- **NOTE1**: We are in the process of preparing a new tutorial based on recent advances in machine learning enhanced CREASE. It will be available in September 1. We plan to offer a workshop and tutorial in September. If you are interested in attending that, please email us at creasejayaramanlab AT gmail.com.
+
+
+- **NOTE2**: if you intend to use `crease_ga` on a supercomputing cluster, you will need to follow the steps to create a python environment of the corresponding cluster.
+
 
 # Contact us
 If you have any questions or feedback, please let us know by emailing creasejayaramanlab AT gmail.com.

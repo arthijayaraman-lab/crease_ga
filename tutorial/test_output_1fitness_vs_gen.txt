@@ -1,0 +1,2 @@
+gen mini min avgi avg secondi second besti best
+0 4 34.52899337 1 10.10526912 2 3.58445092 3 2.60007533 

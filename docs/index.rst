@@ -80,12 +80,6 @@ If you have any questions or feedback, please let us know by emailing creasejaya
     installation
 
 .. toctree::
-    :caption: Tutorials
-    :maxdepth: 1
-
-    CREASE_GA Vesicle <tutorials>
-
-.. toctree::
     :caption: Crease_ga Workflow
     :maxdepth: 1
 
