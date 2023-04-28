@@ -81,12 +81,9 @@ import crease_ga
 crease_ga.__version__
 ```
 
-If all installation steps are done properly, you should see the version number of the package printed, and you are all set to use the `crease_ga` package! Remember to activate the proper environment every time by with `conda activate crease_ga`. You can run the Jupyter notebook tutorials with the command
-    ```
-    jupyter notebook
-    ```
+If all installation steps are done properly, you should see the version number of the package printed, and you are all set to use the `crease_ga` package! Remember to activate the proper environment every time by with `conda activate crease_ga`.
 
-- **NOTE1**: We are in the process of preparing a new tutorial based on recent advances in machine learning enhanced CREASE. It will be available in September 1. We plan to offer a workshop and tutorial in September. If you are interested in attending that, please email us at creasejayaramanlab AT gmail.com.
+- **NOTE1**: We are in the process of preparing a new tutorial based on recent advances in machine learning enhanced CREASE. It will be available in September 2023. We plan to offer a workshop and tutorial in September 2023. If you are interested in attending that, please email us at creasejayaramanlab AT gmail.com.
 
 
 - **NOTE2**: if you intend to run this on a supercomputing cluster, you will need to follow the steps to create a python environment of the corresponding cluster.
