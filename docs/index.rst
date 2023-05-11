@@ -81,59 +81,59 @@ __________
 
 #.
    Olds, D. P.; Duxbury, P. M., *Efficient algorithms for calculating small-angle scattering from large model structures.*
-   **Journal of Applied Crystallography 2014, 47 (3), 1077-1086.**
+   **Journal of Applied Crystallography 2014, 47 (3), 1077-1086.** (`link <https://journals.iucr.org/j/issues/2014/03/00/kk5148/index.html>`_)
 
 #.
    Schmidt-Rohr, K., *Simulation of small-angle scattering curves by numerical Fourier transformation.*
-   **Journal of Applied Crystallography 2007, 40 (1), 16-25.**
+   **Journal of Applied Crystallography 2007, 40 (1), 16-25.** (`link <https://onlinelibrary.wiley.com/iucr/doi/10.1107/S002188980604550X>`_)
 
 #.
    Heil, C. M.;  Patil, A.;  Dhinojwala, A.; Jayaraman, A., *Computational Reverse-Engineering Analysis for Scattering Experiments (CREASE) with Machine Learning Enhancement to Determine Structure of Nanoparticle Mixtures and Solutions.*
-   **ACS Cent. Sci. 2022, 8 (7), 996-1007.**
+   **ACS Cent. Sci. 2022, 8 (7), 996-1007.** (`link <https://pubs.acs.org/doi/10.1021/acscentsci.2c00382>`_)
 
 #.
    Wu, Z.; Jayaraman, A., *Machine Learning-Enhanced Computational Reverse-Engineering Analysis for Scattering Experiments (CREASE) for Analyzing Fibrillar Structures in Polymer Solutions.*
-   **Macromolecules 2022, 55 (24), 11076-11091.**
+   **Macromolecules 2022, 55 (24), 11076-11091.** (`link <https://pubs.acs.org/doi/10.1021/acs.macromol.2c02165>`_)
 
 #.
    Beltran-Villegas, D. J.;  Wessels, M. G.;  Lee, J. Y.;  Song, Y.;  Wooley, K. L.;  Pochan, D. J.; Jayaraman, A., *Computational Reverse-Engineering Analysis for Scattering Experiments on Amphiphilic Block Polymer Solutions.*
-   **J. Am. Chem. Soc. 2019, 141 (37), 14916-14930.**
+   **J. Am. Chem. Soc. 2019, 141 (37), 14916-14930.** (`link <https://pubs.acs.org/doi/10.1021/jacs.9b08028>`_)
 
 #.
    Wessels, M. G.; Jayaraman, A., *Computational Reverse-Engineering Analysis of Scattering Experiments (CREASE) on Amphiphilic Block Polymer Solutions: Cylindrical and Fibrillar Assembly.*
-   **Macromolecules 2021, 54 (2), 783-796.**
+   **Macromolecules 2021, 54 (2), 783-796.** (`link <https://pubs.acs.org/doi/10.1021/acs.macromol.0c02265>`_)
 
 #.
    Ye, Z.;  Wu, Z.; Jayaraman, A., *Computational Reverse Engineering Analysis for Scattering Experiments (CREASE) on Vesicles Assembled from Amphiphilic Macromolecular Solutions.*
-   **JACS Au 2021, 1 (11), 1925-1936.**
+   **JACS Au 2021, 1 (11), 1925-1936.** (`link <https://pubs.acs.org/doi/10.1021/jacsau.1c00305>`_)
 
 #.
    Wessels, M. G.; Jayaraman, A., *Machine Learning Enhanced Computational Reverse Engineering Analysis for Scattering Experiments (CREASE) to Determine Structures in Amphiphilic Polymer Solutions.* 
-   **ACS Polym. Au 2021, 1 (3), 153-164.**
+   **ACS Polym. Au 2021, 1 (3), 153-164.** (`link <https://pubs.acs.org/doi/10.1021/acspolymersau.1c00015>`_)
 
 #.
    Heil, C. M.; Jayaraman, A., *Computational Reverse-Engineering Analysis for Scattering Experiments of Assembled Binary Mixture of Nanoparticles.*
-   **ACS Materials Au 2021, 1 (2), 140.**
+   **ACS Materials Au 2021, 1 (2), 140.** (`link <https://pubs.acs.org/doi/10.1021/acsmaterialsau.1c00015>`_)
 
 #.
    Heil, C. M.;  Ma, Y.;  Bharti, B.; Jayaraman, A., *Computational Reverse-Engineering Analysis for Scattering Experiments for Form Factor and Structure Factor Determination (“P(q) and S(q) CREASE”).*
-   **JACS Au 2023, 3 (3), 889-904.**
+   **JACS Au 2023, 3 (3), 889-904.** (`link <https://pubs.acs.org/doi/full/10.1021/jacsau.2c00697>`_)
 
 #.	
    White, S. I.;  DiDonna, B. A.;  Mu, M.;  Lubensky, T. C.; Winey, K. I., *Simulations and electrical conductivity of percolated networks of finite rods with various degrees of axial alignment.*
-   **Physical Review B 2009, 79 (2), 024301.**
+   **Physical Review B 2009, 79 (2), 024301.** (`link <https://journals.aps.org/prb/abstract/10.1103/PhysRevB.79.024301>`_)
 
 #.
    Patil, A.;  Heil, C. M.;  Vanthournout, B.;  Bleuel, M.;  Singla, S.;  Hu, Z.;  Gianneschi, N. C.;  Shawkey, M. D.;  Sinha, S. K.; Jayaraman, A., *Structural Color Production in Melanin‐Based Disordered Colloidal Nanoparticle Assemblies in Spherical Confinement.* 
-   **Advanced Optical Materials 2021, 2102162.**
+   **Advanced Optical Materials 2021, 2102162.** (`link <https://onlinelibrary.wiley.com/doi/full/10.1002/adom.202102162>`_)
 
 #.
    Patil, A.;  Heil, C. M.;  Vanthournout, B.;  Singla, S.;  Hu, Z.;  Ilavsky, J.;  Gianneschi, N. C.;  Shawkey, M. D.;  Sinha, S. K.;  Jayaraman, A.; Dhinojwala, A., *Modeling Structural Colors from Disordered One-Component Colloidal Nanoparticle-based Supraballs using Combined Experimental and Simulation Techniques.*
-   **ACS Materials Letters 2022, 4 (9), 1848-1854.**
+   **ACS Materials Letters 2022, 4 (9), 1848-1854.** (`link <https://pubs.acs.org/doi/10.1021/acsmaterialslett.2c00524>`_)
 
 #.
    Lee, J. Y.;  Song, Y.;  Wessels, M. G.;  Jayaraman, A.;  Wooley, K. L.; Pochan, D. J., *Hierarchical Self-Assembly of Poly(D-glucose carbonate) Amphiphilic Block Copolymers in Mixed Solvents.* 
-   **Macromolecules 2020, 53 (19), 8581-8591.**
+   **Macromolecules 2020, 53 (19), 8581-8591.** (`link <https://pubs.acs.org/doi/10.1021/acs.macromol.0c01575>`_)
 
 Contact us
 __________
