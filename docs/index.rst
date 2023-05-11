@@ -12,66 +12,128 @@
    :target: https://zenodo.org/badge/latestdoi/387868834
    :alt: DOI
 
+.. role:: underline
+   :class: underline
 
-What is CREASE?
+Last Updated: May 11, 2023
+
+1. Introduction to CREASE
 ===============
 
-Computational Reverse Engineering Analysis for Scattering Experiments (CREASE) originally developed by Daniel Beltran-Villegas, Michiel Wessels, and Arthi Jayaraman (References 1, 2, and 3 below) is a two step approach that takes as input small angle scattering profile [I(q) vs. q] and provides as output structural information of the assembled structure.  It combines a genetic algorithm (GA) as the first step with molecular simulations based reconstruction as the second step. For macromolecular solutions at dilute concentrations, when the primary component of [I(q) vs. q] is the form factor of the assembled structure, the two steps of CREASE provide structural information about the assembled structure ranging from dimensions of the domains as well as the chain- and monomer- level packing (as shown in References 1, 2, 3, and 5). The work in Reference 4 below describes early implementation of CREASE to analyze input small angle scattering profiles when the structure factor is the primary component of [I(q) vs. q]. 
+Members of Prof. Arthi Jayaraman’s research lab have developed the **‘Computational Reverse-Engineering Analysis for Scattering Experiments’ (CREASE)** method to address these needs for alternate scattering analysis methods that are applicable to both conventional soft materials structures with existing analytical models and unconventional structures/chemistries that may not have good analytical models.
 
-This open source crease_ga package has been co-created by Zijie Wu, Ziyu Ye, Christian Heil, and Arthi Jayaraman at the University of Delaware and focuses on the first genetic algorithm (GA) step of CREASE.
+.. figure:: docs_fig1.png
+   :class: with-border
+
+   Figure 1.: CREASE workflow. CREASE takes as input experimentally measured 1D or 2D scattering profiles and identifies as output the key structural features as well as representative 3D real space structures whose computed scattering profiles matches the experimental scattering input.  
+
+**Figure 1** shows the general workflow in CREASE (as of summer 2023) where experimentally measured 1D scattering profiles are taken as input and CREASE, through an internal optimization, generates as output the key structural features as well as representative 3D real space structures whose computed scattering profiles match the experimental scattering input.
+
+2.	Guiding Philosophy
+===============
+
+CREASE’s workflow is based on the **philosophy** that the real-space three-dimensional (amorphous) arrangement of constituents in soft materials can be reduced to a lower dimensional mathematical representation of key ‘structural features’ and that the distributions of those structural features give rise to a computed scattering profile. *For example, for a system with core-corona spherical micelles at low concentrations, these structural features could be sizes of core and corona and probability distributions of those sizes. At higher concentration, there would be additional structural features that describe the relative neighborhood of each micelle, for example through mathematical order parameters describing positional and orientational order.* The user can decide the types of structural features they are interested in (*e.g.*, any fundamentally interesting structural information and/or structural features that the researcher knows will impact the soft materials’ eventual application). Once the users have decided on the key structural features they are interested in, they can use CREASE to run an optimization loop where it iterates over various sets of structural features. In the optimization loop, for each set of structural features CREASE  i) calculates the computed scattering profile, I\ :sub:`comp` \(q) (*more about this calculation below*), and ii) compares the I\ :sub:`comp` \(q) profile to the experimental (input) profile, I\ :sub:`exp` \(q),  eventually converging towards the sets (*note the intentional use of plural!*) that have I\ :sub:`comp` \(q) profiles most closely matching the input I\ :sub:`exp` \(q).   
+
+
+3.	CREASE-GA Implementation
+===============
+
+As of summer 2023, CREASE has been implemented in a python code using a simple optimization method - genetic algorithm. CREASE’s genetic algorithm (CREASE-GA) takes as input 1D SAXS and/or SANS scattering profile from amorphous soft materials structures. It also requires the user’s choice of the types of structural features (i.e., ‘genes’ of the ‘individuals’ in GA) based on their knowledge of the general shape of the assembled structure from other imaging techniques and/or subject matter expertise. Then, CREASE-GA starts with an initial ‘generation’ of multiple sets of structural features (i.e., multiple ‘individuals’ with specific values of ‘genes’) and iterates in the GA loop towards the optimal individuals whose genes gives rise to a computed scattering profile, I\ :sub:`comp` \(q), that closely matches the input experimentally measured scattering profile, I\ :sub:`exp` \(q). One important calculation in this loop is the I\ :sub:`comp` \(q) for a given set (‘individual’) of structural features (‘genes’); this has been done so far in one of two ways (**Figure 2**). One way (let us call it *Debye method*) is by creating for each set of genes their representative three-dimensional real space structures filled with point scatterers whose scattering length densities represent the constituents of the system, and using the Debye equation on the scatterer positions to compute I\ :sub:`comp` \(q). This way can be computationally intensive either due to the structure generation step or the Debye calculation despite computational tricks **[1-3]**. Another way is by using a machine learning (ML) model that links the structural features directly to I\ :sub:`comp` \(q); Jayaraman and coworkers have used neural networks trained on thousands of computed scattering profiles calculated from the Debye method for various sets of genes. Using this ML model for I\ :sub:`comp` \(q) calculation can give orders of magnitude speed up over the Debye method, after the initial time investment of training the ML model.
+
+.. figure:: docs_fig2.png
+   :class: with-border
+
+   Figure 2. Two ways to calculate the ‘computed scattering profile’ or I\ :sub:`comp` \(q) for each ‘individual’ in the genetic algorithm. Each individual has a unique set of genes (i.e., a set of structural features). Both the Debye equation-based method (left) and machine learning approach (right) connect the values of those structural features or genes to a I\ :sub:`comp` \(q) vs. q profile.  In this figure a vesicle with a hollow core, an inner A-layer, a B-layer, and an outer A-layer is used as an example to show that the dimensions related to those layers and core become the ‘genes’ for this system. There can be additional or fewer genes depending on the user’s interest. It is important to note that in the machine learning approach the user may want to represent the structural features (genes) as normalized dimensions to make the trained machine learning model transferrable. (see for example Ref . **[4]**)  
+
+4.	How has CREASE been used so far?
+===============
+
+As of summer 2023, CREASE method has been used to interpret small angle scattering results to 
+
+a. *Identify relevant dimensions of assembled structures in polymer solutions at dilute concentrations* **[5-9]**: CREASE has  been applied to characterize structure of the ‘primary particle’ using scattering profiles I(q) ~ P(q) (*i.e.*, conditions where S(q) is ~1) for a variety of ‘primary particles’ (micelles **[6, 7, 9]**, vesicles **[8]**, and fibrils **[5]**) bypassing the need for an analytical model. 
+
+b.	*Understand the amorphous structure of spherical particles at high concentrations regardless of extent of mixing/segregation*: CREASE has also been extended to analyze S(q) part of the scattering profiles from concentrated binary mixture of polydisperse spherical nanoparticles (i.e., P(q) is a sphere form factor) to determine the extent of segregation/mixing of the two types of nanoparticles and the precise mixture composition **[4, 10]**. 
+
+c.	*Elucidate the amorphous structure of particles / micelles in solutions, with unknown primary particle form and unknown assembled/dispersed structure* **[11]**: Most recently, for systems where one does not know the P(q) or S(q) a priori, CREASE has been extended to simultaneously interpret structural information held in P(q) and S(q) and appropriately called ‘P(q) and S(q) CREASE’ **[11]**.
+
+*CREASE has taken as input 1D SAXS profiles and/or SANS profiles*: In the studies above, the input to CREASE has been (i) a single SAXS profile of the system, or (ii) one SAXS profile and a one SANS profile of the same system, or (iii) multiple SANS profiles with contrast matching one or the other component(s) in the system with the solvent. Next development steps of CREASE development are focused on 2D profiles for soft materials that show anisotropy in the assembled structure.
+
+*CREASE with Debye method vs. ML-model for computed scattering profile calculation*: In earlier implementations of CREASE, the Debye method for computed scattering profile calculation was used; as noted above this calculation was initially found to be quite time consuming. In following work, the structure generation (done in every step of Debye method) was found to more computationally intensive while the computed scattering calculations using Debye method have been made faster than in previous implementations. The machine learning (ML) enhanced CREASE-GA, with a well-trained ML model avoids both Debye equation based computed scattering calculation and the three-dimensional real space structure generation in the optimization loop, making is significantly faster than using Debye method (*e.g.*, one can complete CREASE-GA optimization is less than an hour on a laptop with a pre-trained ML model!)
+
+5.	Unique advantages of CREASE
+===============
+
+Here are some unique advantages of CREASE-GA regardless of availability of appropriate analytical models for the system being characterized:
+
+* The computed scattering profile calculation is done using scatterer placement within structures defined by the ‘genes’ (i.e., structural features). This treats all soft materials systems in the same way as being composed of scatterers with no detail about the molecules. So, even in the case of polymer chains, there are no chains in this GA step – only scatterers. This overcomes issues one may have not knowing anything about chain conformations (*e.g.*, is Gaussian distribution of chain conformations valid or not?). If one needs information about the chain configurations they can follow up this GA step with an molecular simulation step using models (coarse-grained or atomistic) representing polymers. 
+*	Any structural feature of interest can be a ‘gene’;  for the same system, two different users may be interested in different structural features. *For example, in the case of vesicles (Figure 2), one user may be interested in all four dimensions (core radius and thickness of every individual layer in the shell leading to four ‘genes’) and another user may be interested simply in the core radius and shell thickness.* Further, some structural features the user may be interested in may not be in any existing analytical model. **Note:** If and how well CREASE can identify a structural feature reliably from an input experimental scattering profile will depend on how much that structural feature affects the computed scattering profile and how the computed scattering profile changes with the values of the structural features. See for example recent work on analysis of scattering results from methylcellulose fibrils from Wu and Jayaraman **[5]**. In that system, the length, Kuhn length (KL), and diameter of fibrils are the structural features of interest, however Wu and Jayaraman showed that KL values could only be identified well if they were within a certain range of values for the methylcellulose systems. Such sensitivity analysis is very useful in deciding on the genes used in the optimization.  
+*	Genetic algorithm (GA) is the chosen optimization method here because it is easy for others to adopt regardless of prior computational knowledge and experience. Furthermore, GA’s output contains multiple individuals whose computed scattering matches experimental scattering. This is useful as it informs us about the degeneracy of solutions for a given experimental profile; in other words, there can be many different structures whose computed scattering profile can match with experiments, so knowing this distribution from the converged ‘best match’ individuals in the last couple of generations of GA is valuable. 
+*	CREASE also gives as output representative real-space structures – either as is because the system is made of particles whose positions can be generated from scatterer positions or via additional molecular modeling and simulation step to show chain conformations in the structures output from CREASE-GA (*e.g.*, Wessels et al.  **[7]**). These structures can then be used as an input for other non-equilibrium simulations or calculations of properties that depend on structure (*e.g.*, resistor network model calculation for electrical conductivity12 and finite-difference time-domain method for optical properties **[13, 14]**).
+*	One major advantage of Machine learning (ML) enhanced CREASE-GA is the computational speed up. As a result, ML-enhanced CREASE-GA can facilitate high-throughput analysis of related systems as long as the trained ML model, in particular the structural features that are inputs to the ML model, are valid for those related systems.  
+*	CREASE can be used to test the researcher’s hypotheses about how the soft materials structures of interest form/evolve with changing conditions. The user is directed to examples of hypothesis testing in the studies presented in Refs. **[5, 11, 15]**  
 
 References
 __________
 
-**If you use this code, please cite one or more of the relevant references from the list below:**
-
-
-#. 
-   Original Article on CREASE for spherical micelles:  
-
-   Beltran-Villegas, D. J.; Wessels, M. G.; Lee, J. Y.; Song, Y.; Wooley, K. L.; Pochan, D. J.; Jayaraman, A. Computational Reverse-Engineering Analysis for Scattering Experiments on Amphiphilic Block Polymer Solutions. J. Am. Chem. Soc. 2019, 141, 14916−14930. `link to article <https://pubs.acs.org/doi/abs/10.1021/jacs.9b08028>`_
-
-
-#. 
-   Extension of CREASE for cylindrical and elliptical micelles: 
-
-   Wessels, M. G.; Jayaraman, A. Computational Reverse-Engineering Analysis of Scattering Experiments (CREASE) on Amphiphilic Block Polymer Solutions: Cylindrical and Fibrillar Assembly. Macromolecules 2021, 54, 783-796. `link to article <https://pubs.acs.org/doi/abs/10.1021/acs.macromol.0c02265>`_
-
-
-#. 
-   Machine Learning Enhanced CREASE:  
-
-   Wessels, M. G.; Jayaraman, A. Machine Learning Enhanced Computational Reverse Engineering Analysis for Scattering Experiments (CREASE) to Determine Structures in Amphiphilic Polymer Solutions. ACS Polym. Au 2021, 1, 3, 153-164. `link to article <https://pubs.acs.org/doi/abs/10.1021/acspolymersau.1c00015>`_ 
-
-
-#. 
-   Extension of CREASE's Genetic Algorithm Step to Handle Structure Factors:  
-
-   Heil, C. M.; Jayaraman, A. Computational Reverse-Engineering Analysis for Scattering Experiments of Assembled Binary Mixture of Nanoparticles. ACS Mater. Au 2021, 1, 2, 140-156. `link to article <https://pubs.acs.org/doi/10.1021/acsmaterialsau.1c00015>`_ 
-
-
-#. 
-   Extension of CREASE for vesicles as well as the the ability to estimate polydispersity in dimensions of the domains in the assembled structure and distribution of molecules between the different domains of the assembled structure: 
-
-   Ye, Z.; Wu, Z.; Jayaraman, A. Computational Reverse-Engineering Analysis for Scattering Experiments (CREASE) on Vesicles Assembled from Amphiphilic Macromolecular Solutions. JACS Au 2021, 1, 11, 1925-1936. `link to article <https://pubs.acs.org/doi/10.1021/jacsau.1c00305>`_
-
+#.
+   Brisard, S.; Levitz, P., *Small-angle scattering of dense, polydisperse granular porous media: Computation free of size effects.*
+   **Phys. Rev. E 2013, 87 (1), 013305.** (`link <https://journals.aps.org/pre/abstract/10.1103/PhysRevE.87.013305>`_)
 
 #.
-   Machine Learning Enhanced CREASE for Structure Factors with Expansion to Nanoparticle Solutions:
+   Olds, D. P.; Duxbury, P. M., *Efficient algorithms for calculating small-angle scattering from large model structures.*
+   **Journal of Applied Crystallography 2014, 47 (3), 1077-1086.**
 
-   Heil, C. M.; Patil, A.; Dhinojwala, A.; & Jayaraman, A. (2022). Computational Reverse-Engineering Analysis for Scattering Experiments (CREASE) with Machine Learning Enhancement to Determine Structure of Nanoparticle Mixtures and Solutions. ACS Central Science. `link to article <https://pubs-acs-org.udel.idm.oclc.org/doi/10.1021/acscentsci.2c00382>`_
-
-
-#. 
-   Machine Learning Enhanced CREASE for Semi-flexible Fibrils:  
-
-   Wu, Z. & Jayaraman, A. (2022). Machine learning enhanced computational reverse-engineering analysis for scattering experiments (CREASE) for analyzing fibrillar structures in polymer solutions. Macromolecule. `link to article <https://pubs-acs-org.udel.idm.oclc.org/doi/full/10.1021/acs.macromol.2c02165>`_ 
-   
 #.
-   Machine Learning Enhanced CREASE for Simultaneous Form Factor and Structure Factor Elucidation for Concentrated Macromolecular Solutions (e.g., micelles, polymer coated nanoparticles):  
+   Schmidt-Rohr, K., *Simulation of small-angle scattering curves by numerical Fourier transformation.*
+   **Journal of Applied Crystallography 2007, 40 (1), 16-25.**
 
-   Heil, C. M.; Ma, Y.; Bharti, B.; & Jayaraman, A. (ArXiv preprint). Computational Reverse-Engineering Analysis for Scattering Experiments for Form Factor and Structure Factor Determination ('P(q) and S(q) CREASE'). `link to article <https://arxiv.org/abs/2212.03154>`_ 
+#.
+   Heil, C. M.;  Patil, A.;  Dhinojwala, A.; Jayaraman, A., *Computational Reverse-Engineering Analysis for Scattering Experiments (CREASE) with Machine Learning Enhancement to Determine Structure of Nanoparticle Mixtures and Solutions.*
+   **ACS Cent. Sci. 2022, 8 (7), 996-1007.**
 
+#.
+   Wu, Z.; Jayaraman, A., *Machine Learning-Enhanced Computational Reverse-Engineering Analysis for Scattering Experiments (CREASE) for Analyzing Fibrillar Structures in Polymer Solutions.*
+   **Macromolecules 2022, 55 (24), 11076-11091.**
+
+#.
+   Beltran-Villegas, D. J.;  Wessels, M. G.;  Lee, J. Y.;  Song, Y.;  Wooley, K. L.;  Pochan, D. J.; Jayaraman, A., *Computational Reverse-Engineering Analysis for Scattering Experiments on Amphiphilic Block Polymer Solutions.*
+   **J. Am. Chem. Soc. 2019, 141 (37), 14916-14930.**
+
+#.
+   Wessels, M. G.; Jayaraman, A., *Computational Reverse-Engineering Analysis of Scattering Experiments (CREASE) on Amphiphilic Block Polymer Solutions: Cylindrical and Fibrillar Assembly.*
+   **Macromolecules 2021, 54 (2), 783-796.**
+
+#.
+   Ye, Z.;  Wu, Z.; Jayaraman, A., *Computational Reverse Engineering Analysis for Scattering Experiments (CREASE) on Vesicles Assembled from Amphiphilic Macromolecular Solutions.*
+   **JACS Au 2021, 1 (11), 1925-1936.**
+
+#.
+   Wessels, M. G.; Jayaraman, A., *Machine Learning Enhanced Computational Reverse Engineering Analysis for Scattering Experiments (CREASE) to Determine Structures in Amphiphilic Polymer Solutions.* 
+   **ACS Polym. Au 2021, 1 (3), 153-164.**
+
+#.
+   Heil, C. M.; Jayaraman, A., *Computational Reverse-Engineering Analysis for Scattering Experiments of Assembled Binary Mixture of Nanoparticles.*
+   **ACS Materials Au 2021, 1 (2), 140.**
+
+#.
+   Heil, C. M.;  Ma, Y.;  Bharti, B.; Jayaraman, A., *Computational Reverse-Engineering Analysis for Scattering Experiments for Form Factor and Structure Factor Determination (“P(q) and S(q) CREASE”).*
+   **JACS Au 2023, 3 (3), 889-904.**
+
+#.	
+   White, S. I.;  DiDonna, B. A.;  Mu, M.;  Lubensky, T. C.; Winey, K. I., *Simulations and electrical conductivity of percolated networks of finite rods with various degrees of axial alignment.*
+   **Physical Review B 2009, 79 (2), 024301.**
+
+#.
+   Patil, A.;  Heil, C. M.;  Vanthournout, B.;  Bleuel, M.;  Singla, S.;  Hu, Z.;  Gianneschi, N. C.;  Shawkey, M. D.;  Sinha, S. K.; Jayaraman, A., *Structural Color Production in Melanin‐Based Disordered Colloidal Nanoparticle Assemblies in Spherical Confinement.* 
+   **Advanced Optical Materials 2021, 2102162.**
+
+#.
+   Patil, A.;  Heil, C. M.;  Vanthournout, B.;  Singla, S.;  Hu, Z.;  Ilavsky, J.;  Gianneschi, N. C.;  Shawkey, M. D.;  Sinha, S. K.;  Jayaraman, A.; Dhinojwala, A., *Modeling Structural Colors from Disordered One-Component Colloidal Nanoparticle-based Supraballs using Combined Experimental and Simulation Techniques.*
+   **ACS Materials Letters 2022, 4 (9), 1848-1854.**
+
+#.
+   Lee, J. Y.;  Song, Y.;  Wessels, M. G.;  Jayaraman, A.;  Wooley, K. L.; Pochan, D. J., *Hierarchical Self-Assembly of Poly(D-glucose carbonate) Amphiphilic Block Copolymers in Mixed Solvents.* 
+   **Macromolecules 2020, 53 (19), 8581-8591.**
 
 Contact us
 __________
@@ -108,4 +170,3 @@ If you have any questions or feedback, please let us know by emailing creasejaya
     Frequently Asked Questions <topics/faq>
     How can you contribute? <topics/plugin>
     topics/feedback
-
