@@ -17,8 +17,12 @@
 
 Last Updated: May 11, 2023
 
-1. Introduction to CREASE
+
+CREASE Overview
 ===============
+
+1. Introduction to CREASE
+-------------------------
 
 Members of Prof. Arthi Jayaraman’s research lab have developed the **‘Computational Reverse-Engineering Analysis for Scattering Experiments’ (CREASE)** method to address these needs for alternate scattering analysis methods that are applicable to both conventional soft materials structures with existing analytical models and unconventional structures/chemistries that may not have good analytical models.
 
@@ -30,13 +34,13 @@ Members of Prof. Arthi Jayaraman’s research lab have developed the **‘Comput
 **Figure 1** shows the general workflow in CREASE (as of summer 2023) where experimentally measured 1D scattering profiles are taken as input and CREASE, through an internal optimization, generates as output the key structural features as well as representative 3D real space structures whose computed scattering profiles match the experimental scattering input.
 
 2.	Guiding Philosophy
-===============
+--------------------------
 
 CREASE’s workflow is based on the **philosophy** that the real-space three-dimensional (amorphous) arrangement of constituents in soft materials can be reduced to a lower dimensional mathematical representation of key ‘structural features’ and that the distributions of those structural features give rise to a computed scattering profile. *For example, for a system with core-corona spherical micelles at low concentrations, these structural features could be sizes of core and corona and probability distributions of those sizes. At higher concentration, there would be additional structural features that describe the relative neighborhood of each micelle, for example through mathematical order parameters describing positional and orientational order.* The user can decide the types of structural features they are interested in (*e.g.*, any fundamentally interesting structural information and/or structural features that the researcher knows will impact the soft materials’ eventual application). Once the users have decided on the key structural features they are interested in, they can use CREASE to run an optimization loop where it iterates over various sets of structural features. In the optimization loop, for each set of structural features CREASE  i) calculates the computed scattering profile, I\ :sub:`comp` \(q) (*more about this calculation below*), and ii) compares the I\ :sub:`comp` \(q) profile to the experimental (input) profile, I\ :sub:`exp` \(q),  eventually converging towards the sets (*note the intentional use of plural!*) that have I\ :sub:`comp` \(q) profiles most closely matching the input I\ :sub:`exp` \(q).   
 
 
 3.	CREASE-GA Implementation
-===============
+--------------------------------
 
 As of summer 2023, CREASE has been implemented in a python code using a simple optimization method - genetic algorithm. CREASE’s genetic algorithm (CREASE-GA) takes as input 1D SAXS and/or SANS scattering profile from amorphous soft materials structures. It also requires the user’s choice of the types of structural features (i.e., ‘genes’ of the ‘individuals’ in GA) based on their knowledge of the general shape of the assembled structure from other imaging techniques and/or subject matter expertise. Then, CREASE-GA starts with an initial ‘generation’ of multiple sets of structural features (i.e., multiple ‘individuals’ with specific values of ‘genes’) and iterates in the GA loop towards the optimal individuals whose genes gives rise to a computed scattering profile, I\ :sub:`comp` \(q), that closely matches the input experimentally measured scattering profile, I\ :sub:`exp` \(q). One important calculation in this loop is the I\ :sub:`comp` \(q) for a given set (‘individual’) of structural features (‘genes’); this has been done so far in one of two ways (**Figure 2**). One way (let us call it *Debye method*) is by creating for each set of genes their representative three-dimensional real space structures filled with point scatterers whose scattering length densities represent the constituents of the system, and using the Debye equation on the scatterer positions to compute I\ :sub:`comp` \(q). This way can be computationally intensive either due to the structure generation step or the Debye calculation despite computational tricks **[1-3]**. Another way is by using a machine learning (ML) model that links the structural features directly to I\ :sub:`comp` \(q); Jayaraman and coworkers have used neural networks trained on thousands of computed scattering profiles calculated from the Debye method for various sets of genes. Using this ML model for I\ :sub:`comp` \(q) calculation can give orders of magnitude speed up over the Debye method, after the initial time investment of training the ML model.
 
@@ -46,7 +50,7 @@ As of summer 2023, CREASE has been implemented in a python code using a simple o
    Figure 2. Two ways to calculate the ‘computed scattering profile’ or I\ :sub:`comp` \(q) for each ‘individual’ in the genetic algorithm. Each individual has a unique set of genes (i.e., a set of structural features). Both the Debye equation-based method (left) and machine learning approach (right) connect the values of those structural features or genes to a I\ :sub:`comp` \(q) vs. q profile.  In this figure a vesicle with a hollow core, an inner A-layer, a B-layer, and an outer A-layer is used as an example to show that the dimensions related to those layers and core become the ‘genes’ for this system. There can be additional or fewer genes depending on the user’s interest. It is important to note that in the machine learning approach the user may want to represent the structural features (genes) as normalized dimensions to make the trained machine learning model transferrable. (see for example Ref . **[4]**)  
 
 4.	How has CREASE been used so far?
-===============
+----------------------------------------
 
 As of summer 2023, CREASE method has been used to interpret small angle scattering results to 
 
@@ -61,7 +65,7 @@ c.	*Elucidate the amorphous structure of particles / micelles in solutions, with
 *CREASE with Debye method vs. ML-model for computed scattering profile calculation*: In earlier implementations of CREASE, the Debye method for computed scattering profile calculation was used; as noted above this calculation was initially found to be quite time consuming. In following work, the structure generation (done in every step of Debye method) was found to more computationally intensive while the computed scattering calculations using Debye method have been made faster than in previous implementations. The machine learning (ML) enhanced CREASE-GA, with a well-trained ML model avoids both Debye equation based computed scattering calculation and the three-dimensional real space structure generation in the optimization loop, making is significantly faster than using Debye method (*e.g.*, one can complete CREASE-GA optimization is less than an hour on a laptop with a pre-trained ML model!)
 
 5.	Unique advantages of CREASE
-===============
+-----------------------------------
 
 Here are some unique advantages of CREASE-GA regardless of availability of appropriate analytical models for the system being characterized:
 
