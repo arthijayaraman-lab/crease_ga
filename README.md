@@ -59,9 +59,9 @@ To install this package on a Windows, linux, or macOS machine, follow these step
        If you have installed the full version of Anaconda/Miniconda in Step 1, the most straightforward way to launch a terminal will be using _Anaconda prompt_ that comes with the conda installation. You should be able to find _Anaconda prompt_ from your Start menu. You can also consider installing [Windows Subsytem for Linux (WSL)](https://ubuntu.com/wsl).
 
 1. Download the package. 
-   -     ```
-     git clone https://github.com/arthijayaraman-lab/crease_ga
-     ```
+   ```
+   git clone https://github.com/arthijayaraman-lab/crease_ga
+   ```
    - You can also directly download the package as a ZIP file from [our github webpage](https://github.com/arthijayaraman-lab/crease_ga) by following the guidance [here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository). If you are following this route, you will need to unzip the package to your desired location after the download.
 
 1. Create a new conda environment and install the package and all its dependencies. 
