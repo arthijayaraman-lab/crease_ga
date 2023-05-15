@@ -1,9 +1,14 @@
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/arthijayaraman-lab/crease_ga/master) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Documentation Status](https://readthedocs.org/projects/crease-ga/badge/?version=latest)](https://crease-ga.readthedocs.io/en/latest/?badge=latest) [![DOI](https://zenodo.org/badge/387868834.svg)](https://zenodo.org/badge/latestdoi/387868834)
 
-# Introduction
-Computational Reverse Engineering Analysis for Scattering Experiments (CREASE) originally developed by Daniel Beltran-Villegas, Michiel Wessels, and Arthi Jayaraman (References 1, 2, and 3 below) is a two step approach that takes as input small angle scattering profile [I(q) vs. q] and provides as output structural information of the assembled structure.  For macromolecular solutions at dilute concentrations, when the primary component of [I(q) vs. q] is the form factor of the assembled structure, CREASE provides structural information about the assembled structure ranging from dimensions of the domains as well as the chain- and monomer- level packing (as shown in References 1, 2, 3, 5, and 7). For macromolecular solutions at high concentrations, I(q) vs. q has both form factor and structure factor information; References 6 and 8 show how CREASE can be applied for these systems.
+This is the `crease_ga` software package.
 
-This open source `crease_ga` package was co-created by Zijie Wu, Ziyu Ye, Christian Heil, and Arthi Jayaraman at University of Delaware. Currently `crease_ga` package is maintained by Zijie Wu, Nitant Gupta, and Stephen Kronenberger. 
+CREASE stands for Computational Reverse Engineering Analysis for Scattering Experiments.
+
+----------------------------------------------------------------------
+
+Please visit our readthedocs.io page for detailed introduction:
+
+[https://crease-ga.readthedocs.io/en/latest/index.html](https://crease-ga.readthedocs.io/en/latest/index.html)  
 
 __If you use this code, please cite one or more of the relevant references from the list below:__
 
@@ -54,10 +59,9 @@ To install this package on a Windows, linux, or macOS machine, follow these step
        If you have installed the full version of Anaconda/Miniconda in Step 1, the most straightforward way to launch a terminal will be using _Anaconda prompt_ that comes with the conda installation. You should be able to find _Anaconda prompt_ from your Start menu. You can also consider installing [Windows Subsytem for Linux (WSL)](https://ubuntu.com/wsl).
 
 1. Download the package. 
-   - If you have git installed, this can be done using the following command from a terminal:
-     ```
-     git clone https://github.com/arthijayaraman-lab/crease_ga
-     ```
+   ```
+   git clone https://github.com/arthijayaraman-lab/crease_ga
+   ```
    - You can also directly download the package as a ZIP file from [our github webpage](https://github.com/arthijayaraman-lab/crease_ga) by following the guidance [here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository). If you are following this route, you will need to unzip the package to your desired location after the download.
 
 1. Create a new conda environment and install the package and all its dependencies. 
@@ -90,4 +94,4 @@ If all installation steps are done properly, you should see the version number o
 
 
 # Contact us
-If you have any questions or feedback, please let us know by emailing creasejayaramanlab AT gmail.com.
+If you have any questions or feedback, please let us know by emailing creasejayaramanlab AT gmail.com. If you have git installed, this can be done using the following command from a terminal:
