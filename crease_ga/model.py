@@ -73,7 +73,7 @@ class Model:
             the input parameters of the shape will be loaded.
         '''
         builtin_shapes=["vesicle","micelle","NP-solution","binary-NP-assembly",
-                        "sffibril","non-ml-pqsq-core-shell","ml-pqsq-core-shell"]
+                        "sffibril","ml_sffibril","non-ml-sqpq-core-shell","ml-sqpq-core-shell"]
         if shape in builtin_shapes:
             sg = import_module('crease_ga.shapes.'+shape+'.scatterer_generator')
             sg = sg.scatterer_generator
@@ -249,17 +249,19 @@ class Model:
             np.savetxt(address+'current_gen.txt',np.c_[gen])
             np.savetxt(address+'current_pop.txt',np.c_[pop])
             np.savetxt(address+'current_pm_pc.txt',np.c_[self.adaptation_params.pm,self.adaptation_params.pc])
-            np.savetxt(address+'current_con.txt',np.c_[self.converge_count,self.min_error])
+            
+            ###TODO: fix the convergence part. not working as of now
+#            np.savetxt(address+'current_con.txt',np.c_[self.converge_count,self.min_error])
  
             # check if converged
-            if self.min_error < np.min(self.fit):
-                self.converge_count += 1
-                if self.converge_count == self.converge and gen >= 10:
-                    print('hit convergence at generation', gen)
-                    break
-            else:
-                self.converge_count = 0
-                self.min_error = np.min(self.fit)
+#            if self.min_error < np.min(self.fit):
+#                self.converge_count += 1
+#                if self.converge_count == self.converge and gen >= 10:
+#                    print('hit convergence at generation', gen)
+#                    break
+#            else:
+#                self.converge_count = 0
+#                self.min_error = np.min(self.fit)
  
             if needs_postprocess:
                 self.postprocess()
@@ -269,7 +271,7 @@ class Model:
                 fig, ax = plt.subplots(figsize=(figsize))
                 ax.plot(self.qrange_load,self.IQin,color='k',linestyle='-',ms=8,linewidth=1.3,marker='o')
                 for i in range(gen+1):
-                    ax.plot(self.qrange,bestIQ[i],color=colors[i],linestyle='-',ms=8,linewidth=2)
+                    ax.plot(self.qrange,bestIQ[i,:len(self.qrange)],color=colors[i],linestyle='-',ms=8,linewidth=2)
                 plt.xlim(self.qrange[0],self.qrange[-1])
                 plt.ylim(2*10**(-5),20)
                 plt.xlabel(r'q, $\AA^{-1}$',fontsize=20)

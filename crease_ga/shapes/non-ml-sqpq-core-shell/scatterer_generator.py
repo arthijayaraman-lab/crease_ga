@@ -567,7 +567,7 @@ class scatterer_generator:
     def produceStructure(self, param, individual):
         ps(self, param, individual,self.output_dir)
 
-    def calculateScattering(self,model,qrange,params,output_dir,n_cores=1):
+    def calculateScattering(self,qrange,params,output_dir,n_cores=1):
         '''
         Determine each individual's computed scattering intensity profile.
 

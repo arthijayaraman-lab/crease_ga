@@ -4,6 +4,7 @@ channels:
 dependencies:
   - numpy
   - matplotlib
+  - scipy
   - numexpr
   - py3dmol
   - jupyter

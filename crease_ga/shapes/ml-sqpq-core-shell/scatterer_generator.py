@@ -39,7 +39,7 @@ def smearSlit(q,qext,iq,h=0.23969):
 
 class scatterer_generator:
     def __init__(self,
-                 shape_params=[1, 1,20000,False,0,'','',''],
+                 shape_params=[1, 1,20000,False,0,'ANN_sq_fullq_1_512.h5','ANN_fq_fullq_1_512.h5','sqnorm.txt'],
                  minvalu=(40,0.05,50,0.01,0.05,0.01,0,0,0,10),
                  maxvalu=(60,0.20,50,0.01,0.95,0.50,1,1,1,20)):
         
@@ -54,7 +54,7 @@ class scatterer_generator:
         self.slit_h = shape_params[4]
         self.mlModelsq = shape_params[5]
         self.mlModelfq = shape_params[6]
-        self.sqnorm = shape_params[7]
+        self.sqnorm = path.dirname(__file__) + '/' + shape_params[7]
         self.smear = self.slit
         self.N = N  # Number of particles to use
         
@@ -82,7 +82,7 @@ class scatterer_generator:
     def numvars(self):
         return self._numvars
     
-    def calculateScattering(self,model,qrange,params,output_dir,n_cores=1):
+    def calculateScattering(self,qrange,params,output_dir,n_cores=1):
         '''
         Determine each individual's computed scattering intensity profile.
 
@@ -136,7 +136,7 @@ class scatterer_generator:
                 qext = np.concatenate([qlow,self.qrange,qhigh])
 
             # get form factor values
-            model = keras.models.load_model(self.mlModelfq)
+            model = keras.models.load_model(path.dirname(__file__)+'/'+self.mlModelfq)
             xval = np.zeros(3)
             fq = np.zeros(len(qext))
             for ind, qval in enumerate(qext):
@@ -154,7 +154,7 @@ class scatterer_generator:
                 fq[ind] = np.sum(temp)
             
             # get sq values
-            model = keras.models.load_model(self.mlModelsq)
+            model = keras.models.load_model(path.dirname(__file__)+'/'+self.mlModelsq)
             xval = np.zeros(6)
             sq = np.zeros(len(qext))
             sqnorm = np.loadtxt(self.sqnorm)
@@ -180,7 +180,7 @@ class scatterer_generator:
         else:
             q = self.qrange
             # get form factor values
-            model = keras.models.load_model(self.mlModelfq)
+            model = keras.models.load_model(path.dirname(__file__)+'/'+self.mlModelfq)
             xval = np.zeros(3)
             IQid = np.zeros((len(q),3))
             for ind, qval in enumerate(q):
@@ -198,7 +198,7 @@ class scatterer_generator:
             del IQid
     
             # get sq values
-            model = keras.models.load_model(self.mlModelsq)
+            model = keras.models.load_model(path.dirname(__file__)+'/'+self.mlModelsq)
             xval = np.zeros(6)
             sq = np.zeros(len(q))
             # sqnorm contains the normalization values (average and std dev) for
