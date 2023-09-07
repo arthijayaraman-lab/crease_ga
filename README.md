@@ -94,4 +94,4 @@ If all installation steps are done properly, you should see the version number o
 
 
 # Contact us
-If you have any questions or feedback, please let us know by emailing arthij AT udel.edu. If you have git installed, this can be done using the following command from a terminal:
+If you have any questions or feedback, please let us know by emailing creasejayaramanlab AT gmail.com. 
