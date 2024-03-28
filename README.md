@@ -4,6 +4,8 @@ This is the `crease_ga` software package.
 
 CREASE stands for Computational Reverse Engineering Analysis for Scattering Experiments.
 
+An extension of the CREASE method is also now available as [CREASE-2D](https://github.com/arthijayaraman-lab/CREASE-2D).
+
 ----------------------------------------------------------------------
 
 Please visit our readthedocs.io page for detailed introduction:
