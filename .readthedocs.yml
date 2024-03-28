@@ -1,5 +1,9 @@
 version: 2
-
+# Set the OS, Python version and other tools you might need
+build:
+  os: ubuntu-22.04
+  tools:
+    python: "3.7"
 formats:
    - pdf
 # Build from the docs/ directory with Sphinx
