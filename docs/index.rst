@@ -152,7 +152,7 @@ __________
 
 #.
    Akepati, S. V. R.;  Gupta, N.; Jayaraman, A., *Computational Reverse Engineering Analysis of the Scattering Experiment Method for Interpretation of 2D Small-Angle Scattering Profiles (CREASE-2D).* 
-   **JACS Au 2024 doi/10.1021/jacsau.4c00068.** (`link <https://pubs.acs.org/doi/10.1021/jacsau.4c00068>`_)
+   **JACS Au 2024, 4, 1570-1582.** (`link <https://pubs.acs.org/doi/10.1021/jacsau.4c00068>`_)
 
 #.
    Gupta, N.; Jayaraman, A., *Computational Approach for Structure Generation of Anisotropic Particles (CASGAP) with Targeted Distributions of Particle Design and Orientational Order.* 
