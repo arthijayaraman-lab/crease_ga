@@ -46,6 +46,9 @@ __If you use this code, please cite one or more of the relevant references from 
 
    Heil, C. M.; Ma, Y.; Bharti, B.; & Jayaraman, A.  Computational Reverse-Engineering Analysis for Scattering Experiments for Form Factor and Structure Factor Determination ('P(q) and S(q) CREASE'). JACS Au 2023, 3, 3, 889-904. [link to article](https://pubs-acs-org.udel.idm.oclc.org/doi/10.1021/jacsau.2c00697)
 
+9. Extension of the CREASE method to analyze 2D scattering profiles (CREASE-2D). CREASE-2D outputs the relevant structural features that can be used to interpret 3D structure. The identified structural features provide information of shapes, sizes and orientational order of particles, which is useful to understand structural anisotropy. More information also available at [CREASE-2D github page.](https://github.com/arthijayaraman-lab/CREASE-2D) 
+
+   Akepati, S. V. R.; Gupta, N.; Jayaraman, A., Computational Reverse Engineering Analysis of the Scattering Experiment Method for Interpretation of 2D Small-Angle Scattering Profiles (CREASE-2D). JACS Au 2024, 4, 1570-1582. [link to article](https://pubs.acs.org/doi/10.1021/jacsau.4c00068)
 # Installation
 
 To install this package on a Windows, linux, or macOS machine, follow these steps:
@@ -89,11 +92,11 @@ crease_ga.__version__
 
 If all installation steps are done properly, you should see the version number of the package printed, and you are all set to use the `crease_ga` package! Remember to activate the proper environment every time by with `conda activate crease_ga`.
 
-- **NOTE1**: We are in the process of preparing a new tutorial based on recent advances in machine learning enhanced CREASE. It will be available in September 2023. We plan to offer a workshop and tutorial in September 2023. If you are interested in attending that, please email us at creasejayaramanlab AT gmail.com.
+- **NOTE1**: We are in the process of preparing a new tutorial based on recent advances in machine learning enhanced CREASE. It will be available in September 2023. We plan to offer a workshop and tutorial in September 2023. If you are interested in attending that, please email us at arthij AT udel.edu.
 
 
 - **NOTE2**: if you intend to run this on a supercomputing cluster, you will need to follow the steps to create a python environment of the corresponding cluster.
 
 
 # Contact us
-If you have any questions or feedback, please let us know by emailing creasejayaramanlab AT gmail.com. 
+If you have any questions or feedback, please let us know by emailing arthij AT udel.edu. 
