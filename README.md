@@ -1,6 +1,5 @@
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/arthijayaraman-lab/crease_ga/master) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Documentation Status](https://readthedocs.org/projects/crease-ga/badge/?version=latest)](https://crease-ga.readthedocs.io/en/latest/?badge=latest) [![DOI](https://zenodo.org/badge/387868834.svg)](https://zenodo.org/badge/latestdoi/387868834)
 
-This is the `crease_ga` software package.
 
 CREASE stands for Computational Reverse Engineering Analysis for Scattering Experiments.
 
