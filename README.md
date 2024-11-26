@@ -1,12 +1,14 @@
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/arthijayaraman-lab/crease_ga/master) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Documentation Status](https://readthedocs.org/projects/crease-ga/badge/?version=latest)](https://crease-ga.readthedocs.io/en/latest/?badge=latest) [![DOI](https://zenodo.org/badge/387868834.svg)](https://zenodo.org/badge/latestdoi/387868834)
 
+__You are currently viewing the github page for the previous version of CREASE (2019 - 2023) which is relevant to publications [1-8] listed below.__ 
+
+__Please visit our [readthedocs.io page](https://crease-ga.readthedocs.io/en/latest/index.html) for detailed introduction on CREASE and the philosophy behind it.__ 
+
+ 
+
+If you are interested in using the current version (2024-present) of CREASE relevant to publication [9], for analyzing 1D or 2D scattering profiles [e.g., I(qx, qy)], please proceed to the github page for [CREASE-2D](https://github.com/arthijayaraman-lab/CREASE-2D).
 
 ----------------------------------------------------------------------
-
-Please visit our readthedocs.io page for detailed introduction:
-
-[https://crease-ga.readthedocs.io/en/latest/index.html](https://crease-ga.readthedocs.io/en/latest/index.html)  
-
 __If you use this code, please cite one or more of the relevant references from the list below:__
 
 1. Original Article on CREASE for spherical micelles:  
