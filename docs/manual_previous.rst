@@ -1,4 +1,5 @@
 .. toctree::
+   :hidden:
    :caption: Manual
    :maxdepth: 1
 
