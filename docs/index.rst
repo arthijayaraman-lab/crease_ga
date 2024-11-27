@@ -176,11 +176,7 @@ If you have any questions or feedback, please let us know by emailing arthij AT 
    :maxdepth: 1
 
    Workflow <example_workflow>
-   Manual <documentations/Model>
-      documentations/shape-vesicle
-      documentations/shape-micelle
-      documentations/adaptation_params
-      documentations/utils
+   Manual <manual_previous>
 
 
 .. toctree::
