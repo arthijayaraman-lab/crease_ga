@@ -173,7 +173,7 @@ If you have any questions or feedback, please let us know by emailing arthij AT 
 .. toctree::
    :titlesonly:
    :caption: Previous Version (2019-2023)
-   :maxdepth: 1
+   :maxdepth: 2
 
    Workflow <example_workflow>
    Manual <manual_previous>
