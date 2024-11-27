@@ -170,7 +170,7 @@ If you have any questions or feedback, please let us know by emailing arthij AT 
     self
 
 .. toctree::
-    :caption: Miscellaneous2
+    :caption: Manual for Codes
     :maxdepth: 1
 
    Workflow <example_workflow>
