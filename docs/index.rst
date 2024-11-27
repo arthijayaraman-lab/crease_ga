@@ -164,14 +164,14 @@ __________
 If you have any questions or feedback, please let us know by emailing arthij AT udel.edu.
 
 .. toctree::
-    :caption: Getting started
-    :maxdepth: 1
+   :caption: Getting started
+   :maxdepth: 1
     
-    self
+   self
 
 .. toctree:: 
-    :caption: Manual for Codes
-    :maxdepth: 1
+   :caption: Manual for Codes
+   :maxdepth: 1
 
    Workflow <example_workflow>
    Manual <documentations/Model>
@@ -181,10 +181,10 @@ If you have any questions or feedback, please let us know by emailing arthij AT 
    documentations/utils
 
 
-.. toctree:: 
-    :caption: Miscellaneous
-    :maxdepth: 1
+.. toctree::
+   :caption: Miscellaneous
+   :maxdepth: 1
     
-    Frequently Asked Questions <topics/faq>
-    How can you contribute? <topics/plugin>
-    topics/feedback
+   Frequently Asked Questions <topics/faq>
+   How can you contribute? <topics/plugin>
+   topics/feedback
