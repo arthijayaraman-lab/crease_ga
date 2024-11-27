@@ -175,6 +175,11 @@ If you have any questions or feedback, please let us know by emailing arthij AT 
 
    Workflow <example_workflow>
    Manual <documentations/Model>
+   documentations/shape-vesicle
+   documentations/shape-micelle
+   documentations/adaptation_params
+   documentations/utils
+
 
 .. toctree::
     :caption: Miscellaneous
