@@ -179,7 +179,11 @@ _________________
    :maxdepth: 1
 
    Workflow <example_workflow>
-   Manual <manual_previous>
+   Manual: Model <documentations/Model>
+   Manual: Shape (Vesicle) <documentations/shape-vesicle>
+   Manual: Shape (Micelle) <documentations/shape-micelle>
+   Manual: Adaptation Parameters <documentations/adaptation_params>
+   Manual: Utils <documentations/utils>
 
 
 .. toctree::
