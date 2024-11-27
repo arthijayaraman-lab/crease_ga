@@ -163,20 +163,20 @@ __________
 
 If you have any questions or feedback, please let us know by emailing arthij AT udel.edu.
 
-.. toctree::titlesonly:
+.. toctree::
     :caption: Getting started
     :maxdepth: 1
     
     self
     installation
 
-.. toctree::titlesonly:
+.. toctree::
     :caption: Crease_ga Workflow
     :maxdepth: 1
 
     example_workflow
 
-.. toctree::titlesonly:
+.. toctree::
     :caption: Manual for Codes
     :maxdepth: 1
 
@@ -186,7 +186,7 @@ If you have any questions or feedback, please let us know by emailing arthij AT 
     documentations/adaptation_params
     documentations/utils
 
-.. toctree::titlesonly:
+.. toctree::
     :caption: Miscellaneous
     :maxdepth: 1
     
