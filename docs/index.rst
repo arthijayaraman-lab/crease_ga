@@ -169,7 +169,7 @@ If you have any questions or feedback, please let us know by emailing arthij AT 
     
     self
 
-.. toctree::
+.. toctree:: 
     :caption: Manual for Codes
     :maxdepth: 1
 
@@ -181,7 +181,7 @@ If you have any questions or feedback, please let us know by emailing arthij AT 
    documentations/utils
 
 
-.. toctree::
+.. toctree:: 
     :caption: Miscellaneous
     :maxdepth: 1
     
