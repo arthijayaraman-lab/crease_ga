@@ -171,19 +171,9 @@ If you have any questions or feedback, please let us know by emailing arthij AT 
 
 .. toctree::
     :caption: Previous Version (2019-2023)
-    :maxdepth: 2
-   
-   .. toctree::
-    :caption: Workflow
-   example_workflow
-   
-   .. toctree::
-    :caption: Manual
-   documentations/Model
-   documentations/shape-vesicle
-   documentations/shape-micelle
-   documentations/adaptation_params
-   documentations/utils
+    :maxdepth: 1
+   Workflow <example_workflow>
+   Manual <documentations/Model>
 
 .. toctree::
     :caption: Miscellaneous
