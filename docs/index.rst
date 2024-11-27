@@ -168,23 +168,22 @@ If you have any questions or feedback, please let us know by emailing arthij AT 
     :maxdepth: 1
     
     self
-    installation
 
 .. toctree::
-    :caption: Crease_ga Workflow
-    :maxdepth: 1
-
-    example_workflow
-
-.. toctree::
-    :caption: Manual for Codes
-    :maxdepth: 1
-
-    documentations/Model
-    documentations/shape-vesicle
-    documentations/shape-micelle
-    documentations/adaptation_params
-    documentations/utils
+    :caption: Previous Version (2019-2023)
+    :maxdepth: 2
+   
+   .. toctree::
+    :caption: Workflow
+   example_workflow
+   
+   .. toctree::
+    :caption: Manual
+   documentations/Model
+   documentations/shape-vesicle
+   documentations/shape-micelle
+   documentations/adaptation_params
+   documentations/utils
 
 .. toctree::
     :caption: Miscellaneous
