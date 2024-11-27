@@ -184,6 +184,8 @@ _________________
    Manual: Shape (Micelle) <documentations/shape-micelle>
    Manual: Adaptation Parameters <documentations/adaptation_params>
    Manual: Utils <documentations/utils>
+   Frequently Asked Questions <topics/faq>
+   How can you contribute? <topics/plugin>
 
 
 .. toctree::
@@ -191,6 +193,4 @@ _________________
    :caption: Miscellaneous
    :maxdepth: 1
     
-   Frequently Asked Questions <topics/faq>
-   How can you contribute? <topics/plugin>
    topics/feedback
