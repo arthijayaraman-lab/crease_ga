@@ -164,24 +164,27 @@ __________
 If you have any questions or feedback, please let us know by emailing arthij AT udel.edu.
 
 .. toctree::
+   :titlesonly:
    :caption: Getting started
    :maxdepth: 1
     
    self
 
-.. toctree:: 
-   :caption: Manual for Codes
+.. toctree::
+   :titlesonly:
+   :caption: Previous Version (2019-2023)
    :maxdepth: 1
 
    Workflow <example_workflow>
    Manual <documentations/Model>
-   documentations/shape-vesicle
-   documentations/shape-micelle
-   documentations/adaptation_params
-   documentations/utils
+      documentations/shape-vesicle
+      documentations/shape-micelle
+      documentations/adaptation_params
+      documentations/utils
 
 
 .. toctree::
+   :titlesonly:
    :caption: Miscellaneous
    :maxdepth: 1
     
