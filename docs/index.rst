@@ -163,6 +163,9 @@ __________
 
 If you have any questions or feedback, please let us know by emailing arthij AT udel.edu.
 
+Table of Contents
+_________________
+
 .. toctree::
    :titlesonly:
    :caption: Getting started
