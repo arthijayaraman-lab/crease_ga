@@ -14,11 +14,12 @@
 
 .. role:: underline
    :class: underline
+.. role:: blue-text
 
 Last Updated: March 28, 2024
 
 
-<blue-text> CREASE Overview </blue-text>
+:blue-text: `CREASE Overview`
 ===============
 
 1. Introduction to CREASE
