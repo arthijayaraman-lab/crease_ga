@@ -1,6 +1,19 @@
 import sphinx_rtd_theme
 import mock
 import sys
+from docutils import nodes
+from docutils.parsers.rst.roles import register_canonical_role
+
+def color_role(name, rawtext, text, lineno, inliner, options=None, content=None):
+    """A custom role to style text with a color."""
+    color = name  # Role name is used as the color
+    node = nodes.inline(text, text, classes=[f"text-{color}"])
+    return [node], []
+
+# Register roles for colors like "red", "blue", etc.
+for color in ["red", "blue", "green", "yellow"]:
+    register_canonical_role(color, color_role)
+
 MOCK_MODULES = ['numpy', 'matplotlib', 'matplotlib.pyplot','numexpr']
 for mod_name in MOCK_MODULES:
     sys.modules[mod_name] = mock.Mock()
@@ -57,6 +70,7 @@ numpydoc_show_class_members = False
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+html_css_files = ['custom.css']
 
 #def setup(app):
 #    def inject_css(app, pagename, templatename, context, doctree):
