@@ -15,8 +15,6 @@
 .. role:: underline
    :class: underline
 
-.. raw:: html
-   <style> .red {color:red} </style>
 .. role:: red
 
 Last Updated: March 28, 2024
