@@ -17,7 +17,7 @@
 
 Last Updated: March 28, 2024
 
-:red"`CREASE Overview`
+:red:`CREASE Overview`
 ===============
 
 1. Introduction to CREASE
