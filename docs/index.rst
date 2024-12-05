@@ -17,13 +17,13 @@
 
 Last Updated: March 28, 2024
 
-:red:`CREASE Overview`
+CREASE Overview
 ===============
 
 1. Introduction to CREASE
 -------------------------
 
-Members of Prof. Arthi Jayaraman’s research lab have developed the **‘Computational Reverse-Engineering Analysis for Scattering Experiments’ (CREASE)** method to address these needs for alternate scattering analysis methods that are applicable to both conventional soft materials structures with existing analytical models and unconventional structures/chemistries that may not have good analytical models.
+:red:`Members of Prof. Arthi Jayaraman’s research lab have developed` the **‘Computational Reverse-Engineering Analysis for Scattering Experiments’ (CREASE)** method to address these needs for alternate scattering analysis methods that are applicable to both conventional soft materials structures with existing analytical models and unconventional structures/chemistries that may not have good analytical models.
 
 .. figure:: docs_fig1.png
    :class: with-border
