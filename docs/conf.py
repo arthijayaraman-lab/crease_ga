@@ -58,10 +58,6 @@ numpydoc_show_class_members = False
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
-.red {
-    color: red;
-}
-
 #def setup(app):
 #    def inject_css(app, pagename, templatename, context, doctree):
 #        custom_css = """
