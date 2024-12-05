@@ -58,26 +58,30 @@ numpydoc_show_class_members = False
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
-def setup(app):
-    def inject_css(app, pagename, templatename, context, doctree):
-        custom_css = """
-        .red-text {
-            color: red;
-        }
+.red {
+    color: red;
+}
 
-        .blue-text {
-            color: blue;
-        }
-
-        .green-text {
-            color: green;
-        }
-        """
-        # Ensure that 'extra_css' exists in the context
-        if 'extra_css' in context:
-            context['extra_css'] += f'<style>{custom_css}</style>'
-        else:
-            context['extra_css'] = f'<style>{custom_css}</style>'
-
-    # Connect the inject_css function to the 'html-page-context' event
-    app.connect('html-page-context', inject_css)
+#def setup(app):
+#    def inject_css(app, pagename, templatename, context, doctree):
+#        custom_css = """
+#        .red-text {
+#            color: red;
+#        }
+#
+#        .blue-text {
+#            color: blue;
+#        }
+#
+#        .green-text {
+#            color: green;
+#        }
+#        """
+#        # Ensure that 'extra_css' exists in the context
+#        if 'extra_css' in context:
+#            context['extra_css'] += f'<style>{custom_css}</style>'
+#        else:
+#            context['extra_css'] = f'<style>{custom_css}</style>'
+#
+#    # Connect the inject_css function to the 'html-page-context' event
+#    app.connect('html-page-context', inject_css)
