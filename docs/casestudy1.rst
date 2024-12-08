@@ -1,5 +1,5 @@
-CREASE Overview
-===============
+Case Study I: Analyzing 1D Small Angle Scattering Profiles from Soft Materials with Dispersity in Particle Size and Shapes using CREASE
+=======================================================================================================================================
 
 1. Introduction to CREASE
 -------------------------
