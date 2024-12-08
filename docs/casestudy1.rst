@@ -32,7 +32,7 @@ Step 2:	Generating 3D Structures for Varying Values of Structural Features
 .. figure:: CasestudyI_Step_3.png
    :class: with-border 
 
-Figure 3.: .
+Figure 3.: Shows four computed scattering profiles and the corresponding 3 dimensional structures. The scattering profiles were computed from the 3D structures using a physics based equation. 
 
 4.	Training a Machine Learning Model that Directly Links Structural Features to the Computed Scattering Profiles
 ----------------------------------------
