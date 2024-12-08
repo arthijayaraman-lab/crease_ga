@@ -18,16 +18,14 @@ During this step it is important to spend some time and think about the expected
 Step 2:	Generating 3D Structures for Varying Values of Structural Features
 ----------------------------------------------------------------------------
 
-   
-
 .. figure:: CasestudyI_Step_2.png
    :class: with-border
 
    Figure 2.: Shows four 3 dimensional (3D) structures generated using the CASGAP **[1]** program. The 4 sets of structural features that were input to CASGAP to obtain the 3D structures are also shown. 
 
 
-3.	CREASE-GA Implementation
---------------------------------
+3.	Calculating Scattering Profiles for the 3D Structures Generated
+---------------------------------------------------------------------
 
 CREASE has been implemented in a python code using a simple optimization method - genetic algorithm. CREASE’s genetic algorithm (CREASE-GA) takes as input 1D SAXS and/or SANS scattering profile from amorphous soft materials structures. It also requires the user’s choice of the types of structural features (i.e., ‘genes’ of the ‘individuals’ in GA) based on their knowledge of the general shape of the assembled structure from other imaging techniques and/or subject matter expertise. Then, CREASE-GA starts with an initial ‘generation’ of multiple sets of structural features (i.e., multiple ‘individuals’ with specific values of ‘genes’) and iterates in the GA loop towards the optimal individuals whose genes gives rise to a computed scattering profile, I\ :sub:`comp` \(q), that closely matches the input experimentally measured scattering profile, I\ :sub:`exp` \(q). One important calculation in this loop is the I\ :sub:`comp` \(q) for a given set (‘individual’) of structural features (‘genes’); this has been done so far in one of two ways (**Figure 2**). One way (let us call it *Debye method*) is by creating for each set of genes their representative three-dimensional real space structures filled with point scatterers whose scattering length densities represent the constituents of the system, and using the Debye equation on the scatterer positions to compute I\ :sub:`comp` \(q). This way can be computationally intensive either due to the structure generation step or the Debye calculation despite computational tricks **[1-3]**. Another way is by using a machine learning (ML) model that links the structural features directly to I\ :sub:`comp` \(q); Jayaraman and coworkers have used neural networks trained on thousands of computed scattering profiles calculated from the Debye method for various sets of genes. Using this ML model for I\ :sub:`comp` \(q) calculation can give orders of magnitude speed up over the Debye method, after the initial time investment of training the ML model.
 
