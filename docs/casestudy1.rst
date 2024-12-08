@@ -6,12 +6,13 @@ In this case study, we use the CREASE method to analyze the dispersity in both t
 Step 1: Identifying the Structural Features of the System  
 -------------------------------------------------------------
 
-The first step in training an ML model (that is to be incorporated in the CREASE loop) is the identification of structural features that are relevant to the system. In this study, the size of a nanoparticle is defined by its volumetric radius. Therefore, the structural features that capture the size distribution of the nanoparticle system are the mean and standard deviation of the volumetric radii. The shape of a nanoparticle is defined by its aspect ratio in this study. Therefore, the structural features that capture the shape distribution of the nanoparticle system are the mean and standard deviation of the aspect ratios. **Figure 1** lists the 
+The first step in training an ML model (that is to be incorporated in the CREASE loop) is the identification of structural features that are relevant to the system. In this study, the size of a nanoparticle is defined by its volumetric radius. Therefore, the structural features that capture the size distribution of the nanoparticle system are the mean and standard deviation of the volumetric radii. The shape of a nanoparticle is defined by its aspect ratio in this study. Therefore, the structural features that capture the shape distribution of the nanoparticle system are the mean and standard deviation of the aspect ratios. We define an additional structural feature, volume fraction, that defines the degree of packing of nanoparticles. **Figure 1** provides a pictorial description of the structural features.   
 
 .. figure:: CasestudyI_Step_1.png
    :class: with-border
 
    Figure 1.: Definitions of structural features relevant to this case study. Structural features are a set of physical descriptors that fully define a 3 dimensional (3D) structure of the system. For a system of nanoparticles with dispersity in both size and shape, we identify a set of five structural features as shown above.    
+
 
 
 2.	Guiding Philosophy
