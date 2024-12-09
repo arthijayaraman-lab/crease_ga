@@ -12,7 +12,7 @@ The *in silico* system of spheroidal particles has been characterized by 6 struc
 
 #. :math:`\gamma_\mu` and :math:`\gamma_\sigma` represent the mean and standard deviation in the spheroidal aspect ratio of the particles, a parameter that directly influences the shape of the particles, also following a log-normal distribution.
 
-#. The orientation of particles is specified by the 3D vector pointing along the major axis of the spheroid. The distribution of orientation follows the 3D von Mises–Fisher (vMF) distribution. Here the mean orientation has been fixed to one of the axes in the laboratory frame (as explained in the manuscript) and the extent of the orientational order is characterized by the :math:`\kappa` parameter, which is a measure of the inverse dispersity in orientation. :math:`\kappa=0` indicates complete lack of the orientational order (isotropic) and :math:`\kappa\rightarrow\infinity` indicates perfect orientational order (highly anisotropic). 
+#. The orientation of particles is specified by the 3D vector pointing along the major axis of the spheroid. The distribution of orientation follows the 3D von Mises–Fisher (vMF) distribution. Here the mean orientation has been fixed to one of the axes in the laboratory frame (as explained in the manuscript) and the extent of the orientational order is characterized by the :math:`\kappa` parameter, which is a measure of the inverse dispersity in orientation. :math:`\kappa=0` indicates complete lack of the orientational order (isotropic) and :math:`\kappa\rightarrow\infty` indicates perfect orientational order (highly anisotropic). 
 
 #. The concentration of particles is quantified by the volume fraction of particles, :math:`\phi`. This parameter is not independently controlled and is evaluated after the CASGAP method generates a structure with the specified distributions of shape, size and orientational order.
 
@@ -56,7 +56,7 @@ The data set of 3000 2D scattering profiles and their corresponding structural f
 
 Step 4:	Incorporating the Surrogate ML Model within the Genetic Algorithm (GA) Optimization Loop to Complete CREASE-2D Workflow
 -------------------------------------------------------------------------------------------------------------------------------
-The final step in the CREASE-2D implementation is to put together the predictive capacity and the speed of the surrogate ML model within the GA optimization loop. Consequently, the 6 structural features are represented as 6 corresponding "genes", which are additionally normalized to the interval 0-1. The input to the GA is an *in silico* "experimental" 2D scattering profile (:math:`I_exp(q,\theta)`), which is compared to the ML predicted "computed" 2D scattering profile (:math:`I_comp(q,\theta)`).
+The final step in the CREASE-2D implementation is to put together the predictive capacity and the speed of the surrogate ML model within the GA optimization loop. Consequently, the 6 structural features are represented as 6 corresponding "genes", which are additionally normalized to the interval 0-1. The input to the GA is an *in silico* "experimental" 2D scattering profile (:math:`I_{exp}(q,\theta)`), which is compared to the ML predicted or "computed" 2D scattering profile (:math:`I_{comp}(q,\theta)`).
 
 .. figure:: case_study_2_files/Figure5_Step4.png
    :class: with-border
