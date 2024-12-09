@@ -1,6 +1,7 @@
 Case Study II: Analysis of 2D scattering profiles for *in silico* system of spheroidal particles with dispersities in shapes, sizes and orientational order using CREASE-2D
 ===========================================================================================================================================================================
 This case study showcases the implementation of CREASE-2D workflow for an *in silico* system of spheroidal particles as discussed in the original manuscript for CREASE-2D [1]. Please refer to the original manuscript for pertinent details about the method. In Figure 1 the CREASE-2D workflow applied to the *in silico* system of spheroidal particles is briefly reviewed, with input obtained as a 2D experimental scattering profile encoding information about spheroidal particles' form and structural arrangement. CREASE-2D uses a Genetic Algorithm (GA) optimizer to find the sets of structural features that can closely characterize the experimental input. The CREASE-2D workflow uses a surrogate Machine Learning (ML) model to predict computed 2D scattering profiles in a time- and memory-efficient manner. Thus, the implementation of the CREASE-2D workflow for any system of interest can be carried out by following the 4 steps as demonstrated below.
+
 .. figure:: case_study_2_files/Figure1_CREASE_Loop.png
    :class: with-border
    :width: 900px
