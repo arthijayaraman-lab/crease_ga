@@ -34,7 +34,7 @@ In this step we use the database of 3000 3D representations that were generated 
 .. figure:: CasestudyI_Step_3.png
    :class: with-border 
 
-Figure 3.: Shows four computed scattering profiles and the corresponding 3 dimensional (3D) structures. The scattering profiles were computed from the 3D structures using a physics based equation. 
+Figure 3.: Shows four computed scattering profiles and their corresponding 3 dimensional (3D) structures. The scattering profiles were computed from the 3D structures using a physics based equation. 
 
 The scattering computation for each 3D representation is carried out 10 times by displacing the origin of the nanoparticle system randomly. This step is carried out to smoothen the computed scattering profile. For this study a 931 q values in the range of 0.02-0.2 Angstrom^-1 are chosen based on experimental data. The scattering intensities are computed in a 180 directions and azimuthally averaged to obtain a 1D scattering profile.   
 
