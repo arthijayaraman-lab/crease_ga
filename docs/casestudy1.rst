@@ -13,7 +13,7 @@ A computational method that seeks to analyze the dispersity in both the size and
 .. figure:: Four_Steps_CasestudyI.png
    :class: with-border
 
-   Figure 2.: The four steps involved in training an XGBoost Machine Learning (ML) model that directly links a set of structural features to its computed scattering profile. The trained XGBoost model can later be incorporated into the CREASE method.
+   Figure 2.: The four steps involved in training an XGBoost Machine Learning (ML) model that directly links a set of structural features to its computed scattering profile. The trained XGBoost model can later be incorporated into CREASE.
 
 
 Once the ML model is trained, it can be incorporated into the CREASE loop. In this case, CREASE takes a 1D scattering profile as an input and outputs multiple sets of structural features whose computed scattering profiles closely match the input scattering profile.        
