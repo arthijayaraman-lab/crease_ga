@@ -53,6 +53,11 @@ After the hyperparameters are tuned, the XGBoost ML model is saved and validated
 Incorporating the Trained ML Model in CREASE to Analyze the Dispersity in the Size and Shapes of Nanoparticles from their Experimental Scattering Profile
 ----------------------------------------
 
+.. figure:: CasestudyI_CREASE_Results.png
+   :class: with-border 
+
+Figure 5.: CREASE predictions for the distribution of size and shapes of nanoparticle systems for 10 featureless scattering profiles collected at the Brookhaven National Laboratory. For each structural feature, the range of variation between the Individuals of the genetic algorithm (last generation) are also plotted.
+
 References
 __________
 
