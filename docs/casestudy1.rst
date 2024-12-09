@@ -17,14 +17,16 @@ During this step it is important to spend some time and think about the expected
 
 Step 2:	Generating 3D Structures for Varying Values of Structural Features
 ----------------------------------------------------------------------------
+In step 2, we generate 3000 3D structures by varying the structural features defined in the previous step. For this study, the mean volumetric radius of the system was varied uniformly in the range of 20-100 Angstroms. The standard deviation of the volumetric radii was varied uniformly to lie between 0-50% of the mean volumetric radii. The mean aspect ratio of the system was varied uniformly between 0.8-4.0. The standard deviation of the aspect ratio was between 0-50% of the mean aspect ratio. Volume fraction was uniformly varied in the range of [0.05, 0.15]. The range of variation of structural features is determined by manual matching. Manual matching is (also known as sensitivity analysis) carried out before a large scale generation of 3D structures to ensure that the features present in experimental scattering profiles are consistent with the features in the computed scattering profile. Manual matching is also necessary to ensure that the structural features in the chosen range have a noticeable effect on the computed scattering profiles.     
 
 .. figure:: CasestudyI_Step_2.png
    :class: with-border
 
    Figure 2.: Shows four 3 dimensional (3D) structures generated using the CASGAP **[1]** program. The 4 sets of structural features that were input to CASGAP to obtain the 3D structures are also shown. 
 
+To generate representative 3D structures by using sets of structural features as input, we use the CASGAP **[1]** program developed in the Jayaraman lab. CASGAP generates 3D structures of nanoparticles for a user defined distribution of particle size and shapes. The orientation of the nanoparticles can also by controlled by the user with a kappa (anisotropy) parameter. In this study the kappa parameter was set to 0 for all 3D structures which indicates completely disordered nanoparticle orientations.  
 
-3.	Calculating Scattering Profiles for the 3D Structures Generated
+Step 3:	Calculating Scattering Profiles for the 3D Structures Generated
 ---------------------------------------------------------------------
 
 
@@ -34,13 +36,15 @@ Step 2:	Generating 3D Structures for Varying Values of Structural Features
 
 Figure 3.: Shows four computed scattering profiles and the corresponding 3 dimensional (3D) structures. The scattering profiles were computed from the 3D structures using a physics based equation. 
 
-4.	Training a Machine Learning Model that Directly Links Structural Features to the Computed Scattering Profiles
+Step 4.	Training a Machine Learning Model that Directly Links Structural Features to the Computed Scattering Profiles
 ----------------------------------------
+
+
 
 .. figure:: CasestudyI_Step_4.png
    :class: with-border 
 
-Figure 4.: .
+Figure 4.: Graphical representation of training an XGBoost Machine Learning (ML) model to directly link the structural features of a nanoparticle system to its computed scattering profile. 80% of the scattering profiles computed in step 3 are selected randomly and used as a training dataset for the ML model. The predictions of the ML model are validated by using the remaining 20% of the dataset (test dataset). 
 
 
 References
@@ -50,10 +54,3 @@ __________
    Brisard, S.; Levitz, P., *Small-angle scattering of dense, polydisperse granular porous media: Computation free of size effects.*
    **Phys. Rev. E 2013, 87 (1), 013305.** (`link <https://journals.aps.org/pre/abstract/10.1103/PhysRevE.87.013305>`_)
 
-#.
-   Olds, D. P.; Duxbury, P. M., *Efficient algorithms for calculating small-angle scattering from large model structures.*
-   **Journal of Applied Crystallography 2014, 47 (3), 1077-1086.** (`link <https://journals.iucr.org/j/issues/2014/03/00/kk5148/index.html>`_)
-
-#.
-   Schmidt-Rohr, K., *Simulation of small-angle scattering curves by numerical Fourier transformation.*
-   **Journal of Applied Crystallography 2007, 40 (1), 16-25.** (`link <https://onlinelibrary.wiley.com/iucr/doi/10.1107/S002188980604550X>`_)
