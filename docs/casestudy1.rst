@@ -24,7 +24,7 @@ In step 2, we generate 3000 3D structures by varying the structural features def
 
    Figure 2.: Shows four 3 dimensional (3D) structures generated using the CASGAP **[1]** program. The 4 sets of structural features that were input to CASGAP to obtain the 3D structures are also shown. 
 
-To generate representative 3D structures by using sets of structural features as an input, we use the CASGAP **[1]** program developed in the Jayaraman lab. CASGAP generates 3D structures of nanoparticles for a user defined distribution of particle size and shapes. The orientation of the nanoparticles can also by controlled by the user with a kappa (anisotropy) parameter. In this study the kappa parameter was set to 0 for all 3D structures which represents completely disordered nanoparticle orientations.  
+To generate representative 3D structures by using sets of structural features as an input, we use the CASGAP **[1]** program developed in the Jayaraman lab. CASGAP generates 3D structures of nanoparticles for a user defined distribution of particle size and shapes. The orientation of the nanoparticles can also by controlled by the user with a kappa (anisotropy) parameter. In this study, the kappa parameter was set to 0 for all 3D structures which represents completely disordered nanoparticle orientations.  
 
 Step 3:	Calculating Scattering Profiles for the 3D Structures Generated
 ---------------------------------------------------------------------
