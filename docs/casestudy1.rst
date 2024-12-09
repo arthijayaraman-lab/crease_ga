@@ -54,5 +54,5 @@ __________
 
 #.
    Gupta, N.; Jayaraman, A., *Computational approach for structure generation of anisotropic particles (casgap) with targeted distributions of particle design and orientational order*
-   **Nanoscale 2023, 15.36, 14958-14970 (`link <https://doi.org/10.1039/D3NR02425C>`_)
+   Nanoscale 2023, 15.36, 14958-14970 (`link <https://doi.org/10.1039/D3NR02425C>`_)
 
