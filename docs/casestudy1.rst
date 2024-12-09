@@ -24,20 +24,23 @@ In step 2, we generate 3000 3D structures by varying the structural features def
 
    Figure 2.: Shows four 3 dimensional (3D) structures generated using the CASGAP **[1]** program. The 4 sets of structural features that were input to CASGAP to obtain the 3D structures are also shown. 
 
-To generate representative 3D structures by using sets of structural features as input, we use the CASGAP **[1]** program developed in the Jayaraman lab. CASGAP generates 3D structures of nanoparticles for a user defined distribution of particle size and shapes. The orientation of the nanoparticles can also by controlled by the user with a kappa (anisotropy) parameter. In this study the kappa parameter was set to 0 for all 3D structures which indicates completely disordered nanoparticle orientations.  
+To generate representative 3D structures by using sets of structural features as input, we use the CASGAP **[1]** program developed in the Jayaraman lab. CASGAP generates 3D structures of nanoparticles for a user defined distribution of particle size and shapes. The orientation of the nanoparticles can also by controlled by the user with a kappa (anisotropy) parameter. In this study the kappa parameter was set to 0 for all 3D structures which represents completely disordered nanoparticle orientations.  
 
 Step 3:	Calculating Scattering Profiles for the 3D Structures Generated
 ---------------------------------------------------------------------
 
-
+In this step we use the database of 3000 3D representations that were generated in the previous step and compute a scattering profile corresponding to each 3D representation. For this study, a scattering code written in the Jayaraman lab was used to compute the scattering profile for each case using the scattering equation. The scattering code computationally enhanced by parallelization. This is made possible by computing the scattering profiles from the amplitudes (complex variable) of the nanoparticle system instead of relying on the older Debye representation of the scattering equation. The calculation of the complex amplitudes from the coordinates of the nanoparticle system is a single summation and can hence be parallelized much more effectively compared to the Debye representation which is a double summation and hence cannot be parallelized. **Figure 3** shows 4 scattering profiles out of the 3000 computed in this study and the corresponding 3D representations.        
 
 .. figure:: CasestudyI_Step_3.png
    :class: with-border 
 
 Figure 3.: Shows four computed scattering profiles and the corresponding 3 dimensional (3D) structures. The scattering profiles were computed from the 3D structures using a physics based equation. 
 
+The scattering computation for each 3D representation is carried out 10 times by displacing the origin of the nanoparticle system randomly. This step is carried out to smoothen the computed scattering profile.  
+
 Step 4.	Training a Machine Learning Model that Directly Links Structural Features to the Computed Scattering Profiles
 ----------------------------------------
+
 
 
 
