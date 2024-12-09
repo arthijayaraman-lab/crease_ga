@@ -13,7 +13,7 @@ The first step in training an ML model (that is to be incorporated in the CREASE
 
    Figure 1.: Definitions of structural features relevant to this case study. Structural features are a set of physical descriptors that fully define a 3 dimensional (3D) structure of the system. For a system of nanoparticles with dispersity in both size and shape, we identify a set of five structural features as shown above.    
 
-During this step it is important to spend some time and think about the expected output from CREASE. The final output from CREASE is going to be multiple sets of structural features that are identified here.         
+During this step it is important to spend some time and think about the expected output from CREASE. The final output from CREASE is going to be multiple sets of structural features that are identified in this step.         
 
 Step 2:	Generating 3D Structures for Varying Values of Structural Features
 ----------------------------------------------------------------------------
