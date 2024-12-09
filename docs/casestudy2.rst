@@ -1,7 +1,13 @@
 Case Study II: Analysis of 2D scattering profiles for *in silico* system of spheroidal particles with dispersities in shapes, sizes and orientational order using CREASE-2D
 ===========================================================================================================================================================================
-This case study demonstrates the implementation of CREASE-2D workflow for an *in silico* system of spheroidal particles as also discussed in the original manuscript for CREASE-2D [1]. The CREASE-2D workflow
+This case study showcases the implementation of CREASE-2D workflow for an *in silico* system of spheroidal particles as also discussed in the original manuscript for CREASE-2D [1]. The implementation of the CREASE-2D workflow is carried out through 4 steps as demonstrated below.
 
+.. figure:: case_study_2_files/Figure1_CREASE_Loop.png
+   :class: with-border
+   :width: 900px
+   :align: center
+
+   Figure 1.: **(A)** CREASE-2D workflow used to analyze the system of *in silico* spheroidal particles. The input is the 2D scattering profile generated from the 3D *in silico* structures with a predefined set of structural features. Only the “experimental: 2D scattering profile, :math:`I_{exp}(q,\theta)` where :math:`q` is magnitude of scattered wavevector and :math:`\theta` is the azimuthal angle, is used as the input to the CREASE-2D method. The GA optimizes toward structural features whose :math:`I_{comp}(q,\theta)` closely resembles :math:`I_{exp}(q,\theta)`. Figure adapted from reference [1].
 
 Step 1: Structural Feature Identification And Structure Generation
 ------------------------------------------------------------------
@@ -47,6 +53,8 @@ Step 3:	Training of Surrogate Machine Learning Model to Predict Scattering Profi
 
 The data set of 3000 2D scattering profiles and their corresponding structural features is first split such that 80% of the data (2400 structures) is used for training the ML model and the remaining 20% (600 structures) is used for testing/validation of the ML model’s performance. Currently CREASE-2D implementation uses XGBoost as the ML model due to its exceptional performance and lower scope of overfitting. To use XGBoost, the training data set is reformatted into a table, with each row containing all 6 structural features as well as, three new fields corresponding to :math:`q`, :math:`\theta` and :math:`I(q,\theta)`. The last three fields can be obtained by serializing the cartesian form of the 2D scattering profiles, after appropriate subsampling (to avoid excessive data for efficient memory usage; please see main manuscript [1] for more details).
 
+Before final training of the XGBoost model, its hyperparameters must be optimized (details provided in the main manuscript [1]). Using the tuned hyperparameters, the trained model for the current dataset shows good learning behavior and good performance for both training and validation datasets as shown in Figure 4. 
+
 .. figure:: case_study_2_files/Figure4_Step3.png
    :class: with-border
    :width: 900px
@@ -56,11 +64,24 @@ The data set of 3000 2D scattering profiles and their corresponding structural f
 
 Step 4:	Incorporating the Surrogate ML Model within the Genetic Algorithm (GA) Optimization Loop to Complete CREASE-2D Workflow
 -------------------------------------------------------------------------------------------------------------------------------
-The final step in the CREASE-2D implementation is to put together the predictive capacity and the speed of the surrogate ML model within the GA optimization loop. Consequently, the 6 structural features are represented as 6 corresponding "genes", which are additionally normalized to the interval 0-1. The input to the GA is an *in silico* "experimental" 2D scattering profile (:math:`I_{exp}(q,\theta)`), which is compared to the ML predicted or "computed" 2D scattering profile (:math:`I_{comp}(q,\theta)`).
+The final step in CREASE-2D implementation is to put together the predictive capacity and the speed of the surrogate ML model within the GA optimization loop. The input to the GA is an *in silico* "experimental" 2D scattering profile (:math:`I_{exp}(q,\theta)`), which is compared to the ML predicted or "computed" 2D scattering profile (:math:`I_{comp}(q,\theta)`).
+
+Consequently, the 6 structural features are represented as 6 corresponding "genes", which are additionally normalized to the interval 0-1. For every “individual” with a unique set of genes, :math:`I_{comp}(q,\theta)` is predicted from the surrogate ML model using the individual’s structural features as the input. All individuals in each generation are then ranked by their “fitness” value which is quantified by the SSIM of the individual’s :math:`I_{comp}(q,\theta)` with respect to the :math:`I_{exp}(q,\theta)`. The objective of the GA optimization loop is to improve the fitness of an individual; in other words, improvement of the SSIM score of its computed scattering profile :math:`I_{comp}(q,\theta)` as compared to :math:`I_{exp}(q,\theta)`.
+
+In Figure 5 we see that for three independent GA runs, CREASE-2D obtains very close matches to the input 2D scattering profiles for both the 2 examples. Comparing the overall performance for all test samples, CREASE-2D is able to identify :math:`R_\mu`, , :math:`\gamma_\mu`, :math:`\kappa` and :math:`\phi` to a greater degree of accuracy. However, :math:`R_\sigma` and :math:`\gamma_\sigma` are not identified with enough precision because those structural features were not too sensitive to the scattering profiles in the dataset.
 
 .. figure:: case_study_2_files/Figure5_Step4.png
    :class: with-border
    :width: 900px
    :align: center
 
-   Figure 5.: **(A)** Identified structural features for the *in silico* system. **(B-D)** Representative snapshots of 3D structures displaying variations in size, shape and orientational order, respectively. Figure adapted from reference [1].
+   Figure 5.: **(A,B)** Two selected samples show visual comparison of the input scattering profile and outputs from three independent GA runs. **(C)** The comparison of GA-optimized values of the normalized “gene” or structural features and the original value of the structural feature, normalized to represent a target gene value for all 600 samples tested with CREASE-2D. Figure adapted from reference [1].
+
+References
+----------
+#. Akepati, S. V. R.;  Gupta, N.; Jayaraman, A., *Computational Reverse Engineering Analysis of the Scattering Experiment Method for Interpretation of 2D Small-Angle Scattering Profiles (CREASE-2D).* 
+   **JACS Au 2024, 4, 1570-1582.** (`link <https://pubs.acs.org/doi/10.1021/jacsau.4c00068>`_)
+
+#. Gupta, N.; Jayaraman, A., *Computational approach for structure generation of anisotropic particles (casgap) with targeted distributions of particle design and orientational order*,
+   **Nanoscale, 2023, 15.36, 14958-14970**. (`link <https://doi.org/10.1039/D3NR02425C>`_)
+
