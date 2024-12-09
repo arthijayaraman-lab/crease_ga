@@ -5,9 +5,8 @@ This case study showcases the implementation of CREASE-2D workflow for an *in si
 .. figure:: case_study_2_files/Figure1_CREASE_Loop.png
    :class: with-border
    :width: 900px
-   :align: center
 
-   Figure 1.: **(A)** CREASE-2D workflow used to analyze the system of *in silico* spheroidal particles. The input is the 2D scattering profile generated from the 3D *in silico* structures with a predefined set of structural features. Only the “experimental: 2D scattering profile, :math:`I_{exp}(q,\theta)` where :math:`q` is magnitude of scattered wavevector and :math:`\theta` is the azimuthal angle, is used as the input to the CREASE-2D method. The GA optimizes toward structural features whose :math:`I_{comp}(q,\theta)` closely resembles :math:`I_{exp}(q,\theta)`. Figure adapted from reference [1].
+   Figure 1.: CREASE-2D workflow used to analyze the system of *in silico* spheroidal particles. The input is the 2D scattering profile generated from the 3D *in silico* structures with a predefined set of structural features. Only the “experimental: 2D scattering profile, :math:`I_{exp}(q,\theta)` where :math:`q` is magnitude of scattered wavevector and :math:`\theta` is the azimuthal angle, is used as the input to the CREASE-2D method. The GA optimizes toward structural features whose :math:`I_{comp}(q,\theta)` closely resembles :math:`I_{exp}(q,\theta)`. Figure adapted from reference [1].
 
 Step 1: Structural Feature Identification And Structure Generation
 ------------------------------------------------------------------
@@ -27,7 +26,6 @@ Using the defined structural features a dataset of 3000 structural features was 
 .. figure:: case_study_2_files/Figure2_Step1.png
    :class: with-border
    :width: 900px
-   :align: center
 
    Figure 2.: **(A)** Identified structural features for the *in silico* system. **(B-D)** Representative snapshots of 3D structures displaying variations in size, shape and orientational order, respectively. Figure adapted from reference [1].
 
@@ -41,7 +39,6 @@ For each of the generated structures in Step 1, 2D scattering intensity :math:`I
 .. figure:: case_study_2_files/Figure3_Step2.png
    :class: with-border
    :width: 900px
-   :align: center
 
    Figure 3.: Calculated 2D scattering profiles in cartesian (center) and polar (right) form for representative structures (left) shown for a few samples. Figure adapted from reference [1].
 
@@ -57,7 +54,6 @@ Before final training of the XGBoost model, its hyperparameters must be optimize
 .. figure:: case_study_2_files/Figure4_Step3.png
    :class: with-border
    :width: 900px
-   :align: center
 
    Figure 4.: **(A)** Learning curve during training of XGBoost model, using R\ :sup:`2` error for both the training (black) and validation (green) data entries. **(B)** Performance of the XGBoost model using the R\ :sup:`2` and the structural similarity index measure (SSIM) scores for all 3000 samples in the data set. (C,D) Original and predicted scattering profiles for a selected few samples from the validation data set, each marked with their R\ :sup:`2` and SSIM scores. Figure adapted from reference [1].
 
@@ -72,7 +68,6 @@ In Figure 5 we see that for three independent GA runs, CREASE-2D obtains very cl
 .. figure:: case_study_2_files/Figure5_Step4.png
    :class: with-border
    :width: 900px
-   :align: center
 
    Figure 5.: **(A,B)** Two selected samples show visual comparison of the input scattering profile and outputs from three independent GA runs. **(C)** The comparison of GA-optimized values of the normalized “gene” or structural features and the original value of the structural feature, normalized to represent a target gene value for all 600 samples tested with CREASE-2D. Figure adapted from reference [1].
 
