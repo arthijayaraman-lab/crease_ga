@@ -53,6 +53,6 @@ References
 __________
 
 #.
-   Brisard, S.; Levitz, P., *Small-angle scattering of dense, polydisperse granular porous media: Computation free of size effects.*
-   **Phys. Rev. E 2013, 87 (1), 013305.** (`link <https://journals.aps.org/pre/abstract/10.1103/PhysRevE.87.013305>`_)
+   Gupta, N.; Jayaraman, A., *Computational approach for structure generation of anisotropic particles (casgap) with targeted distributions of particle design and orientational order*
+   **Nanoscale 2023, 15.36, 14958-14970 (`link <https://doi.org/10.1039/D3NR02425C>`_)
 
