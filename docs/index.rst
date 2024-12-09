@@ -162,6 +162,8 @@ __________
 
 If you have any questions or feedback, please let us know by emailing arthij AT udel.edu.
 
+:math:`R_\mu`
+
 Table of Contents
 _________________
 
