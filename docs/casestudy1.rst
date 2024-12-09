@@ -53,10 +53,14 @@ After the hyperparameters are tuned, the XGBoost ML model is saved and validated
 Incorporating the Trained ML Model in CREASE to Analyze the Dispersity in the Size and Shapes of Nanoparticles from their Experimental Scattering Profile
 ----------------------------------------
 
+The XGBoost ML model can now be incorporated into the CREASE genetic algorithm (GA). CREASE is used in this study to analyze the dispersity in size and shape of nanoparticles that leads to featureless experimental scattering profiles collected by our collaborators at the Brookhaven National Laboratory (BNL) (shown in **Figure 5**). In this study, each generation of CREASE has 100 individuals (sets of structural features) whose computed profile best matches the input experimental profile. CREASE ranks the 100 individuals in decreasing order based on the fitness of the computed scattering profile to the input experimental profile. The choice for the number of generations in the CREASE loop is based on the convergence of the fitness of the GA individuals between generations. For this study we used 200 CREASE generations.  
+
 .. figure:: CaseStudyI_CREASE_Results.png
    :class: with-border 
 
 Figure 5.: CREASE predictions for the distribution of size and shapes of nanoparticle systems for 10 featureless scattering profiles collected at the Brookhaven National Laboratory. For each structural feature, the range of variation between the Individuals of the genetic algorithm (last generation) are also plotted.
+
+After 200 generations, the CREASE GA outputs 100 sets of structural features for each input experimental profile and ranks them based on their fitness. It is therefore straight forward to obtain a range of variation for each structural feature, which is an advantage of CREASE compared to analytical models. The range of structural features output by CREASE for 10 experimental profiles is shown in **Figure 5**. CREASE provides a range for the distribution of nanoparticle size and shapes.   
 
 References
 __________
