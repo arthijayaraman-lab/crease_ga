@@ -60,7 +60,7 @@ The XGBoost ML model can now be incorporated into the CREASE genetic algorithm (
 
 Figure 5.: CREASE predictions for the distribution of size and shapes of nanoparticle systems for 10 featureless scattering profiles collected at the Brookhaven National Laboratory. For each structural feature, the range of variation between the Individuals of the genetic algorithm (last generation) are also plotted.
 
-After 200 generations, the CREASE GA outputs 100 sets of structural features for each input experimental profile and ranks them based on their fitness. It is therefore straight forward to obtain a range of variation for each structural feature, which is an advantage of CREASE compared to analytical models. The range of structural features output by CREASE for 10 experimental profiles is shown in **Figure 5**. CREASE provides a range for the distribution of nanoparticle size and shapes.   
+After 200 generations, the CREASE GA outputs 100 sets of structural features for each input experimental profile and ranks them based on their fitness. It is therefore straight forward to obtain a range of variation for each structural feature, which is an advantage of CREASE compared to analytical models. The range of structural features output by CREASE for 10 experimental profiles is shown in **Figure 5**. CREASE provides a range for the distribution of nanoparticle size and shapes for each experimental profile. This helps in analyzing the size and shape dispersity of the nanoparticles.   
 
 References
 __________
