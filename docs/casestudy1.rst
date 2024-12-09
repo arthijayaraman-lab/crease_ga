@@ -36,24 +36,29 @@ In this step we use the database of 3000 3D representations that were generated 
 
 Figure 3.: Shows four computed scattering profiles and the corresponding 3 dimensional (3D) structures. The scattering profiles were computed from the 3D structures using a physics based equation. 
 
-The scattering computation for each 3D representation is carried out 10 times by displacing the origin of the nanoparticle system randomly. This step is carried out to smoothen the computed scattering profile. For this study the q value is varied between 0.02-0.2 Angstrom*:sup:`-1`*  
+The scattering computation for each 3D representation is carried out 10 times by displacing the origin of the nanoparticle system randomly. This step is carried out to smoothen the computed scattering profile. For this study a 931 q values in the range of 0.02-0.2 Angstrom^-1 are chosen based on experimental data. The scattering intensities are computed in a 180 directions and azimuthally averaged to obtain a 1D scattering profile.   
 
 Step 4.	Training a Machine Learning Model that Directly Links Structural Features to the Computed Scattering Profiles
 ----------------------------------------
 
-At the end of step 3, we have 3000 sets of structural features and their corresponding computed profiles. In this step we train an XGBoost ML model to directly link a set of structural features to its computed scattering profile. Making use of this XGBoost model in CREASE means that CREASE iterates over the structural features of the system instead of 3D structures themselves, this makes CREASE much faster computationally.  
-
+At the end of step 3, we have 3000 sets of structural features and their corresponding computed profiles. In this step we train an XGBoost ML model to directly link a set of structural features to its computed scattering profile. Making use of this XGBoost model in CREASE means that CREASE iterates over the structural features of the system instead of 3D structures themselves, this makes CREASE much faster computationally. Out of the 3000 samples of nanoparticle systems studied, 2400 are chosen randomly to train the ML model. The other 600 samples are used as a test dataset for model validation. A csv file is created on python for the training dataset, each row of the file lists the values of the five structural features, the q value and I(q). The training dataset contains 2234400 (2400 samples * 931 q values) rows of data. The test datasey contains 558600 (600 samples * 931 q values) rows of data. The hyperparameters of the XGBoost ML model are tuned by Bayesian optimization using scikit packages on python. **Figure 4** is a pictorial representation of the ML model training.    
 
 .. figure:: CasestudyI_Step_4.png
    :class: with-border 
 
-Figure 4.: Graphical representation of training an XGBoost Machine Learning (ML) model to directly link the structural features of a nanoparticle system to its computed scattering profile. 80% of the scattering profiles computed in step 3 are selected randomly and used as a training dataset for the ML model. The predictions of the ML model are validated by using the remaining 20% of the dataset (test dataset). 
+Figure 4.: Graphical representation of training an XGBoost Machine Learning (ML) model to directly link the structural features of a nanoparticle system to its computed scattering profile. 80% of the scattering profiles computed in step 3 are selected randomly and used as a training dataset for the ML model. The predictions of the ML model are validated by using the remaining 20% of the dataset (test dataset).
+
+After the hyperparameters are tuned, the XGBoost ML model is saved and validated on the test dataset using the Mean Squared Error (MSE) and R2 metrics. The MSE and R2 values for the 600 test samples are comparable to the MSE and R2 for the 2400 training samples, this indicates that the ML model has been trained accurately. All of the computational codes for steps 1 through 4 were written in the Jayaraman lab and are similar to the open source computational codes provided as a part of the **CREASE-2D [2]** work.   
 
 Incorporating the Trained ML Model in CREASE to Analyze the Dispersity in the Size and Shapes of Nanoparticles from their Experimental Scattering Profile
 ----------------------------------------
 
 References
 __________
+
+#.
+   Gupta, N.; Jayaraman, A., *Computational approach for structure generation of anisotropic particles (casgap) with targeted distributions of particle design and orientational order*,
+   **Nanoscale, 2023, 15.36, 14958-14970**. (`link <https://doi.org/10.1039/D3NR02425C>`_)
 
 #.
    Gupta, N.; Jayaraman, A., *Computational approach for structure generation of anisotropic particles (casgap) with targeted distributions of particle design and orientational order*,
