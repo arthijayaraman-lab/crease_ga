@@ -36,7 +36,7 @@ In this step we use the database of 3000 3D representations that were generated 
 
 Figure 3.: Shows four computed scattering profiles and the corresponding 3 dimensional (3D) structures. The scattering profiles were computed from the 3D structures using a physics based equation. 
 
-The scattering computation for each 3D representation is carried out 10 times by displacing the origin of the nanoparticle system randomly. This step is carried out to smoothen the computed scattering profile. For this study the q value is varied between 0.02-0.2 Angstrom\:sup:`-1`  
+The scattering computation for each 3D representation is carried out 10 times by displacing the origin of the nanoparticle system randomly. This step is carried out to smoothen the computed scattering profile. For this study the q value is varied between 0.02-0.2 Angstrom*:sup:`-1`*  
 
 Step 4.	Training a Machine Learning Model that Directly Links Structural Features to the Computed Scattering Profiles
 ----------------------------------------
