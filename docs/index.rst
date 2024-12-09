@@ -162,8 +162,6 @@ __________
 
 If you have any questions or feedback, please let us know by emailing arthij AT udel.edu.
 
-:math:`R_\mu`
-
 Table of Contents
 _________________
 
@@ -173,6 +171,15 @@ _________________
    :maxdepth: 1
     
    self
+
+
+.. toctree::
+   :titlesonly:
+   :caption: Latest Version (2024-Present)
+   :maxdepth: 1
+
+   Case Study 1: 1D Scattering Profile Analysis<casestudy1> 
+   Case Study 2: 2D Scattering Profile Analysis<casestudy2>
 
 .. toctree::
    :titlesonly:
