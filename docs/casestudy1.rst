@@ -28,7 +28,7 @@ The first step in training an ML model (that is to be incorporated in the CREASE
 
    Figure 3.: Definitions of structural features relevant to this case study. Structural features are a set of physical descriptors that fully define a 3 dimensional (3D) structure of the system. For a system of nanoparticles with dispersity in both size and shape, we identify a set of five structural features as shown above.    
 
-During this step it is important to spend some time and think about the expected output from CREASE. The final output from CREASE is going to be multiple sets of structural features that are identified in this step.         
+During this step it is important to spend some time and think about the expected output from CREASE. The final output from CREASE is going to be multiple sets of structural features that are identified in this step. If the user wishes to use the CREASE method only to analyze the dispersity in particle size, then mean aspect ratios for all 3000 structures can be kept constant at a value desired by the user and the standard deviation of the aspect ratios can be set to 0.0 for all 3000 structures.          
 
 Step 2:	Generating 3D Structures for Varying Values of Structural Features
 ----------------------------------------------------------------------------
@@ -75,7 +75,7 @@ The XGBoost ML model can now be incorporated into the CREASE genetic algorithm (
 
 Figure 7.: CREASE predictions for the distribution of size and shapes of nanoparticle systems for 10 featureless scattering profiles collected at the Brookhaven National Laboratory. For each structural feature, the range of variation between the individuals of the genetic algorithm (last generation) are also plotted.
 
-After 200 generations, the CREASE GA outputs 100 sets of structural features for each input experimental profile and ranks them based on their fitness. It is therefore straight forward to obtain a range of variation for each structural feature, which is an advantage of CREASE compared to analytical models. The range of structural features output by CREASE for 10 experimental profiles is shown in **Figure 7**. CREASE provides a range for the distribution of nanoparticle size and shapes for each experimental profile. This helps in analyzing the size and shape dispersity of the nanoparticles.   
+After 200 generations, the CREASE GA outputs 100 sets of structural features for each input experimental profile and ranks them based on their fitness. It is therefore straight forward to obtain a range of variation for each structural feature, which is an advantage of CREASE compared to analytical models. The range of structural features output by CREASE for 10 experimental profiles is shown in **Figure 7**. CREASE provides a range for the distribution of nanoparticle size and shapes for each experimental profile. This helps in analyzing the size and shape dispersity of the nanoparticles. If users wish to only analyze dispersity in particle size from 1D scattering profiles by assuming a specific shape for all nanoparticles then the steps in this study can be repeated by keeping the mean aspect ratio for every structure at a constant value (as chosen by the user) and setting the standard deviation of aspect ratio to 0 for every structure.    
 
 References
 __________
