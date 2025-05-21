@@ -1,5 +1,5 @@
-Case Study I: Analyzing Small Angle Scattering Profiles (1D) from Soft Materials with Dispersity in Particle Size and Shapes using CREASE
-=======================================================================================================================================
+`Case Study I: Analyzing Small Angle Scattering Profiles (1D) from Soft Materials with Dispersity in Particle Size and Shapes using CREASE <https://github.com/arthijayaraman-lab/CREASE_Size_Shape_Dispersity>`_
+====================================================================================================================================================================================================================
 
 The Python codes required to run this case study can be found on our lab's Github page (`https://github.com/arthijayaraman-lab/CREASE_Size_Shape_Dispersity <https://github.com/arthijayaraman-lab/CREASE_Size_Shape_Dispersity>`_).
 
