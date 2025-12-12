@@ -32,7 +32,7 @@ Members of Prof. Arthi Jayaraman’s research lab have developed the **‘Comput
 
 **Figure 1** shows the general workflow in CREASE where experimentally measured 1D scattering profiles are taken as input and CREASE, through an internal optimization, generates as output the key structural features as well as representative 3D real space structures whose computed scattering profiles match the experimental scattering input. If you are interested in this method, you may wish to watch Prof. Jayaraman's recently recorded lecture on CREASE and its uses. The lecture can be found in this `link <https://www.youtube.com/watch?v=EInaEmeo9Dg>`_. 
 
-In March 2024, the CREASE method was extended and made available as `CREASE-2D <https://github.com/arthijayaraman-lab/CREASE-2D>`_. This method works directly with experimentally measured 2D scattering profiles and outputs the 3D real space structures which can additionally have structural anisotropy (described further in Section 6).
+In March 2024, the CREASE method was extended and made available as `CREASE-2D <https://github.com/arthijayaraman-lab/CREASE-2D>`_. This method works directly with experimentally measured 2D scattering profiles and outputs the 3D real space structures which can additionally have structural anisotropy (described further in Section 6). A tutorial with step by step explanation to apply CREASE-2D for 2D SAS profiles of anisotropic soft materials can be found in Ref . **[11]**. The tutorial includes a case study to characterize the structural anisotropy of dipeptide nanotubes.  
 
 2.	Guiding Philosophy
 --------------------------
