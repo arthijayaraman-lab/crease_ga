@@ -49,11 +49,11 @@ __If you use this code, please cite one or more of the relevant references from 
 
 10. The CREASE method to analyze the dispersity in both the size and shape of nanoparticles from orientationally averaged 1D scattering profiles. CREASE outputs the range of distributions for the nanoparticle size and shape. More information also available at [CREASE 1D github page for polydisperse nanoparticles](https://github.com/arthijayaraman-lab/CREASE_Size_Shape_Dispersity)
      
-&ensp Adhikari, R. S.; Akepati, S. V. R.; Carbone, M. R.; Polu, A.; Kim, H. J.; Zhang, Y.; Jayaraman, A., Quantifying dispersity in size and shape of nanoparticles from small-angle scattering data using machine learning based CREASE. Journal of Applied Crystallography 2025, 58, 1384-1398. [link to article](https://doi.org/10.1107/S1600576725005746)
+   Adhikari, R. S.; Akepati, S. V. R.; Carbone, M. R.; Polu, A.; Kim, H. J.; Zhang, Y.; Jayaraman, A., Quantifying dispersity in size and   shape of nanoparticles from small-angle scattering data using machine learning based CREASE. Journal of Applied Crystallography 2025, 58, 1384-1398. [link to article](https://doi.org/10.1107/S1600576725005746)
 
 11. CREASE-2D tutorial with a step by step explanation to interpret 2D scattering profiles of anisotropic soft materials. Also includes a case study for obtaining the anisotropic structural information from the 2D scattering profiles of dipeptide nanotubes. The identified structural features provide information of shapes, sizes and orientational order of the dipeptide nanotubes, which is useful to understand structural anisotropy. More information also available at [CREASE-2D github page for dipeptide nanotubes.](https://github.com/arthijayaraman-lab/CREASE-2D-Analysis-of-2D-SAXS-Profiles-to-Characterize-Anisotropic-Nanostructures-in-soft-materials) 
 
-&ensp Akepati, S. V. R.; Gupta, N.; Shah, J.; Kronenberger, S.; Vaibhav, V.; Adhikari Sridhar, R.; Bianco, S.; Adams, D. J.; Jayaraman, A., Tutorial: Machine-Learning-Based CREASE-2D Analysis of 2D SAXS Profiles to Characterize Anisotropic Nanostructures in Soft Materials. ACS Measurement Science Au 2025. [link to article](https://doi.org/10.1021/acsmeasuresciau.5c00141)
+   Akepati, S. V. R.; Gupta, N.; Shah, J.; Kronenberger, S.; Vaibhav, V.; Adhikari Sridhar, R.; Bianco, S.; Adams, D. J.; Jayaraman, A., Tutorial: Machine-Learning-Based CREASE-2D Analysis of 2D SAXS Profiles to Characterize Anisotropic Nanostructures in Soft Materials. ACS Measurement Science Au 2025. [link to article](https://doi.org/10.1021/acsmeasuresciau.5c00141)
 
 # Installation
 
