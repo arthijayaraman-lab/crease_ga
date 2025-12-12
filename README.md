@@ -6,7 +6,7 @@ __Please visit our [readthedocs.io page](https://crease-ga.readthedocs.io/en/lat
 
  
 
-If you are interested in using the current version (2024-present) of CREASE relevant to publication [9, 10, 11], for analyzing 1D [10] or 2D [9, 11] scattering profiles [e.g., I(qx, qy)], please proceed to the relevant github pages. [CREASE-2D for anisotropic nanoparticles](https://github.com/arthijayaraman-lab/CREASE-2D). [CREASE-1D for nanoparticles with size and shape dispersity](https://github.com/arthijayaraman-lab/CREASE_Size_Shape_Dispersity). [CREASE-2D tutorial with a case study of dipeptide nanotubes](https://github.com/arthijayaraman-lab/CREASE-2D-Analysis-of-2D-SAXS-Profiles-to-Characterize-Anisotropic-Nanostructures-in-soft-materials).
+If you are interested in using the current version (2024-present) of CREASE relevant to publications [9, 10, 11], for analyzing 1D [10] or 2D [9, 11] scattering profiles [e.g., I(qx, qy)], please proceed to the relevant github pages. [CREASE-2D for anisotropic nanoparticles](https://github.com/arthijayaraman-lab/CREASE-2D). [CREASE-1D for nanoparticles with size and shape dispersity](https://github.com/arthijayaraman-lab/CREASE_Size_Shape_Dispersity). [CREASE-2D tutorial with a case study of dipeptide nanotubes](https://github.com/arthijayaraman-lab/CREASE-2D-Analysis-of-2D-SAXS-Profiles-to-Characterize-Anisotropic-Nanostructures-in-soft-materials).
 
 ----------------------------------------------------------------------
 __If you use this code, please cite one or more of the relevant references from the list below:__
