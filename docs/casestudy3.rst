@@ -2,6 +2,7 @@
 ===========================================================================================================================================================================
 
 In this case study, CREASE-2D is applied to analyze experimental 2D small-angle X-ray scattering (SAXS) profiles of supramolecular dipeptide nanotubes to infer structural features such as tube diameter, cross-sectional eccentricity, orientation angle, and orientational anisotropy directly from the full 2D intensity :math:`I_{exp}(q,\phi)` . The goal is to obtain statistically meaningful distributions of these structural features such as tube diameter, mean and standard deviation of cross-sectional eccentricity, orientation angle, anisotropy from the experimental scattering data using the CREASE-2D method.
+
 .. figure:: case_study_3_files/Fig1_CREASE_2D.png
    :class: with-border
    :width: 900px
@@ -111,4 +112,5 @@ References
 
 #. Akepati, S. V. R.; Gupta, N.; Jayaraman, A.; Shah, J.; Kronenberger, S.; Venkat, V.; Adhikari Sridhar, R.; Bianco, S.; Adams, D. J., *Tutorial: Machine-Learning-Based CREASE-2D Analysis of 2D SAXS Profiles to Characterize Anisotropic Nanostructures in Soft Materials.*
    **ACS Measurement Science Au, 2025.** (`link <https://doi.org/10.1021/acsmeasuresciau.5c00141>`_)
+
 
