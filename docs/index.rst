@@ -188,7 +188,7 @@ _________________
 
    Case Study 1: 1D Scattering Profile Analysis<casestudy1> 
    Case Study 2: 2D Scattering Profile Analysis of Spheroidal particles<casestudy2>
-   Case Study 3: Experimental 2D scattering Profile Analysis of Dipeptide nano tubes<casestudy3.rst> 
+   Case Study 3: Experimental 2D scattering Profile Analysis of Dipeptide nano tubes<casestudy3> 
 
 .. toctree::
    :titlesonly:
