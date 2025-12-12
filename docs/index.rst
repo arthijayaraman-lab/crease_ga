@@ -157,6 +157,12 @@ __________
    Gupta, N.; Jayaraman, A., *Computational Approach for Structure Generation of Anisotropic Particles (CASGAP) with Targeted Distributions of Particle Design and Orientational Order.* 
    **Nanoscale 2023, 15, 14958-14970.** (`link <https://pubs.rsc.org/en/content/articlehtml/2023/nr/d3nr02425c>`_)
 
+#.
+   Adhikari, R. S.; Akepati, S. V. R.; Carbone, M. R.; Polu, A.; Kim, H. J.; Zhang, Y.; Jayaraman, A. *Quantifying dispersity in size and shape of nanoparticles from small-angle scattering data using machine learning based CREASE*                                       **Journal of Applied Crystallography 2025, 58, 1384-1398** (`link <https://doi.org/10.1107/S1600576725005746>`_)
+
+#.
+   Akepati, S. V. R.; Gupta, N.; Shah, J.; Kronenberger, S.; Venkat, V.; Adhikari Sridhar, R.; Bianco, S.; Adams, D. J.; Jayaraman, A. *Tutorial: Machine-Learning-Based CREASE-2D Analysis of 2D SAXS Profiles to Characterize Anisotropic Nanostructures in Soft Materials.*     **ACS Measurement Science Au 2025.** (`link <https://doi.org/10.1021/acsmeasuresciau.5c00141https://doi.org/10.1021/acsmeasuresciau.5c00141>`_)
+
 Contact us
 __________
 
