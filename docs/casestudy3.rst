@@ -16,7 +16,7 @@ This case study follows the CREASE-2D tutorial described by Jayaraman Lab ("Tuto
 - Generation of 3D scatterer-based structures, computation of 2D scattering I(q,\phi) from those structures.
 - Training a surrogate forward ML model (XGBoost) to predict 2D scattering from structural features, and embedding that surrogate within a GA optimization loop that uses SSIM as a fitness metric to infer structural features consistent with experimental SAXS.
 
-The tutorial further demonstrates uncertainty quantification and multiple-solution analyses by running many (e.g., 25) GA trials and visualizing results with violin plots and dendrograms; it also provides open-source code and supporting data on GitHub <https://github.com/arthijayaraman-lab/CREASE-2D-Analysis-of-2D-SAXS-Profiles-to-Characterize-Anisotropic-Nanostructures-in-soft-materials>._
+The tutorial further demonstrates uncertainty quantification and multiple-solution analyses by running many (e.g., 25) GA trials and visualizing results with violin plots and dendrograms; it also provides open-source code and supporting data on `GitHub <https://github.com/arthijayaraman-lab/CREASE-2D-Analysis-of-2D-SAXS-Profiles-to-Characterize-Anisotropic-Nanostructures-in-soft-materials>`_
 
 1: Structural Features Identification And Structure Generation
 ------------------------------------------------------------------
@@ -112,6 +112,7 @@ References
 
 #. Akepati, S. V. R.; Gupta, N.; Jayaraman, A.; Shah, J.; Kronenberger, S.; Venkat, V.; Adhikari Sridhar, R.; Bianco, S.; Adams, D. J., *Tutorial: Machine-Learning-Based CREASE-2D Analysis of 2D SAXS Profiles to Characterize Anisotropic Nanostructures in Soft Materials.*
    **ACS Measurement Science Au, 2025.** (`link <https://doi.org/10.1021/acsmeasuresciau.5c00141>`_)
+
 
 
 
