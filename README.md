@@ -6,7 +6,7 @@ __Please visit our [readthedocs.io page](https://crease-ga.readthedocs.io/en/lat
 
  
 
-If you are interested in using the current version (2024-present) of CREASE relevant to publication [9], for analyzing 1D or 2D scattering profiles [e.g., I(qx, qy)], please proceed to the github page for [CREASE-2D](https://github.com/arthijayaraman-lab/CREASE-2D).
+If you are interested in using the current version (2024-present) of CREASE relevant to publications [9, 10, 11], for analyzing 1D [10] or 2D [9, 11] scattering profiles [e.g., I(qx, qy)], please proceed to the relevant github pages. [CREASE-2D for anisotropic nanoparticles](https://github.com/arthijayaraman-lab/CREASE-2D). [CREASE-1D for nanoparticles with size and shape dispersity](https://github.com/arthijayaraman-lab/CREASE_Size_Shape_Dispersity). [CREASE-2D tutorial with a case study of dipeptide nanotubes](https://github.com/arthijayaraman-lab/CREASE-2D-Analysis-of-2D-SAXS-Profiles-to-Characterize-Anisotropic-Nanostructures-in-soft-materials).
 
 ----------------------------------------------------------------------
 __If you use this code, please cite one or more of the relevant references from the list below:__
@@ -46,6 +46,15 @@ __If you use this code, please cite one or more of the relevant references from 
 9. Extension of the CREASE method to analyze 2D scattering profiles (CREASE-2D). CREASE-2D outputs the relevant structural features that can be used to interpret 3D structure. The identified structural features provide information of shapes, sizes and orientational order of particles, which is useful to understand structural anisotropy. More information also available at [CREASE-2D github page.](https://github.com/arthijayaraman-lab/CREASE-2D) 
 
    Akepati, S. V. R.; Gupta, N.; Jayaraman, A., Computational Reverse Engineering Analysis of the Scattering Experiment Method for Interpretation of 2D Small-Angle Scattering Profiles (CREASE-2D). JACS Au 2024, 4, 1570-1582. [link to article](https://pubs.acs.org/doi/10.1021/jacsau.4c00068)
+
+10. The CREASE method to analyze the dispersity in both the size and shape of nanoparticles from orientationally averaged 1D scattering profiles. CREASE outputs the range of distributions for the nanoparticle size and shape. More information also available at [CREASE 1D github page for polydisperse nanoparticles](https://github.com/arthijayaraman-lab/CREASE_Size_Shape_Dispersity) 
+     
+    Adhikari, R. S.; Akepati, S. V. R.; Carbone, M. R.; Polu, A.; Kim, H. J.; Zhang, Y.; Jayaraman, A., Quantifying dispersity in size and   shape of nanoparticles from small-angle scattering data using machine learning based CREASE. Journal of Applied Crystallography 2025, 58, 1384-1398. [link to article](https://doi.org/10.1107/S1600576725005746)
+
+11. CREASE-2D tutorial with a step by step explanation to interpret 2D scattering profiles of anisotropic soft materials. Also includes a case study for obtaining the anisotropic structural information from the 2D scattering profiles of dipeptide nanotubes. The identified structural features provide information of shapes, sizes and orientational order of the dipeptide nanotubes, which is useful to understand structural anisotropy. More information also available at [CREASE-2D github page for dipeptide nanotubes.](https://github.com/arthijayaraman-lab/CREASE-2D-Analysis-of-2D-SAXS-Profiles-to-Characterize-Anisotropic-Nanostructures-in-soft-materials)  
+
+    Akepati, S. V. R.; Gupta, N.; Shah, J.; Kronenberger, S.; Vaibhav, V.; Adhikari Sridhar, R.; Bianco, S.; Adams, D. J.; Jayaraman, A., Tutorial: Machine-Learning-Based CREASE-2D Analysis of 2D SAXS Profiles to Characterize Anisotropic Nanostructures in Soft Materials. ACS Measurement Science Au 2025. [link to article](https://doi.org/10.1021/acsmeasuresciau.5c00141)
+
 # Installation
 
 To install this package on a Windows, linux, or macOS machine, follow these steps:
@@ -94,6 +103,3 @@ If all installation steps are done properly, you should see the version number o
 
 - **NOTE2**: if you intend to run this on a supercomputing cluster, you will need to follow the steps to create a python environment of the corresponding cluster.
 
-
-# Contact us
-If you have any questions or feedback, please let us know by emailing arthij AT udel.edu. 
