@@ -1,0 +1,205 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Case Study II: Analysis of 2D scattering profiles for *in silico* system of spheroidal particles with dispersities in shapes, sizes and orientational order using CREASE-2D &mdash; crease_ga  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Sample Workflow" href="example_workflow.html" />
+    <link rel="prev" title="Case Study I: Analyzing Small Angle Scattering Profiles (1D) from Soft Materials with Dispersity in Particle Size and Shapes using CREASE" href="casestudy1.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            crease_ga
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">CREASE Overview</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Latest Version (2024-Present)</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="casestudy1.html">Case Study 1: 1D Scattering Profile Analysis</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Case Study 2: 2D Scattering Profile Analysis</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Previous Version (2019-2023)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="example_workflow.html">Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documentations/Model.html">Manual: Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documentations/shape-vesicle.html">Manual: Shape (Vesicle)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documentations/shape-micelle.html">Manual: Shape (Micelle)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documentations/adaptation_params.html">Manual: Adaptation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documentations/utils.html">Manual: Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topics/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topics/plugin.html">How can you contribute?</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="topics/feedback.html">Giving us feedback</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">crease_ga</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Case Study II: Analysis of 2D scattering profiles for *in silico* system of spheroidal particles with dispersities in shapes, sizes and orientational order using CREASE-2D</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/casestudy2.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1><a class="reference external" href="https://github.com/arthijayaraman-lab/CREASE-2D">Case Study II: Analysis of 2D scattering profiles for *in silico* system of spheroidal particles with dispersities in shapes, sizes and orientational order using CREASE-2D</a><a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p>CREASE-2D codes and Tutorial Notebooks are provided here: <a class="reference external" href="https://github.com/arthijayaraman-lab/CREASE-2D">https://github.com/arthijayaraman-lab/CREASE-2D</a></p>
+<p>This case study showcases the implementation of CREASE-2D workflow for an <em>in silico</em> system of spheroidal particles as discussed in the original manuscript for CREASE-2D [1]. Please refer to the original manuscript for pertinent details about the method. In Figure 1 the CREASE-2D workflow applied to the <em>in silico</em> system of spheroidal particles is briefly reviewed, with input obtained as a 2D experimental scattering profile encoding information about spheroidal particles’ form and structural arrangement. CREASE-2D uses a Genetic Algorithm (GA) optimizer to find the sets of structural features that can closely characterize the experimental input. The CREASE-2D workflow uses a surrogate Machine Learning (ML) model to predict computed 2D scattering profiles in a time- and memory-efficient manner. Thus, the implementation of the CREASE-2D workflow for any system of interest can be carried out by following the 4 steps as demonstrated below.</p>
+<figure class="align-default" id="id3">
+<a class="with-border reference internal image-reference" href="_images/Figure1_CREASE_Loop.png"><img alt="_images/Figure1_CREASE_Loop.png" class="with-border" src="_images/Figure1_CREASE_Loop.png" style="width: 900px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Figure 1.: CREASE-2D workflow used to analyze the system of <em>in silico</em> spheroidal particles. The input is the 2D scattering profile generated from the 3D <em>in silico</em> structures with a predefined set of structural features. Only the “experimental: 2D scattering profile, <span class="math notranslate nohighlight">\(I_{exp}(q,\theta)\)</span> where <span class="math notranslate nohighlight">\(q\)</span> is magnitude of scattered wavevector and <span class="math notranslate nohighlight">\(\theta\)</span> is the azimuthal angle, is used as the input to the CREASE-2D method. The GA optimizes toward structural features whose <span class="math notranslate nohighlight">\(I_{comp}(q,\theta)\)</span> closely resembles <span class="math notranslate nohighlight">\(I_{exp}(q,\theta)\)</span>. Figure adapted from reference [1].</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<section id="step-1-structural-feature-identification-and-structure-generation">
+<h2>Step 1: Structural Feature Identification And Structure Generation<a class="headerlink" href="#step-1-structural-feature-identification-and-structure-generation" title="Link to this heading"></a></h2>
+<p>The first step involves proper identification of all numerical parameters that have a unique and non-trivial effect on the scattering profiles. Currently, the <em>in silico</em> system of spheroidal particles has been characterized by 6 structural features, namely <span class="math notranslate nohighlight">\(R_\mu\)</span>, <span class="math notranslate nohighlight">\(R_\sigma\)</span>, <span class="math notranslate nohighlight">\(\gamma_\mu\)</span>, <span class="math notranslate nohighlight">\(\gamma_\sigma\)</span>, <span class="math notranslate nohighlight">\(\kappa\)</span> and <span class="math notranslate nohighlight">\(\phi\)</span>. Some relevant details about the identified structural features are provided below and more detailed information can also be found in references [1] and [2].</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(R_\mu\)</span> and <span class="math notranslate nohighlight">\(R_\sigma\)</span> represent the mean and standard deviation in the volumeteric radius of the spheroidal particles (a measure of their size) following a log-normal distribution.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\gamma_\mu\)</span> and <span class="math notranslate nohighlight">\(\gamma_\sigma\)</span> represent the mean and standard deviation in the spheroidal aspect ratio of the particles, a parameter that directly influences the shape of the particles, also following a log-normal distribution.</p></li>
+<li><p>The orientation of particles is specified by the 3D vector pointing along the major axis of the spheroid. The distribution of orientation follows the 3D von Mises–Fisher (vMF) distribution. Here the mean orientation has been fixed to one of the axes in the laboratory frame (as explained in the manuscript) and the extent of the orientational order is characterized by the <span class="math notranslate nohighlight">\(\kappa\)</span> parameter, which is a measure of the inverse dispersity in orientation. <span class="math notranslate nohighlight">\(\kappa=0\)</span> indicates complete lack of the orientational order (isotropic) and <span class="math notranslate nohighlight">\(\kappa\rightarrow\infty\)</span> indicates perfect orientational order (highly anisotropic).</p></li>
+<li><p>The concentration of particles is quantified by the volume fraction of particles, <span class="math notranslate nohighlight">\(\phi\)</span>. This parameter is not independently controlled and is evaluated after the CASGAP method generates a structure with the specified distributions of shape, size and orientational order.</p></li>
+</ol>
+<p>Using the defined structural features a dataset of 3000 structural features was first generated. We used the CASGAP method [2] (which stands for Computational Approach for Structure Generation of Anisotropic Particles) to generate these structures. The CASGAP method was developed primarily to generate overlap-free configurations of spheroidal particles with pre-defined distributions of shapes, sizes and orientational order. The identified structural features and some representative structures are depicted in Figure 2.</p>
+<figure class="align-default" id="id4">
+<a class="with-border reference internal image-reference" href="_images/Figure2_Step1.png"><img alt="_images/Figure2_Step1.png" class="with-border" src="_images/Figure2_Step1.png" style="width: 900px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Figure 2.: <strong>(A)</strong> Identified structural features for the <em>in silico</em> system. <strong>(B-D)</strong> Representative snapshots of 3D structures displaying variations in size, shape and orientational order, respectively. Figure adapted from reference [1].</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p><strong>Important Note</strong>: CREASE-2D has recently been extended to work with structures that can entirely be defined by uniformly-distributed point scatterers. This makes the method more adaptable to any general structural configuration (not just spheroids). Step 1 can therefore be adapted to include any system with structural features that are either predefined or identified (through sensitivity analysis). The only requirement would be to have a computational method (similar to CASGAP) that generates a 3D structure (uniformly filled with point scatterers) using the defined or identified structural features.</p>
+</section>
+<section id="step-2-calculation-of-scattering-profiles">
+<h2>Step 2: Calculation of Scattering Profiles<a class="headerlink" href="#step-2-calculation-of-scattering-profiles" title="Link to this heading"></a></h2>
+<p>For each of the generated structures in Step 1, 2D scattering intensity <span class="math notranslate nohighlight">\(I(q,\theta)\)</span> is computed by first computing the scattering amplitude <span class="math notranslate nohighlight">\(A(q,\theta)\)</span>. Calculation of scattering amplitude can be parallelized over multiple cpus or gpus, as it doesn’t involve pairwise computations, and only requires a single summation term over the entire list of scatterers. In Figure 3, the results of such calculations for selected samples of the current <em>in silico</em> system are shown. Here two forms of the scattering profile are displayed. The polar form may be more familiar to experimental users, and is typically how scattering profiles are measured at small angle scattering facilities. However, the cartesian form of the 2D scattering intensity <span class="math notranslate nohighlight">\(I(q,\theta)\)</span> closely resembles the matrix type of data structure that is easier to manipulate for data processing and ML training in Step 3.</p>
+<figure class="align-default" id="id5">
+<a class="with-border reference internal image-reference" href="_images/Figure3_Step2.png"><img alt="_images/Figure3_Step2.png" class="with-border" src="_images/Figure3_Step2.png" style="width: 900px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Figure 3.: Calculated 2D scattering profiles in cartesian (center) and polar (right) form for representative structures (left) shown for a few samples. Figure adapted from reference [1].</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="step-3-training-of-surrogate-machine-learning-model-to-predict-scattering-profiles-from-structural-features">
+<h2>Step 3: Training of Surrogate Machine Learning Model to Predict Scattering Profiles from Structural Features<a class="headerlink" href="#step-3-training-of-surrogate-machine-learning-model-to-predict-scattering-profiles-from-structural-features" title="Link to this heading"></a></h2>
+<p>Currently CREASE-2D implementation uses XGBoost as the ML model due to its exceptional performance and lower scope of overfitting. The data set of 3000 2D scattering profiles and their corresponding structural features is first split such that 80% of the data (2400 structures) is used for training the ML model and the remaining 20% (600 structures) is used for testing/validation of the ML model’s performance.</p>
+<p>To use XGBoost, the training data set is reformatted into a table, with each row containing all 6 structural features as well as, three new fields corresponding to <span class="math notranslate nohighlight">\(q\)</span>, <span class="math notranslate nohighlight">\(\theta\)</span> and <span class="math notranslate nohighlight">\(I(q,\theta)\)</span>. The last three fields can be obtained by serializing the cartesian form of the 2D scattering profiles, after appropriate subsampling (to avoid excessive data for efficient memory usage; please see main manuscript [1] for more details).</p>
+<p>Before final training of the XGBoost model, its hyperparameters must be optimized or tuned for optimum performance (details provided in the main manuscript [1]). Using the tuned hyperparameters, the trained model for the current dataset shows good learning behavior and performance for both training and validation datasets as shown in Figure 4.</p>
+<figure class="align-default" id="id6">
+<a class="with-border reference internal image-reference" href="_images/Figure4_Step3.png"><img alt="_images/Figure4_Step3.png" class="with-border" src="_images/Figure4_Step3.png" style="width: 900px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Figure 4.: <strong>(A)</strong> Learning curve during training of XGBoost model, using R<sup>2</sup> error for both the training (black) and validation (green) data entries. <strong>(B)</strong> Performance of the XGBoost model using the R<sup>2</sup> and the structural similarity index measure (SSIM) scores for all 3000 samples in the data set. (C,D) Original and predicted scattering profiles for a selected few samples from the validation data set, each marked with their R<sup>2</sup> and SSIM scores. Figure adapted from reference [1].</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="step-4-incorporating-the-surrogate-ml-model-within-the-genetic-algorithm-ga-optimization-loop-to-complete-crease-2d-workflow">
+<h2>Step 4: Incorporating the Surrogate ML Model within the Genetic Algorithm (GA) Optimization Loop to Complete CREASE-2D Workflow<a class="headerlink" href="#step-4-incorporating-the-surrogate-ml-model-within-the-genetic-algorithm-ga-optimization-loop-to-complete-crease-2d-workflow" title="Link to this heading"></a></h2>
+<p>The final step in CREASE-2D implementation is to put together the predictive capacity and the speed of the surrogate ML model within the GA optimization loop. The input to the GA is an <em>in silico</em> “experimental” 2D scattering profile (<span class="math notranslate nohighlight">\(I_{exp}(q,\theta)\)</span>), which is compared to the ML predicted or “computed” 2D scattering profile (<span class="math notranslate nohighlight">\(I_{comp}(q,\theta)\)</span>).</p>
+<p>Consequently, the 6 structural features are represented as 6 corresponding “genes”, which are additionally normalized to the interval 0-1. For every “individual” with a unique set of genes, <span class="math notranslate nohighlight">\(I_{comp}(q,\theta)\)</span> is predicted from the surrogate ML model using the individual’s structural features as the input. All individuals in each generation are then ranked by their “fitness” value which is quantified by the SSIM of the individual’s <span class="math notranslate nohighlight">\(I_{comp}(q,\theta)\)</span> with respect to the <span class="math notranslate nohighlight">\(I_{exp}(q,\theta)\)</span>. The objective of the GA optimization loop is to improve the fitness of an individual; in other words, improvement of the SSIM score of its computed scattering profile <span class="math notranslate nohighlight">\(I_{comp}(q,\theta)\)</span> as compared to <span class="math notranslate nohighlight">\(I_{exp}(q,\theta)\)</span>.</p>
+<p>In Figure 5 we see that for three independent GA runs, CREASE-2D obtains very close matches to the input 2D scattering profiles for both the 2 examples. Comparing the overall performance for all test samples, CREASE-2D is able to identify <span class="math notranslate nohighlight">\(R_\mu\)</span>, , <span class="math notranslate nohighlight">\(\gamma_\mu\)</span>, <span class="math notranslate nohighlight">\(\kappa\)</span> and <span class="math notranslate nohighlight">\(\phi\)</span> to a greater degree of accuracy. However, <span class="math notranslate nohighlight">\(R_\sigma\)</span> and <span class="math notranslate nohighlight">\(\gamma_\sigma\)</span> are not identified with enough precision because those structural features were not too sensitive to the scattering profiles in the dataset.</p>
+<figure class="align-default" id="id7">
+<a class="with-border reference internal image-reference" href="_images/Figure5_Step4.png"><img alt="_images/Figure5_Step4.png" class="with-border" src="_images/Figure5_Step4.png" style="width: 900px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Figure 5.: <strong>(A,B)</strong> Two selected samples show visual comparison of the input scattering profile and outputs from three independent GA runs. <strong>(C)</strong> The comparison of GA-optimized values of the normalized “gene” or structural features and the original value of the structural feature, normalized to represent a target gene value for all 600 samples tested with CREASE-2D. Figure adapted from reference [1].</span><a class="headerlink" href="#id7" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Akepati, S. V. R.;  Gupta, N.; Jayaraman, A., <em>Computational Reverse Engineering Analysis of the Scattering Experiment Method for Interpretation of 2D Small-Angle Scattering Profiles (CREASE-2D).</em>
+<strong>JACS Au 2024, 4, 1570-1582.</strong> (<a class="reference external" href="https://pubs.acs.org/doi/10.1021/jacsau.4c00068">link</a>)</p></li>
+<li><p>Gupta, N.; Jayaraman, A., <em>Computational approach for structure generation of anisotropic particles (casgap) with targeted distributions of particle design and orientational order</em>,
+<strong>Nanoscale, 2023, 15.36, 14958-14970</strong>. (<a class="reference external" href="https://doi.org/10.1039/D3NR02425C">link</a>)</p></li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="casestudy1.html" class="btn btn-neutral float-left" title="Case Study I: Analyzing Small Angle Scattering Profiles (1D) from Soft Materials with Dispersity in Particle Size and Shapes using CREASE" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="example_workflow.html" class="btn btn-neutral float-right" title="Sample Workflow" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Jayaraman Research Lab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

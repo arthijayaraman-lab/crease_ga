@@ -1,0 +1,225 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>crease_ga.Model &mdash; crease_ga  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="crease_ga.shapes.vesicle" href="shape-vesicle.html" />
+    <link rel="prev" title="Sample Workflow" href="../example_workflow.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            crease_ga
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">CREASE Overview</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Latest Version (2024-Present)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../casestudy1.html">Case Study 1: 1D Scattering Profile Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../casestudy2.html">Case Study 2: 2D Scattering Profile Analysis</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Previous Version (2019-2023)</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../example_workflow.html">Workflow</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Manual: Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape-vesicle.html">Manual: Shape (Vesicle)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shape-micelle.html">Manual: Shape (Micelle)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="adaptation_params.html">Manual: Adaptation Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Manual: Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../topics/plugin.html">How can you contribute?</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../topics/feedback.html">Giving us feedback</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">crease_ga</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">crease_ga.Model</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/documentations/Model.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="crease-ga-model">
+<h1>crease_ga.Model<a class="headerlink" href="#crease-ga-model" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="crease_ga.Model">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">crease_ga.</span></span><span class="sig-name descname"><span class="pre">Model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pop_number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">generations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nloci</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yaml_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'x'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#crease_ga.Model" title="Link to this definition"></a></dt>
+<dd><p>The basic class that defines the model to be used to solve for a scattering
+profile.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>pop_number: int.</strong></dt><dd><p>Number of individuals within a generation.</p>
+</dd>
+<dt><strong>generations: int.</strong></dt><dd><p>Number of generations to run.</p>
+</dd>
+<dt><strong>nloci: int.</strong></dt><dd><p>Number of binary bits to represent each parameter in an individual.
+The decimal parameter value is converted to binary, with “all 0s”
+corresponding to the min value and “all 1s” corresponding to the
+max value. The larger the value, the finer the resultion for each parameter.</p>
+</dd>
+<dt><strong>adaptation_params: crease_ga.adaptation_params.adaptation_params</strong></dt><dd><p>Object of adaptation parameters used for this model.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">crease_ga.adaptaion_params.adaptation_params</span></code></dt><dd></dd>
+</dl>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="crease_ga.Model.load_shape">
+<span class="sig-name descname"><span class="pre">load_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'vesicle'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minvalu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxvalu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#crease_ga.Model.load_shape" title="Link to this definition"></a></dt>
+<dd><p>Load a shape.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>shape: str. name of the shape.</strong></dt><dd><p>Currently supported builtin shapes are “vesicle” and “micelle”. Can
+also specify a shape developed in a crease_ga plugin.</p>
+</dd>
+<dt><strong>shape_params: list.</strong></dt><dd><p>Values of shape-specific descriptors. See the API of corresponding
+shape for details. If not specified, or an incorrect number of
+shape descriptor values are specified, the default values of the
+shape-specific descriptors will be loaded.</p>
+</dd>
+<dt><strong>minvalu,maxvalu: list.</strong></dt><dd><p>Values of the minimum and maximum boundaries of the
+parameters to be fit. If not specified, or an incorrect number of
+input parameter boundaries are specified, the default boundaries of
+the input parameters of the shape will be loaded.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="crease_ga.Model.solve">
+<span class="sig-name descname"><span class="pre">solve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ga_job'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'debye'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitness_metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'log_sse'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_cores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">converge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">needs_postprocess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#crease_ga.Model.solve" title="Link to this definition"></a></dt>
+<dd><p>Fit the loaded target I(q) for a set of input parameters that maximize
+the fitness or minimize the error metric (fitness_metric).</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>name: str.</strong></dt><dd><p>Title of the current run. A folder of the name will be created
+under current working directory (output_dir), and all output files
+will be saved in that folder.</p>
+</dd>
+<dt><strong>verbose: bool. Default=True.</strong></dt><dd><p>If verbose is set to True, a figure will be produced at the end of
+each run, plotting the I(q) resulting from the best
+individual in the current generation and the target I(q).</p>
+<p>Useful for pedagogical purpose on jupyter notebook.</p>
+</dd>
+<dt><strong>fitness_metric: string. Default=’log_sse’.</strong></dt><dd><dl class="simple">
+<dt>The metric used to calculate fitness. Currently supported:</dt><dd><p>“log_sse”, sum of squared log10 difference at each q
+point.</p>
+</dd>
+</dl>
+</dd>
+<dt><strong>output_dir: string. Default=”./”</strong></dt><dd><p>Path to the working directory.</p>
+</dd>
+<dt><strong>n_cores: int. Default=1</strong></dt><dd><p>Number of cores to parallelize over</p>
+</dd>
+<dt><strong>converge: int. Default=10</strong></dt><dd><p>The generation countdown to stop optimization. If the minimum
+error does not improve after converge generations, the 
+optimization ends.</p>
+</dd>
+<dt><strong>needs_postprocess: bool. Default=False</strong></dt><dd><p>Some CREASE versions require additional steps.
+Typically required for S(q) CREASE that outputs a 3D
+visualization.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../example_workflow.html" class="btn btn-neutral float-left" title="Sample Workflow" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="shape-vesicle.html" class="btn btn-neutral float-right" title="crease_ga.shapes.vesicle" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Jayaraman Research Lab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
