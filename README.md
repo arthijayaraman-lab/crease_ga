@@ -103,6 +103,3 @@ If all installation steps are done properly, you should see the version number o
 
 - **NOTE2**: if you intend to run this on a supercomputing cluster, you will need to follow the steps to create a python environment of the corresponding cluster.
 
-
-# Contact us
-If you have any questions or feedback, please let us know by emailing arthij AT udel.edu. 
