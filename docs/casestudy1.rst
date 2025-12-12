@@ -3,7 +3,7 @@
 
 The Python codes required to run this case study can be found on our lab's Github page (`https://github.com/arthijayaraman-lab/CREASE_Size_Shape_Dispersity <https://github.com/arthijayaraman-lab/CREASE_Size_Shape_Dispersity>`_).
 
-In this case study, we use the CREASE method to analyze the dispersity in both the size and shapes of nanoparticles from their 1D scattering profile. The CREASE method as used in this study is pictorially represented in **Figure 1**. For more details about this case study, please see our published work in Ref. 
+In this case study, we use the CREASE method to analyze the dispersity in both the size and shapes of nanoparticles from their 1D scattering profile. The CREASE method as used in this study is pictorially represented in **Figure 1**. For more details about this case study, please see our published work in Ref. **[1]**.
 
 .. figure:: CasestudyI_CREASE_Loop.png
    :class: with-border
@@ -39,7 +39,7 @@ In step 2, we generate 3000 3D structures by varying the structural features def
 .. figure:: CasestudyI_Step_2.png
    :class: with-border
 
-   Figure 4.: Shows four 3 dimensional (3D) structures generated using the CASGAP **[1]** program. The 4 sets of structural features that were input to CASGAP to obtain the 3D structures are also shown. 
+   Figure 4.: Shows four 3 dimensional (3D) structures generated using the CASGAP **[2]** program. The 4 sets of structural features that were input to CASGAP to obtain the 3D structures are also shown. 
 
 To generate representative 3D structures by using sets of structural features as an input, we use the CASGAP **[1]** program developed in the Jayaraman lab. CASGAP generates 3D structures of nanoparticles for a user defined distribution of particle size and shapes. The orientation of the nanoparticles can also by controlled by the user with a kappa (anisotropy) parameter. In this study, the kappa parameter was set to 0 for all 3D structures which represents completely disordered nanoparticle orientations.  
 
@@ -65,7 +65,7 @@ At the end of step 3, we have 3000 sets of structural features and their corresp
 
 Figure 6.: Graphical representation of training an XGBoost Machine Learning (ML) model to directly link the structural features of a nanoparticle system to its computed scattering profile. 80% of the scattering profiles computed in step 3 are selected randomly and used as a training dataset for the ML model. The predictions of the ML model are validated by using the remaining 20% of the dataset (test dataset).
 
-After the hyperparameters are tuned, the XGBoost ML model is saved and validated on the test dataset using the Mean Squared Error (MSE) and R2 metrics. The MSE and R2 values for the 600 test samples are comparable to the MSE and R2 for the 2400 training samples, this indicates that the ML model has been trained accurately. All of the computational codes for steps 1 through 4 were written in the Jayaraman lab and are similar to the open source computational codes provided as a part of the **CREASE-2D [2]** work.   
+After the hyperparameters are tuned, the XGBoost ML model is saved and validated on the test dataset using the Mean Squared Error (MSE) and R2 metrics. The MSE and R2 values for the 600 test samples are comparable to the MSE and R2 for the 2400 training samples, this indicates that the ML model has been trained accurately. All of the computational codes for steps 1 through 4 were written in the Jayaraman lab and are similar to the open source computational codes provided as a part of the **CREASE-2D [3]** work.   
 
 Incorporating the Trained ML Model in CREASE to Analyze the Dispersity in the Size and Shapes of Nanoparticles from their Experimental Scattering Profile
 ----------------------------------------
@@ -83,6 +83,9 @@ If users wish to only analyze dispersity in particle size from 1D scattering pro
 
 References
 __________
+
+#.
+   Adhikari, R. S.; Akepati, S. V. R.; Carbone, M. R.; Polu, A.; Kim, H. J.; Zhang, Y.; Jayaraman, A. *Quantifying dispersity in size and shape of nanoparticles from small-angle scattering data using machine learning based CREASE.*                                       **Journal of Applied Crystallography 2025, 58, 1384-1398** (`link <https://doi.org/10.1107/S1600576725005746>`_)
 
 #.
    Gupta, N.; Jayaraman, A., *Computational approach for structure generation of anisotropic particles (casgap) with targeted distributions of particle design and orientational order*,
