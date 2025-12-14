@@ -59,7 +59,7 @@ For each of the generated structures, 2D scattering intensity :math:`I_{comp}(q,
 :math:`I_\text{comp}(q,\phi) = \bigl|A(q,\phi)\bigr|^2`
 
 where
-.. math:: A_\text{comp}(q,\phi) = \sum_{j=1}^{N} \Delta\rho_j,v_j,f_j(q,\phi),\exp!\bigl(-i,\mathbf{q}\cdot\mathbf{r}_j\bigr),
+.. math::`A_\text{comp}(q,\phi) = \sum_{j=1}^{N} \Delta\rho_j,v_j,f_j(q,\phi),\exp!\bigl(-i,\mathbf{q}\cdot\mathbf{r}_j\bigr)`,
 
 where :math:`\Delta\rho_j` is the scattering length density contrast of scatterer :math:`j`, :math:`v_j` is its volume, :math:`f_j(q,\phi)` is its form factor, :math:`\mathbf{r}_j` is its position vector, and :math:`N` is the total number of scatterers.
 
@@ -112,6 +112,7 @@ References
 
 #. Akepati, S. V. R.; Gupta, N.; Jayaraman, A.; Shah, J.; Kronenberger, S.; Venkat, V.; Adhikari Sridhar, R.; Bianco, S.; Adams, D. J., *Tutorial: Machine-Learning-Based CREASE-2D Analysis of 2D SAXS Profiles to Characterize Anisotropic Nanostructures in Soft Materials.*
    **ACS Measurement Science Au, 2025.** (`link <https://doi.org/10.1021/acsmeasuresciau.5c00141>`_)
+
 
 
 
